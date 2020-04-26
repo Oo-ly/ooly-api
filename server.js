@@ -14,9 +14,8 @@ require('./strategies/login');
 require('./strategies/register');
 require('./strategies/jwt');
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World !' });
-});
+require('./routes/base')(app);
+require('./routes/auth')(app);
 
 app.listen(process.env.SERVER_PORT, function () {
   console.log(`Server is running on port ${process.env.SERVER_PORT}`);
