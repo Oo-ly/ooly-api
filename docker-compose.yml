@@ -5,7 +5,7 @@ services:
     container_name: ooly_db
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_ROOT_HOST: 172.168.0.3
+      MYSQL_ROOT_HOST: 172.168.0.2
     volumes:
       - ./_docker/mariadb:/var/lib/mysql
     ports:
