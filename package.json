@@ -1,0 +1,23 @@
+{
+  "name": "ooly-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:start": "docker-compose up -d",
+    "docker:build": "docker build -t ooly_db .",
+    "docker:stop": "docker-compose down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oo-ly/ooly-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oo-ly/ooly-api/issues"
+  },
+  "homepage": "https://github.com/Oo-ly/ooly-api#readme"
+}
