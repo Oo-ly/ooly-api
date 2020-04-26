@@ -2,11 +2,12 @@
   "name": "ooly-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "docker:start": "docker-compose up -d",
     "docker:build": "docker build -t ooly_db .",
     "docker:stop": "docker-compose down",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/Oo-ly/ooly-api/issues"
   },
-  "homepage": "https://github.com/Oo-ly/ooly-api#readme"
+  "homepage": "https://github.com/Oo-ly/ooly-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
 }
