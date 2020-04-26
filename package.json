@@ -11,7 +11,7 @@
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
     "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
-    "test": "cross-env NODE_ENV=test jest --silent --maxWorkers=1"
+    "test": "cross-env NODE_ENV=test jest --silent --coverage --maxWorkers=1 && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "sequelize": "^5.21.7"
   },
   "devDependencies": {
+    "coveralls": "^3.1.0",
     "jest": "^25.4.0",
     "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
