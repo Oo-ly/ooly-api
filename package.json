@@ -8,7 +8,10 @@
     "docker:build": "docker build -t ooly_db .",
     "docker:stop": "docker-compose down",
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
+    "test": "cross-env NODE_ENV=test jest --silent --maxWorkers=1"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
   "dependencies": {
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -34,6 +38,14 @@
     "sequelize": "^5.21.7"
   },
   "devDependencies": {
-    "sequelize-cli": "^5.5.1"
+    "jest": "^25.4.0",
+    "sequelize-cli": "^5.5.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
