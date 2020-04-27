@@ -11,13 +11,6 @@ before_install:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS ooly_test;'
 env:
   - NODE_ENV=test
-jobs:
-  include:
-    - stage: Produce Coverage
-      node_js: node
-      script:
-        cross-env NODE_ENV=test jest --silent --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-        && rm -rf ./coverage
-  after_success:
-    - export SSHPASS=$DEPLOY_PASS
-    - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST api/deploy_develop.sh
+after_success:
+  - export SSHPASS=$DEPLOY_PASS
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST api/deploy_develop.sh
