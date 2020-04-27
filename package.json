@@ -9,9 +9,11 @@
     "docker:build": "docker build -t ooly_db .",
     "docker:stop": "docker-compose down",
     "start": "nodemon server.js",
-    "migrate": "npx sequelize-cli db:migrate",
-    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
-    "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
+    "migrate": "npx sequelize db:migrate",
+    "seed": "npx sequelize db:seed:undo:all && npx sequelize db:seed:all",
+    "migrate:reset": "npx sequelize db:migrate:undo:all && npm run migrate",
+    "migrate:seed": "npx sequelize db:migrate:undo:all && npm run migrate && npx sequelize db:seed:all",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:seed",
     "test": "cross-env NODE_ENV=test jest --silent --coverage --maxWorkers=1 && coveralls < coverage/lcov.info"
   },
   "repository": {

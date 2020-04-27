@@ -1,0 +1,2 @@
+CREATE DATABASE ooly;
+CREATE DATABASE ooly_test;

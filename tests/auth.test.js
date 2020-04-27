@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../server').app
 const server = require('../server').server
+const User = require('../schemas/User')
 
 const userData = {
   username: 'Test',
@@ -98,7 +99,7 @@ describe('Auth routes', () => {
 
   test('should block access to incorrect user', async done => {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTg3ODE2NDkxfQ.WkcVc4BaJcuFJegoQ0pL2LhM0mWkVWViJn6a4We4dRE'
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6LTEsImlhdCI6MTU4Nzg4MzE5NX0.psjiEWPc_4ibDzoOmhHq7tEiS0FXrO-WxCFXe8jRzgU'
     const res = await request(app)
       .get('/logged')
       .set('Authorization', `Bearer ${token}`)
@@ -107,9 +108,14 @@ describe('Auth routes', () => {
     expect(res.text).toBe('Unauthorized')
     done()
   })
-})
 
-afterAll(done => {
-  server.close()
-  done()
+  afterAll(done => {
+    User.destroy({
+      where: {
+        email: userData.email,
+      },
+    })
+    server.close()
+    done()
+  })
 })
