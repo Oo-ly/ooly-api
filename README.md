@@ -18,6 +18,7 @@ The core of the project is running on NodeJS using Express framework ([https://e
 
 | Command                 | Description                                    |
 | ----------------------- | ---------------------------------------------- |
+| `npm run api`           | Regenerate the documentation                   |
 | `npm run docker:build`  | Build the Docker containers                    |
 | `npm run docker:start`  | Create & start the Docker containers           |
 | `npm run docker:stop`   | Stop & remove the Docker containers            |
