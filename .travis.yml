@@ -16,7 +16,7 @@ jobs:
     - stage: Produce Coverage
       node_js: node
       script:
-        jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+        cross-env NODE_ENV=test jest --silent --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
         && rm -rf ./coverage
   after_success:
     - export SSHPASS=$DEPLOY_PASS
