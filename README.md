@@ -5,8 +5,9 @@
 
 ## Requirements
 
-- Node.js v12.0 or above - [https://nodejs.org/](https://nodejs.org/)
 - Docker
+- Node.js v12.0 or above - [https://nodejs.org/](https://nodejs.org/)
+- Nodemon package installed globally `npm i -g nodemon`
 
 ## Setup
 
