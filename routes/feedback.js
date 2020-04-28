@@ -1,4 +1,5 @@
 const passport = require('passport')
+const { Op } = require('sequelize')
 
 const User = require('../schemas/User')
 const Oo = require('../schemas/Oo')
@@ -109,6 +110,35 @@ module.exports = app => {
         } else {
           res.status(400).send({ message: 'Feedback not found' })
         }
+      })
+    },
+  )
+
+  app.post(
+    '/feedbacks',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      if (!req.body.oos || req.body.oos.length === 0)
+        return res.status(400).send({ message: 'Missing Oos' })
+
+      Oo.findAll({
+        where: {
+          id: {
+            [Op.in]: req.body.oos,
+          },
+        },
+        attributes: ['id'],
+      }).then(oos => {
+        Feedback.create({
+          status: null,
+          oos: oos,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          userId: req.user.id,
+        }).then(feedback => {
+          feedback.addOos(oos)
+          res.send({ feedback })
+        })
       })
     },
   )
