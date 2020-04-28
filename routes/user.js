@@ -1,5 +1,7 @@
 const User = require('../schemas/User')
 
+const Oo = require('../schemas/Oo')
+
 module.exports = app => {
   /**
    * @api {get} /users User list
@@ -16,6 +18,7 @@ module.exports = app => {
    *                "id": 1,
    *                "username": "Test",
    *                "email": "test@test.com",
+   *                "oos": []
    *            }
    *        ]
    *     }
@@ -23,6 +26,13 @@ module.exports = app => {
   app.get('/users', (req, res) => {
     User.findAll({
       attributes: ['id', 'username', 'email'],
+      include: {
+        model: Oo,
+        attributes: ['id', 'name', 'description'],
+        through: {
+          attributes: [],
+        },
+      },
     }).then(users => {
       res.send({ users })
     })
@@ -42,6 +52,7 @@ module.exports = app => {
    *                "id": 1,
    *                "username": "Test",
    *                "email": "test@test.com",
+   *                "oos": []
    *            }
    *     }
    *
@@ -56,6 +67,13 @@ module.exports = app => {
       attributes: ['id', 'username', 'email'],
       where: {
         id: req.params.id,
+      },
+      include: {
+        model: Oo,
+        attributes: ['id', 'name', 'description'],
+        through: {
+          attributes: [],
+        },
       },
     }).then(user => {
       if (user) {

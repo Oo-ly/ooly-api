@@ -246,6 +246,75 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/oos/:id",
+    "title": "Oo detail",
+    "name": "Oo",
+    "group": "Oo",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "oo",
+            "description": "<p>Oo requested</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"oo\": {\n           \"id\": 1,\n           \"name\": \"Oo'la\",\n           \"description\": \"Accueil\",\n           \"isAvailable\": true,\n       }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Wrong ID:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"Oo not found\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/oo.js",
+    "groupTitle": "Oo"
+  },
+  {
+    "type": "get",
+    "url": "/oos",
+    "title": "Oo list",
+    "name": "Oo_list",
+    "group": "Oo",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "oos",
+            "description": "<p>List of Oos</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"oos\": [\n       {\n           \"id\": 1,\n           \"name\": \"Oo'la\",\n           \"description\": \"Accueil\",\n           \"isAvailable\": true,\n       }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/oo.js",
+    "groupTitle": "Oo"
+  },
+  {
+    "type": "get",
     "url": "/users/:id",
     "title": "User detail",
     "name": "User",

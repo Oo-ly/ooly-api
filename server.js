@@ -17,6 +17,7 @@ require('./strategies/jwt')
 require('./routes/base')(app)
 require('./routes/auth')(app)
 require('./routes/user')(app)
+require('./routes/oo')(app)
 
 app.use('/docs', express.static('documentation'))
 
