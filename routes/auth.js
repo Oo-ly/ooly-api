@@ -123,7 +123,7 @@ module.exports = app => {
    * @apiName Logged
    * @apiGroup Authentication
    *
-   * @apiHeader {String} Authorization Users JWT.
+   * @apiHeader {String} Authorization User JWT.
    *
    * @apiSuccess {String} message Message if the user is logged
    *

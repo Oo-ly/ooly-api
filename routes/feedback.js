@@ -12,6 +12,8 @@ module.exports = app => {
    * @apiName Feedback list
    * @apiGroup Feedback
    *
+   * @apiHeader {String} Authorization User JWT.
+   *
    * @apiSuccess {Object[]} feedbacks List of feedbacks of the logged users
    *
    * @apiSuccessExample Success-Response:
@@ -55,6 +57,8 @@ module.exports = app => {
    * @api {get} /feedbacks/:id Feedback detail
    * @apiName Feedback
    * @apiGroup Feedback
+   *
+   * @apiHeader {String} Authorization User JWT.
    *
    * @apiSuccess {Object} feedback Feedback requested
    *
@@ -114,31 +118,171 @@ module.exports = app => {
     },
   )
 
+  /**
+   * @api {post} /feedbacks Create a feedback
+   * @apiName Create Feedback
+   * @apiGroup Feedback
+   *
+   * @apiHeader {String} Authorization User JWT.
+   *
+   * @apiSuccess {Object} feedback Feedback created
+   *
+   * @apiParam {Number[]} oos ID of the Oos used
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "feedback": {
+   *                "id": 1,
+   *                "status": true,
+   *                "createdAt": "2020-04-27T00:00:00.000Z",
+   *                "oos": [],
+   *            }
+   *     }
+   *
+   * @apiErrorExample Missing Oos:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "Oos are missing"
+   *     }
+   *
+   * @apiErrorExample Unauthorized:
+   *     HTTP/1.1 401 Unauthorized
+   *     {
+   *       "message": "Unauthorized"
+   *     }
+   */
   app.post(
     '/feedbacks',
     passport.authenticate('jwt', { session: false }),
-    (req, res) => {
+    async (req, res) => {
       if (!req.body.oos || req.body.oos.length === 0)
-        return res.status(400).send({ message: 'Missing Oos' })
+        return res.status(400).send({ message: 'Oos are missing' })
 
-      Oo.findAll({
+      const oos = await Oo.findAll({
         where: {
           id: {
             [Op.in]: req.body.oos,
           },
         },
         attributes: ['id'],
-      }).then(oos => {
-        Feedback.create({
-          status: null,
-          oos: oos,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          userId: req.user.id,
-        }).then(feedback => {
-          feedback.addOos(oos)
-          res.send({ feedback })
-        })
+      })
+
+      const feedback = await Feedback.create({
+        status: null,
+        oos: oos,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        userId: req.user.id,
+      })
+
+      await feedback.setOos(oos)
+
+      const populatedFeedback = await Feedback.findOne({
+        attributes: ['id', 'status', 'createdAt'],
+        include: [
+          {
+            model: Oo,
+            attributes: ['id', 'name', 'description'],
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+        where: {
+          id: feedback.id,
+        },
+      })
+
+      res.send({ feedback: populatedFeedback })
+    },
+  )
+
+  /**
+   * @api {post} /feedbacks/:id Edit a feedback
+   * @apiName Edit Feedback
+   * @apiGroup Feedback
+   *
+   * @apiHeader {String} Authorization User JWT.
+   *
+   * @apiSuccess {Object} feedback Feedback updated
+   *
+   * @apiParam {Boolean} status New status of the feedback
+   * @apiParam {Number} id ID of the feedback
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "feedback": {
+   *                "id": 1,
+   *                "status": true,
+   *                "createdAt": "2020-04-27T00:00:00.000Z",
+   *                "oos": [],
+   *            }
+   *     }
+   *
+   * @apiErrorExample Missing status:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "Status is missing"
+   *     }
+   *
+   * @apiErrorExample Unauthorized:
+   *     HTTP/1.1 401 Unauthorized
+   *     {
+   *       "message": "Unauthorized"
+   *     }
+   *
+   * @apiErrorExample Wrong ID:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "Feedback not found"
+   *     }
+   */
+  app.post(
+    '/feedbacks/:id',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      Feedback.findOne({
+        attributes: ['id', 'userId', 'createdAt', 'status'],
+        where: {
+          id: req.params.id,
+        },
+        include: [
+          {
+            model: Oo,
+            attributes: ['id', 'name', 'description'],
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+      }).then(async feedback => {
+        if (!feedback)
+          return res.status(400).send({ message: 'Feedback not found' })
+
+        if (feedback.userId !== req.user.id)
+          return res.status(401).send({ message: 'Unauthorized' })
+
+        if (req.body.status === undefined)
+          return res.status(400).send({ message: 'Status is missing' })
+
+        await Feedback.update(
+          {
+            status: req.body.status,
+          },
+          {
+            where: {
+              id: feedback.id,
+            },
+          },
+        )
+
+        await feedback.reload()
+
+        feedback.userId = undefined
+
+        res.send({ feedback })
       })
     },
   )
