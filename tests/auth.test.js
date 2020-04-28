@@ -109,8 +109,8 @@ describe('Auth routes', () => {
     done()
   })
 
-  afterAll(done => {
-    User.destroy({
+  afterAll(async done => {
+    await User.destroy({
       where: {
         email: userData.email,
       },

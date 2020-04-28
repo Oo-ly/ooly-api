@@ -9,6 +9,8 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       ooId: {
         type: Sequelize.INTEGER,
@@ -16,6 +18,8 @@ module.exports = {
           model: 'oos',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,

@@ -16,6 +16,8 @@ module.exports = {
           key: 'id',
         },
         allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       status: {
         type: Sequelize.BOOLEAN,

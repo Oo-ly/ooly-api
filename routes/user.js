@@ -50,6 +50,11 @@ module.exports = app => {
           ],
         },
       ],
+      order: [
+        ['id', 'ASC'],
+        [Oo, 'id', 'ASC'],
+        [Oo, 'createdAt', 'ASC'],
+      ],
     }).then(users => {
       res.send({ users })
     })
@@ -93,6 +98,10 @@ module.exports = app => {
           through: {
             attributes: [],
           },
+          order: [
+            ['id', 'DESC'],
+            ['createdAt', 'DESC'],
+          ],
         },
         {
           model: Feedback,
@@ -104,6 +113,10 @@ module.exports = app => {
               through: {
                 attributes: [],
               },
+              order: [
+                ['id', 'DESC'],
+                ['createdAt', 'DESC'],
+              ],
             },
           ],
         },

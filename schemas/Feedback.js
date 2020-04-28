@@ -12,6 +12,8 @@ const Feedback = sequelize.define('feedbacks', {
       model: User,
       key: 'id',
     },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   },
   status: {
     type: Sequelize.BOOLEAN,

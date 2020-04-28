@@ -89,6 +89,8 @@ module.exports = app => {
     '/feedbacks/:id',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
+      if (!req.user) res.status(404).send({ message: 'Unauthorized' })
+
       Feedback.findOne({
         attributes: ['id', 'status', 'createdAt', 'userId'],
         include: [
@@ -103,6 +105,10 @@ module.exports = app => {
         where: {
           id: req.params.id,
         },
+        order: [
+          [Oo, 'id', 'ASC'],
+          [Oo, 'createdAt', 'ASC'],
+        ],
       }).then(feedback => {
         if (feedback) {
           if (feedback.userId === req.user.id) {
@@ -192,6 +198,10 @@ module.exports = app => {
         where: {
           id: feedback.id,
         },
+        order: [
+          [Oo, 'id', 'ASC'],
+          [Oo, 'createdAt', 'ASC'],
+        ],
       })
 
       res.send({ feedback: populatedFeedback })
@@ -256,6 +266,10 @@ module.exports = app => {
               attributes: [],
             },
           },
+        ],
+        order: [
+          [Oo, 'id', 'ASC'],
+          [Oo, 'createdAt', 'ASC'],
         ],
       }).then(async feedback => {
         if (!feedback)

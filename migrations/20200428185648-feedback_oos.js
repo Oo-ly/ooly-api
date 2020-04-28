@@ -16,6 +16,8 @@ module.exports = {
           key: 'id',
           allowNull: false,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       ooId: {
         type: Sequelize.INTEGER,
@@ -24,6 +26,8 @@ module.exports = {
           key: 'id',
           allowNull: false,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
     })
   },
