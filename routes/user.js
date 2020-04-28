@@ -1,6 +1,7 @@
 const User = require('../schemas/User')
 
 const Oo = require('../schemas/Oo')
+const Feedback = require('../schemas/Feedback').Feedback
 
 module.exports = app => {
   /**
@@ -18,7 +19,8 @@ module.exports = app => {
    *                "id": 1,
    *                "username": "Test",
    *                "email": "test@test.com",
-   *                "oos": []
+   *                "oos": [],
+   *                "feedbacks": [],
    *            }
    *        ]
    *     }
@@ -26,13 +28,28 @@ module.exports = app => {
   app.get('/users', (req, res) => {
     User.findAll({
       attributes: ['id', 'username', 'email'],
-      include: {
-        model: Oo,
-        attributes: ['id', 'name', 'description'],
-        through: {
-          attributes: [],
+      include: [
+        {
+          model: Oo,
+          attributes: ['id', 'name', 'description'],
+          through: {
+            attributes: [],
+          },
         },
-      },
+        {
+          model: Feedback,
+          attributes: ['id', 'status', 'createdAt'],
+          include: [
+            {
+              model: Oo,
+              attributes: ['id', 'name', 'description'],
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+        },
+      ],
     }).then(users => {
       res.send({ users })
     })
@@ -52,7 +69,8 @@ module.exports = app => {
    *                "id": 1,
    *                "username": "Test",
    *                "email": "test@test.com",
-   *                "oos": []
+   *                "oos": [],
+   *                "feedbacks": [],
    *            }
    *     }
    *
@@ -68,13 +86,28 @@ module.exports = app => {
       where: {
         id: req.params.id,
       },
-      include: {
-        model: Oo,
-        attributes: ['id', 'name', 'description'],
-        through: {
-          attributes: [],
+      include: [
+        {
+          model: Oo,
+          attributes: ['id', 'name', 'description'],
+          through: {
+            attributes: [],
+          },
         },
-      },
+        {
+          model: Feedback,
+          attributes: ['id', 'status', 'createdAt'],
+          include: [
+            {
+              model: Oo,
+              attributes: ['id', 'name', 'description'],
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+        },
+      ],
     }).then(user => {
       if (user) {
         res.send({
