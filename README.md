@@ -14,6 +14,10 @@
 The project is based on a Docker container holding the MariaDB database, another for PHPMyAdmin.
 The core of the project is running on NodeJS using Express framework ([https://expressjs.com/](https://expressjs.com/)).
 
+## Workflow
+
+[![Schema](./schema.jpg)]
+
 ## Commands
 
 | Command                 | Description                                    |
@@ -24,6 +28,8 @@ The core of the project is running on NodeJS using Express framework ([https://e
 | `npm run docker:stop`   | Stop & remove the Docker containers            |
 | `npm run start`         | Start the NodeJS server                        |
 | `npm run migrate`       | Migrate pending migrations under `/migrations` |
+| `npm run seed`          | Run seeds under `/seeders`                     |
+| `npm run migrate:seed`  | Run migrations & seeds                         |
 | `npm run migrate:reset` | Revert all migrations                          |
 | `npm run test`          | Run all tests under `/tests`                   |
 
