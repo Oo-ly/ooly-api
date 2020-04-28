@@ -16,7 +16,7 @@ The core of the project is running on NodeJS using Express framework ([https://e
 
 ## Workflow
 
-[![Schema](./schema.jpg)]
+![Schema](./schema.jpg)
 
 ## Commands
 
