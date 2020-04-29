@@ -25,7 +25,7 @@ describe('Feedback routes', () => {
     done()
   })
 
-  test('should not create a feedback', async done => {
+  test('should not create a feedback with wrong JWT', async done => {
     const res = await request(app)
       .post('/feedbacks')
       .send({
@@ -35,6 +35,18 @@ describe('Feedback routes', () => {
 
     expect(res.status).toEqual(401)
     expect(res.text).toEqual('Unauthorized')
+    done()
+  })
+
+  test('should not create a feedback with no Oo', async done => {
+    const res = await request(app)
+      .post('/feedbacks')
+      .send({})
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(400)
+    expect(res.body).toHaveProperty('message')
+    expect(res.body.message).toEqual('Oos are missing')
     done()
   })
 
@@ -91,6 +103,41 @@ describe('Feedback routes', () => {
 
     const res = await request(app)
       .get(`/feedbacks/${otherUserFeedback.body.feedback.id}`)
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(401)
+    expect(res.body).toHaveProperty('message')
+    expect(res.body.message).toEqual('Unauthorized')
+
+    await User.destroy({
+      where: {
+        username: 'Test2',
+      },
+    })
+
+    done()
+  })
+
+  test('should not update feedback that belongs to another user', async done => {
+    await request(app).post('/register').send({
+      username: 'Test2',
+      password: 'testtest',
+      email: 'test@test.com',
+    })
+
+    const newlyCreatedUser = await request(app).post('/login').send({
+      username: 'Test2',
+      password: 'testtest',
+    })
+
+    const otherUserFeedback = await request(app)
+      .post('/feedbacks')
+      .send({ oos: [1, 2, 3] })
+      .set('Authorization', `Bearer ${newlyCreatedUser.body.token}`)
+
+    const res = await request(app)
+      .post(`/feedbacks/${otherUserFeedback.body.feedback.id}`)
+      .send({ status: true })
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(401)
