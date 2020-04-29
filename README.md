@@ -1,7 +1,7 @@
 # Ooly API
 
-[![Build Status](https://travis-ci.org/Treast/node-authentication.svg?branch=master)](https://travis-ci.org/Treast/node-authentication)
-[![Coverage Status](https://coveralls.io/repos/github/Treast/node-authentication/badge.svg?branch=master&id=2)](https://coveralls.io/github/Treast/node-authentication?branch=master&id=2)
+[![Build Status](https://travis-ci.com/Oo-ly/ooly-api.svg?branch=master)](https://travis-ci.com/Oo-ly/ooly-api)
+[![Coverage Status](https://coveralls.io/repos/github/Oo-ly/ooly-api/badge.svg?branch=develop&id=1)](https://coveralls.io/github/Oo-ly/ooly-api?branch=develop&id=1)
 
 ## Requirements
 

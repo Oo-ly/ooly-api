@@ -34,7 +34,7 @@ const FeedbackOo = sequelize.define(
         key: 'id',
       },
     },
-    OoId: {
+    ooId: {
       type: Sequelize.INTEGER,
       references: {
         model: Oo,
