@@ -113,13 +113,14 @@ module.exports = app => {
               through: {
                 attributes: [],
               },
-              order: [
-                ['id', 'DESC'],
-                ['createdAt', 'DESC'],
-              ],
             },
           ],
         },
+      ],
+      order: [
+        ['id', 'ASC'],
+        [Oo, 'id', 'ASC'],
+        [Oo, 'createdAt', 'ASC'],
       ],
     }).then(user => {
       if (user) {
