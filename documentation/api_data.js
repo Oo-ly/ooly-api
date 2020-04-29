@@ -341,7 +341,7 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "feedback",
-            "description": "<p>Feedback created</p>"
+            "description": "<p>Feedback updated</p>"
           }
         ]
       },
