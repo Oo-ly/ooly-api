@@ -13,7 +13,7 @@ const feedbackOos = []
 const CHANCE_TO_FEEDBACK = 0.7
 const MINIMUM_FEEDBACKS = 2
 const MAXIMUM_FEEDBACKS = 5
-const CHANGE_POSITIVE_FEEDBACK = [0.7, 0.4, 0.6, 0.65, 0.75, 0.3, 0.2]
+const CHANCE_POSITIVE_FEEDBACK = [0.7, 0.4, 0.6, 0.65, 0.75, 0.3, 0.2]
 
 const MINIMUM_OOS = 3
 const MAXIMUM_OOS = 5
@@ -44,7 +44,7 @@ const createFeedbacks = async () => {
           let meanSuccess = 0
 
           currentFeedbackOo.map(oo => {
-            meanSuccess += CHANGE_POSITIVE_FEEDBACK[oo.id - 1]
+            meanSuccess += CHANCE_POSITIVE_FEEDBACK[oo.id - 1]
           })
 
           meanSuccess /= currentFeedbackOo.length
