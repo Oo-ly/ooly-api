@@ -2,24 +2,26 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_oos', {
+    return queryInterface.createTable('feedbacks', {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
       userId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id',
         },
+        allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      ooId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'oos',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
@@ -27,6 +29,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user_oos')
+    return queryInterface.dropTable('feedbacks')
   },
 }

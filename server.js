@@ -21,6 +21,7 @@ require('./routes/base')(app)
 require('./routes/auth')(app)
 require('./routes/user')(app)
 require('./routes/oo')(app)
+require('./routes/feedback')(app)
 
 app.use('/docs', express.static('documentation'))
 

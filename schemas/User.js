@@ -13,14 +13,14 @@ const User = sequelize.define('users', {
 })
 
 const UserOo = sequelize.define('user_oos', {
-  UserId: {
+  userId: {
     type: Sequelize.INTEGER,
     references: {
       model: User,
       key: 'id',
     },
   },
-  OoId: {
+  ooId: {
     type: Sequelize.INTEGER,
     references: {
       model: Oo,

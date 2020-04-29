@@ -13,7 +13,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Users JWT.</p>"
+            "description": "<p>User JWT.</p>"
           }
         ]
       }
@@ -245,6 +245,258 @@ define({ "api": [
     "groupTitle": "Base"
   },
   {
+    "type": "post",
+    "url": "/feedbacks",
+    "title": "Create a feedback",
+    "name": "Create_Feedback",
+    "group": "Feedback",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>User JWT.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "feedback",
+            "description": "<p>Feedback created</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"feedback\": {\n           \"id\": 1,\n           \"status\": true,\n           \"createdAt\": \"2020-04-27T00:00:00.000Z\",\n           \"oos\": [],\n       }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number[]",
+            "optional": false,
+            "field": "oos",
+            "description": "<p>ID of the Oos used</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Missing Oos:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"Oos are missing\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Unauthorized:",
+          "content": "HTTP/1.1 401 Unauthorized\n{\n  \"message\": \"Unauthorized\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/feedback.js",
+    "groupTitle": "Feedback"
+  },
+  {
+    "type": "post",
+    "url": "/feedbacks/:id",
+    "title": "Edit a feedback",
+    "name": "Edit_Feedback",
+    "group": "Feedback",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>User JWT.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "feedback",
+            "description": "<p>Feedback created</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"feedback\": {\n           \"id\": 1,\n           \"status\": true,\n           \"createdAt\": \"2020-04-27T00:00:00.000Z\",\n           \"oos\": [],\n       }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>New status of the feedback</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the feedback</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Missing status:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"Status is missing\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Unauthorized:",
+          "content": "HTTP/1.1 401 Unauthorized\n{\n  \"message\": \"Unauthorized\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Wrong ID:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"Feedback not found\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/feedback.js",
+    "groupTitle": "Feedback"
+  },
+  {
+    "type": "get",
+    "url": "/feedbacks/:id",
+    "title": "Feedback detail",
+    "name": "Feedback",
+    "group": "Feedback",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>User JWT.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "feedback",
+            "description": "<p>Feedback requested</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"feedback\": {\n           \"id\": 1,\n           \"status\": true,\n           \"createdAt\": \"2020-04-27T00:00:00.000Z\",\n           \"oos\": [],\n       }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Wrong ID:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"Feedback not found\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Unauthorized:",
+          "content": "HTTP/1.1 401 Unauthorized\n{\n  \"message\": \"Unauthorized\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/feedback.js",
+    "groupTitle": "Feedback"
+  },
+  {
+    "type": "get",
+    "url": "/feedbacks",
+    "title": "Feedback list",
+    "name": "Feedback_list",
+    "group": "Feedback",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>User JWT.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "feedbacks",
+            "description": "<p>List of feedbacks of the logged users</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"feedbacks\": [\n       {\n           \"id\": 1,\n           \"status\": true,\n           \"createdAt\": \"2020-04-27T00:00:00.000Z\",\n           \"oos\": [],\n       }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/feedback.js",
+    "groupTitle": "Feedback"
+  },
+  {
     "type": "get",
     "url": "/oos/:id",
     "title": "Oo detail",
@@ -334,7 +586,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"user\": {\n           \"id\": 1,\n           \"username\": \"Test\",\n           \"email\": \"test@test.com\",\n       }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"user\": {\n           \"id\": 1,\n           \"username\": \"Test\",\n           \"email\": \"test@test.com\",\n           \"oos\": [],\n           \"feedbacks\": [],\n       }\n}",
           "type": "json"
         }
       ]
@@ -373,7 +625,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"users\": [\n       {\n           \"id\": 1,\n           \"username\": \"Test\",\n           \"email\": \"test@test.com\",\n       }\n   ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"users\": [\n       {\n           \"id\": 1,\n           \"username\": \"Test\",\n           \"email\": \"test@test.com\",\n           \"oos\": [],\n           \"feedbacks\": [],\n       }\n   ]\n}",
           "type": "json"
         }
       ]
