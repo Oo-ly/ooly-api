@@ -20,9 +20,9 @@ describe('Server running well', () => {
     expect(res.body.message).toBe('Server is running')
     done()
   })
-})
 
-afterAll(done => {
-  server.close()
-  done()
+  afterAll(done => {
+    server.close()
+    done()
+  })
 })
