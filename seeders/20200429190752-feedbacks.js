@@ -33,11 +33,13 @@ const createFeedbacks = async () => {
         for (let i = 0; i < numberFeedbacks; i += 1) {
           const numberOos = randomBetween(MINIMUM_OOS, MAXIMUM_OOS)
           const currentFeedbackOo = []
+          const usedOoId = []
 
           while (currentFeedbackOo.length < numberOos) {
             const randomOoId = randomBetween(1, oos.length - 1)
-            if (currentFeedbackOo.indexOf(randomOoId) === -1) {
+            if (usedOoId.indexOf(randomOoId) === -1) {
               currentFeedbackOo.push(oos[randomOoId])
+              usedOoId.push(randomOoId)
             }
           }
 
