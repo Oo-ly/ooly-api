@@ -567,6 +567,45 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/users/suggestions",
+    "title": "User suggestions",
+    "name": "Suggestions",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "user",
+            "description": "<p>User suggestions</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"suggestions\": [\n       {\n           \"weight\": 8.9480459683016,\n           \"updatedAt\": \"2020-05-01T14:09:43.000Z\",\n           \"oo\": {}\n       }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Unauthorized:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"Unauthorized\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/user.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
     "url": "/users/:id",
     "title": "User detail",
     "name": "User",

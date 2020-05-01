@@ -8,10 +8,7 @@ const NB_USERS = 50
 const users = []
 
 for (let i = 0; i < NB_USERS; i += 1) {
-  const password = Math.random()
-    .toString(36)
-    .replace(/[^a-z]+/g, '')
-    .substr(0, 20)
+  const password = 'testtest' + process.env.SECRET_SALT
   const hash = bcrypt.hashSync(password, 8)
   users.push({
     username: faker.name.findName(),

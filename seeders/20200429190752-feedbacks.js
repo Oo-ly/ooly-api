@@ -11,8 +11,8 @@ const feedbacks = []
 const feedbackOos = []
 
 const CHANCE_TO_FEEDBACK = 0.7
-const MINIMUM_FEEDBACKS = 2
-const MAXIMUM_FEEDBACKS = 5
+const MINIMUM_FEEDBACKS = 5
+const MAXIMUM_FEEDBACKS = 10
 const CHANCE_POSITIVE_FEEDBACK = [0.7, 0.4, 0.6, 0.65, 0.75, 0.3, 0.2]
 
 const MINIMUM_OOS = 3

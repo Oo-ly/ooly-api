@@ -1,7 +1,9 @@
 const User = require('../schemas/User')
+const passport = require('passport')
 
 const Oo = require('../schemas/Oo')
 const Feedback = require('../schemas/Feedback').Feedback
+const UserSuggestion = require('../schemas/Suggestion').UserSuggestion
 
 module.exports = app => {
   /**
@@ -85,7 +87,7 @@ module.exports = app => {
    *       "message": "User not found"
    *     }
    */
-  app.get('/users/:id', (req, res) => {
+  app.get('/users/:id([0-9]+)', (req, res) => {
     User.findOne({
       attributes: ['id', 'username', 'email'],
       where: {
@@ -134,4 +136,51 @@ module.exports = app => {
       }
     })
   })
+
+  /**
+   * @api {get} /users/suggestions User suggestions
+   * @apiName Suggestions
+   * @apiGroup User
+   *
+   * @apiSuccess {Object[]} user User suggestions
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "suggestions": [
+   *            {
+   *                "weight": 8.9480459683016,
+   *                "updatedAt": "2020-05-01T14:09:43.000Z",
+   *                "oo": {}
+   *            }
+   *       ]
+   *     }
+   *
+   * @apiErrorExample Unauthorized:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "Unauthorized"
+   *     }
+   */
+  app.get(
+    '/users/suggestions',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      UserSuggestion.findAll({
+        attributes: ['weight', 'updatedAt'],
+        where: {
+          userId: req.user.id,
+        },
+        include: [
+          {
+            model: Oo,
+            attributes: ['id', 'name', 'description'],
+          },
+        ],
+        order: [['weight', 'DESC']],
+      }).then(suggestions => {
+        res.send({ suggestions })
+      })
+    },
+  )
 }
