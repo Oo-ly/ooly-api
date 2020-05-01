@@ -11,8 +11,8 @@ const feedbacks = []
 const feedbackOos = []
 
 const CHANCE_TO_FEEDBACK = 0.7
-const MINIMUM_FEEDBACKS = 2
-const MAXIMUM_FEEDBACKS = 5
+const MINIMUM_FEEDBACKS = 5
+const MAXIMUM_FEEDBACKS = 10
 const CHANCE_POSITIVE_FEEDBACK = [0.7, 0.4, 0.6, 0.65, 0.75, 0.3, 0.2]
 
 const MINIMUM_OOS = 3
@@ -33,11 +33,13 @@ const createFeedbacks = async () => {
         for (let i = 0; i < numberFeedbacks; i += 1) {
           const numberOos = randomBetween(MINIMUM_OOS, MAXIMUM_OOS)
           const currentFeedbackOo = []
+          const usedOoId = []
 
           while (currentFeedbackOo.length < numberOos) {
             const randomOoId = randomBetween(1, oos.length - 1)
-            if (currentFeedbackOo.indexOf(randomOoId) === -1) {
+            if (usedOoId.indexOf(randomOoId) === -1) {
               currentFeedbackOo.push(oos[randomOoId])
+              usedOoId.push(randomOoId)
             }
           }
 
