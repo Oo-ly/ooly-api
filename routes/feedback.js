@@ -89,6 +89,7 @@ module.exports = app => {
     '/feedbacks/:id',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
+      /* istanbul ignore next */
       if (!req.user) res.status(404).send({ message: 'Unauthorized' })
 
       Feedback.findOne({

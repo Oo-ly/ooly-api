@@ -18,7 +18,7 @@ describe('Feedback routes', () => {
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedback')
     expect(res.body.feedback).toHaveProperty('oos')
-    expect(res.body.feedback.oos.length).toEqual(3)
+    expect(res.body.feedback.oos.length).toBeGreaterThanOrEqual(3)
 
     feedback = res.body.feedback
 
@@ -185,6 +185,16 @@ describe('Feedback routes', () => {
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')
     expect(res.body.message).toEqual('Feedback not found')
+    done()
+  })
+
+  test('should get suggestions', async done => {
+    const res = await request(app)
+      .get(`/users/suggestions`)
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toHaveProperty('suggestions')
     done()
   })
 

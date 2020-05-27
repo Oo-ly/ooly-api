@@ -8,7 +8,7 @@ describe('Oo routes', () => {
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('oos')
-    expect(res.body.oos.length).toBe(7)
+    expect(res.body.oos.length).toBeGreaterThanOrEqual(7)
 
     done()
   })

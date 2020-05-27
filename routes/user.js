@@ -138,9 +138,104 @@ module.exports = app => {
   })
 
   /**
+   * @api {get} /users/me Current user detail
+   * @apiName User me
+   * @apiGroup User
+   *
+   * @apiHeader {String} Authorization User JWT.
+   *
+   * @apiSuccess {Object} user User requested
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "user": {
+   *                "id": 1,
+   *                "username": "Test",
+   *                "email": "test@test.com",
+   *                "lastname": "Test",
+   *                "firstname": "Test",
+   *                "surname": "Test",
+   *                "age": 20,
+   *                "imei": "010101010101",
+   *                "sleepHour": "23:30",
+   *                "activities": "[\"Musique\",\"Jeux\",\"Humour\",\"Informations\"]",
+   *                "oos": [],
+   *                "feedbacks": [],
+   *            }
+   *     }
+   *
+   * @apiErrorExample Wrong ID:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "User not found"
+   *     }
+   */
+  app.get(
+    '/users/me',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      User.findOne({
+        attributes: [
+          'id',
+          'username',
+          'email',
+          'lastname',
+          'firstname',
+          'surname',
+          'age',
+          'imei',
+          'sleepHour',
+          'activities',
+        ],
+        where: {
+          id: req.user.id,
+        },
+        include: [
+          {
+            model: Oo,
+            attributes: ['id', 'name', 'description'],
+            through: {
+              attributes: [],
+            },
+            order: [
+              ['id', 'DESC'],
+              ['createdAt', 'DESC'],
+            ],
+          },
+          {
+            model: Feedback,
+            attributes: ['id', 'status', 'createdAt'],
+            include: [
+              {
+                model: Oo,
+                attributes: ['id', 'name', 'description'],
+                through: {
+                  attributes: [],
+                },
+              },
+            ],
+          },
+        ],
+        order: [
+          ['id', 'ASC'],
+          [Oo, 'id', 'ASC'],
+          [Oo, 'createdAt', 'ASC'],
+        ],
+      }).then(user => {
+        res.send({
+          user,
+        })
+      })
+    },
+  )
+
+  /**
    * @api {get} /users/suggestions User suggestions
    * @apiName Suggestions
    * @apiGroup User
+   *
+   * @apiHeader {String} Authorization User JWT.
    *
    * @apiSuccess {Object[]} user User suggestions
    *

@@ -8,6 +8,13 @@ const User = sequelize.define('users', {
   username: Sequelize.STRING,
   password: Sequelize.STRING,
   email: Sequelize.STRING,
+  lastname: Sequelize.STRING,
+  firstname: Sequelize.STRING,
+  surname: Sequelize.STRING,
+  age: Sequelize.INTEGER,
+  imei: Sequelize.STRING,
+  sleepHour: Sequelize.STRING,
+  activities: Sequelize.TEXT,
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE,
 })

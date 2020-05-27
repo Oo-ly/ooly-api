@@ -89,6 +89,16 @@ describe('Auth routes', () => {
     done()
   })
 
+  test('should return the profile of the connected user', async done => {
+    const res = await request(app)
+      .get('/users/me')
+      .set('Authorization', `Bearer ${userData.token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toHaveProperty('user')
+    done()
+  })
+
   test('should block access to unlogged user', async done => {
     const res = await request(app).get('/logged')
 

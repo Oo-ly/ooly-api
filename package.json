@@ -14,7 +14,7 @@
     "seed:reset": "npx sequelize db:seed:undo:all && npx sequelize db:seed:all",
     "migrate:reset": "npx sequelize db:migrate:undo:all && npm run migrate",
     "migrate:seed": "npm run migrate:reset && npx sequelize db:seed:all",
-    "pretest": "cross-env NODE_ENV=test npm run migrate:seed",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:seed && node suggestions.js",
     "test": "cross-env NODE_ENV=test jest --silent --coverage --runInBand && coveralls < coverage/lcov.info"
   },
   "repository": {
@@ -53,7 +53,8 @@
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/config/"
     ]
   }
 }

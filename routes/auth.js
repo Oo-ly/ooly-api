@@ -11,6 +11,14 @@ module.exports = app => {
    *
    * @apiParam {String} username Username of the User
    * @apiParam {String} password Password of the User
+   * @apiParam {String} email Email of the User
+   * @apiParam {String} lastname Lastname of the User
+   * @apiParam {String} firstname Firstname of the User
+   * @apiParam {String} surname Surname of the User
+   * @apiParam {Number} age Age of the User
+   * @apiParam {String} imei IMEI of the phone of the User
+   * @apiParam {String} sleepHour Hour when the User goes to sleep
+   * @apiParam {String} activities Favorite activities of the User
    *
    * @apiSuccess {String} message Message if the user is created
    *
@@ -34,6 +42,7 @@ module.exports = app => {
    */
   app.post('/register', (req, res) => {
     passport.authenticate('registerUser', (err, user, info) => {
+      /* istanbul ignore next */
       if (err) console.log(err)
 
       if (info !== undefined) {
@@ -42,6 +51,13 @@ module.exports = app => {
         req.logIn(user, err => {
           const data = {
             email: req.body.email,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            surname: req.body.surname,
+            age: req.body.age,
+            imei: req.body.imei,
+            sleepHour: req.body.sleepHour,
+            activities: req.body.activities,
             created_at: Date.now(),
             updated_at: Date.now(),
           }
@@ -91,6 +107,7 @@ module.exports = app => {
    */
   app.post('/login', (req, res) => {
     passport.authenticate('loginUser', (err, user, info) => {
+      /* istanbul ignore next */
       if (err) console.log(err)
 
       if (info !== undefined) {

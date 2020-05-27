@@ -142,6 +142,62 @@ define({ "api": [
             "optional": false,
             "field": "password",
             "description": "<p>Password of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Lastname of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>Firstname of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "surname",
+            "description": "<p>Surname of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "age",
+            "description": "<p>Age of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "imei",
+            "description": "<p>IMEI of the phone of the User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sleepHour",
+            "description": "<p>Hour when the User goes to sleep</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "activities",
+            "description": "<p>Favorite activities of the User</p>"
           }
         ]
       }
@@ -665,6 +721,45 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK\n{\n  \"users\": [\n       {\n           \"id\": 1,\n           \"username\": \"Test\",\n           \"email\": \"test@test.com\",\n           \"oos\": [],\n           \"feedbacks\": [],\n       }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/user.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/users/me",
+    "title": "Current user detail",
+    "name": "User_me",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>User requested</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"user\": {\n           \"id\": 1,\n           \"username\": \"Test\",\n           \"email\": \"test@test.com\",\n           \"lastname\": \"Test\",\n           \"firstname\": \"Test\",\n           \"surname\": \"Test\",\n           \"age\": 20,\n           \"imei\": \"010101010101\",\n           \"sleepHour\": \"23:30\",\n           \"activities\": \"[\\\"Musique\\\",\\\"Jeux\\\",\\\"Humour\\\",\\\"Informations\\\"]\",\n           \"oos\": [],\n           \"feedbacks\": [],\n       }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Wrong ID:",
+          "content": "HTTP/1.1 400 BadRequest\n{\n  \"message\": \"User not found\"\n}",
           "type": "json"
         }
       ]

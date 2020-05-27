@@ -10,7 +10,7 @@ describe('User routes', () => {
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('users')
-    expect(res.body.users.length).toBe(50)
+    expect(res.body.users.length).toBeGreaterThanOrEqual(50)
 
     user = res.body.users[0]
 
