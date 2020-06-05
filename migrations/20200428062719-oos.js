@@ -17,6 +17,18 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      color: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      objectName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      toreObjectName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       isAvailable: Sequelize.BOOLEAN,
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
