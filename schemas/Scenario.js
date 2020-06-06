@@ -35,18 +35,11 @@ const ScenarioOo = sequelize.define('scenario_oos', {
 const ScenarioSentence = sequelize.define('scenario_sentences', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   hash: { type: Sequelize.STRING },
-  audio: { type: Sequelize.BLOB('long') },
+  interaction: { type: Sequelize.BOOLEAN },
   scenarioId: {
     type: Sequelize.INTEGER,
     references: {
       model: Scenario,
-      key: 'id',
-    },
-  },
-  ooId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: Oo,
       key: 'id',
     },
   },
@@ -57,9 +50,8 @@ const ScenarioSentence = sequelize.define('scenario_sentences', {
 
 Scenario.belongsToMany(Oo, { through: ScenarioOo })
 Oo.belongsToMany(Scenario, { through: ScenarioOo })
-Scenario.hasMany(ScenarioSentence)
+Scenario.hasMany(ScenarioSentence, { as: 'sentences' })
 ScenarioSentence.belongsTo(Scenario)
-ScenarioSentence.belongsTo(Oo)
 
 module.exports = {
   Scenario,

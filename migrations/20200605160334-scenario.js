@@ -50,22 +50,14 @@ module.exports = {
       hash: {
         type: Sequelize.STRING,
       },
-      audio: {
-        type: Sequelize.BLOB('long'),
+      interaction: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       scenarioId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'scenarios',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      ooId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'oos',
           key: 'id',
         },
         onUpdate: 'CASCADE',
