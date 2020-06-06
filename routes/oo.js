@@ -23,7 +23,15 @@ module.exports = app => {
    */
   app.get('/oos', (req, res) => {
     Oo.findAll({
-      attributes: ['id', 'name', 'description', 'isAvailable'],
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'color',
+        'objectName',
+        'toreObjectName',
+        'isAvailable',
+      ],
     }).then(oos => {
       res.send({ oos })
     })
@@ -55,7 +63,15 @@ module.exports = app => {
    */
   app.get('/oos/:id', (req, res) => {
     Oo.findOne({
-      attributes: ['id', 'name', 'description', 'isAvailable'],
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'color',
+        'objectName',
+        'toreObjectName',
+        'isAvailable',
+      ],
       where: {
         id: req.params.id,
       },

@@ -2,40 +2,47 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('oos', {
+    return queryInterface.createTable('audios', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
-      name: {
+      hash: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      color: {
+      url: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      objectName: {
+      type: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      ooId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'oos',
+          key: 'id',
+          allowNull: false,
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      audibleId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      audibleType: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      toreObjectName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      isAvailable: Sequelize.BOOLEAN,
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
     })
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('oos')
+    return queryInterface.dropTable('audios')
   },
 }

@@ -22,7 +22,7 @@ describe('User routes', () => {
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('user')
-    expect(res.body.user).toStrictEqual(user)
+    expect(res.body.user).toMatchObject(user)
     done()
   })
 
