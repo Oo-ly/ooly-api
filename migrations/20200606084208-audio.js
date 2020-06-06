@@ -20,6 +20,11 @@ module.exports = {
       type: {
         type: Sequelize.STRING,
         allowNull: true,
+        defaultValue: null,
+      },
+      order: {
+        type: Sequelize.INTEGER,
+        defaultValue: 99,
       },
       ooId: {
         type: Sequelize.INTEGER,

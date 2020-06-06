@@ -11,15 +11,6 @@ module.exports = app => {
       include: [
         {
           model: Oo,
-          attributes: [
-            'id',
-            'name',
-            'description',
-            'color',
-            'objectName',
-            'toreObjectName',
-            'isAvailable',
-          ],
           through: {
             attributes: [],
           },
@@ -27,57 +18,17 @@ module.exports = app => {
         {
           model: ScenarioSentence,
           as: 'sentences',
-          attributes: ['hash', 'interaction', 'order'],
-          include: [
-            {
-              model: Audio,
-              attributes: ['hash', 'url'],
-              include: [
-                {
-                  model: Oo,
-                },
-              ],
-            },
-          ],
         },
-        {
-          model: Audio,
-          attributes: ['hash', 'url', 'type'],
-        },
+        { model: Audio, as: 'entries' },
+        { model: Audio, as: 'exits' },
       ],
       // where: {
-      //   '$ScenarioOo$.ooId': {
+      //   '$oos.id$': {
       //     [Op.in]: req.body.oos,
       //   },
       // },
     }).then(scenarios => {
-      const result = scenarios.map(scenario => {
-        const entries = []
-        const exits = []
-
-        scenario.audios.forEach(audio => {
-          switch (audio.type) {
-            case 'entry':
-              entries.push(audio)
-              break
-            case 'exit':
-              exits.push(audio)
-              break
-          }
-        })
-
-        scenario.entries = entries
-        scenario.exits = exits
-
-        scenario.setDataValue('entries', entries)
-        scenario.setDataValue('exits', exits)
-
-        delete scenario.audios
-
-        return scenario
-      })
-
-      res.send({ scenarios: result })
+      res.send({ scenarios })
     })
   })
 }

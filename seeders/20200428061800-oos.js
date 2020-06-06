@@ -45,7 +45,7 @@ module.exports = {
           color: '#53BA9A',
           objectName: 'Yoga',
           toreObjectName: 'Tore_1',
-          isAvailable: false,
+          isAvailable: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

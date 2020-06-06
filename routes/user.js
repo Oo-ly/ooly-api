@@ -33,7 +33,6 @@ module.exports = app => {
       include: [
         {
           model: Oo,
-          attributes: ['id', 'name', 'description'],
           through: {
             attributes: [],
           },
@@ -44,12 +43,13 @@ module.exports = app => {
           include: [
             {
               model: Oo,
-              attributes: ['id', 'name', 'description'],
               through: {
                 attributes: [],
               },
+              order: ['id', 'ASC'],
             },
           ],
+          order: ['id', 'ASC'],
         },
       ],
       order: [
@@ -96,7 +96,6 @@ module.exports = app => {
       include: [
         {
           model: Oo,
-          attributes: ['id', 'name', 'description'],
           through: {
             attributes: [],
           },
@@ -111,12 +110,13 @@ module.exports = app => {
           include: [
             {
               model: Oo,
-              attributes: ['id', 'name', 'description'],
               through: {
                 attributes: [],
               },
+              order: ['id', 'ASC'],
             },
           ],
+          order: ['id', 'ASC'],
         },
       ],
       order: [
@@ -194,7 +194,6 @@ module.exports = app => {
         include: [
           {
             model: Oo,
-            attributes: ['id', 'name', 'description'],
             through: {
               attributes: [],
             },
@@ -209,7 +208,6 @@ module.exports = app => {
             include: [
               {
                 model: Oo,
-                attributes: ['id', 'name', 'description'],
                 through: {
                   attributes: [],
                 },

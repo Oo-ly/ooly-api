@@ -38,12 +38,11 @@ module.exports = {
       {
         hash: 'a',
         scenarioId: 1,
-        order: 0,
       },
       {
         hash: 'b',
         scenarioId: 1,
-        order: 0,
+        interaction: true,
       },
     ])
 
@@ -84,6 +83,7 @@ module.exports = {
         audibleId: 1,
         audibleType: 'sentence',
         ooId: 2,
+        order: 0,
       },
       {
         hash: 'jkl',
@@ -91,6 +91,25 @@ module.exports = {
         audibleId: 2,
         audibleType: 'sentence',
         ooId: 1,
+        order: 1,
+      },
+      {
+        hash: 'aezr',
+        url: '/7.mp3',
+        audibleId: 2,
+        audibleType: 'sentence',
+        ooId: 1,
+        order: 1,
+        type: 'dislike',
+      },
+      {
+        hash: 'zraze',
+        url: '/8.mp3',
+        audibleId: 2,
+        audibleType: 'sentence',
+        ooId: 1,
+        order: 2,
+        type: 'dislike',
       },
     ])
   },

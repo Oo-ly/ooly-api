@@ -63,10 +63,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      order: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
     })
