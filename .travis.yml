@@ -7,7 +7,7 @@ addons:
     packages:
       - sshpass
 before_install:
-  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS ooly_test;'
+  - sudo mysql -u root -e 'CREATE DATABASE IF NOT EXISTS ooly_test;'
 env:
   - NODE_ENV=test
 after_success:
