@@ -8,7 +8,7 @@ addons:
       - sshpass
 before_install:
   - sudo mysql -u root -e 'CREATE DATABASE IF NOT EXISTS ooly_test;'
-  - sudo mysql -e "SET Password=PASSWORD('travis')"
+  - sudo mysql -e "SET Password=PASSWORD('root')"
 env:
   - NODE_ENV=test
 after_success:
