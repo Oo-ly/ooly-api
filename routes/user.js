@@ -1,8 +1,6 @@
 const User = require('../schemas/User')
 const passport = require('passport')
 
-const Oo = require('../schemas/Oo')
-const Feedback = require('../schemas/Feedback').Feedback
 const UserSuggestion = require('../schemas/Suggestion').UserSuggestion
 
 module.exports = app => {
@@ -28,36 +26,7 @@ module.exports = app => {
    *     }
    */
   app.get('/users', (req, res) => {
-    User.findAll({
-      attributes: ['id', 'username', 'email'],
-      include: [
-        {
-          model: Oo,
-          through: {
-            attributes: [],
-          },
-        },
-        {
-          model: Feedback,
-          attributes: ['id', 'status', 'createdAt'],
-          include: [
-            {
-              model: Oo,
-              through: {
-                attributes: [],
-              },
-              order: ['id', 'ASC'],
-            },
-          ],
-          order: ['id', 'ASC'],
-        },
-      ],
-      order: [
-        ['id', 'ASC'],
-        [Oo, 'id', 'ASC'],
-        [Oo, 'createdAt', 'ASC'],
-      ],
-    }).then(users => {
+    User.findAll().then(users => {
       res.send({ users })
     })
   })
@@ -87,52 +56,12 @@ module.exports = app => {
    *       "message": "User not found"
    *     }
    */
-  app.get('/users/:id([0-9]+)', (req, res) => {
-    User.findOne({
-      attributes: ['id', 'username', 'email'],
-      where: {
-        id: req.params.id,
-      },
-      include: [
-        {
-          model: Oo,
-          through: {
-            attributes: [],
-          },
-          order: [
-            ['id', 'DESC'],
-            ['createdAt', 'DESC'],
-          ],
-        },
-        {
-          model: Feedback,
-          attributes: ['id', 'status', 'createdAt'],
-          include: [
-            {
-              model: Oo,
-              through: {
-                attributes: [],
-              },
-              order: ['id', 'ASC'],
-            },
-          ],
-          order: ['id', 'ASC'],
-        },
-      ],
-      order: [
-        ['id', 'ASC'],
-        [Oo, 'id', 'ASC'],
-        [Oo, 'createdAt', 'ASC'],
-      ],
-    }).then(user => {
+  app.get('/users/:uuid', (req, res) => {
+    User.findOne({ where: { uuid: req.params.uuid } }).then(user => {
       if (user) {
-        res.send({
-          user,
-        })
+        res.send({ user })
       } else {
-        res.status(400).send({
-          message: 'User not found',
-        })
+        res.status(400).send({ message: 'User not found' })
       }
     })
   })
@@ -176,54 +105,9 @@ module.exports = app => {
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
       User.findOne({
-        attributes: [
-          'id',
-          'username',
-          'email',
-          'lastname',
-          'firstname',
-          'surname',
-          'age',
-          'imei',
-          'sleepHour',
-          'activities',
-        ],
-        where: {
-          id: req.user.id,
-        },
-        include: [
-          {
-            model: Oo,
-            through: {
-              attributes: [],
-            },
-            order: [
-              ['id', 'DESC'],
-              ['createdAt', 'DESC'],
-            ],
-          },
-          {
-            model: Feedback,
-            attributes: ['id', 'status', 'createdAt'],
-            include: [
-              {
-                model: Oo,
-                through: {
-                  attributes: [],
-                },
-              },
-            ],
-          },
-        ],
-        order: [
-          ['id', 'ASC'],
-          [Oo, 'id', 'ASC'],
-          [Oo, 'createdAt', 'ASC'],
-        ],
+        where: { id: req.user.id },
       }).then(user => {
-        res.send({
-          user,
-        })
+        res.send({ user })
       })
     },
   )
@@ -260,17 +144,7 @@ module.exports = app => {
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
       UserSuggestion.findAll({
-        attributes: ['weight', 'updatedAt'],
-        where: {
-          userId: req.user.id,
-        },
-        include: [
-          {
-            model: Oo,
-            attributes: ['id', 'name', 'description'],
-          },
-        ],
-        order: [['weight', 'DESC']],
+        where: { userUuid: req.user.uuid },
       }).then(suggestions => {
         res.send({ suggestions })
       })

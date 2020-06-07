@@ -5,24 +5,28 @@ const Oo = require('../schemas/Oo')
 const Audio = sequelize.define(
   'audios',
   {
-    id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+    uuid: {
+      type: Sequelize.UUIDV4,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+    },
     hash: Sequelize.STRING,
     url: Sequelize.STRING,
     type: Sequelize.STRING,
     order: Sequelize.INTEGER,
-    ooId: {
-      type: Sequelize.INTEGER,
+    ooUuid: {
+      type: Sequelize.UUIDV4,
       references: {
         model: Oo,
-        key: 'id',
+        key: 'uuid',
       },
     },
-    audibleId: Sequelize.INTEGER,
+    audibleUuid: Sequelize.UUIDV4,
     audibleType: Sequelize.STRING,
   },
   {
     defaultScope: {
-      attributes: ['id', 'hash', 'url', 'type', 'order'],
+      attributes: ['uuid', 'hash', 'url', 'type', 'order'],
       include: Oo,
     },
   },

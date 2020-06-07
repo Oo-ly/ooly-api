@@ -4,37 +4,33 @@ const sequelize = require('../config/database')
 const Oo = require('./Oo')
 const Audio = require('./Audio')
 
-const Scenario = sequelize.define(
-  'scenarios',
-  {
-    id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE,
+const Scenario = sequelize.define('scenarios', {
+  uuid: {
+    type: Sequelize.UUIDV4,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true,
   },
-  {
-    defaultScope: {
-      attributes: ['id', 'name'],
-    },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
   },
-)
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE,
+})
 
 const ScenarioOo = sequelize.define('scenario_oos', {
-  scenarioId: {
-    type: Sequelize.INTEGER,
+  scenarioUuid: {
+    type: Sequelize.UUIDV4,
     references: {
       model: Scenario,
-      key: 'id',
+      key: 'uuid',
     },
   },
-  ooId: {
-    type: Sequelize.INTEGER,
+  ooUuid: {
+    type: Sequelize.UUIDV4,
     references: {
       model: Oo,
-      key: 'id',
+      key: 'uuid',
     },
   },
   createdAt: Sequelize.DATE,
@@ -44,14 +40,18 @@ const ScenarioOo = sequelize.define('scenario_oos', {
 const ScenarioSentence = sequelize.define(
   'scenario_sentences',
   {
-    id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+    uuid: {
+      type: Sequelize.UUIDV4,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+    },
     hash: { type: Sequelize.STRING },
     interaction: { type: Sequelize.BOOLEAN },
-    scenarioId: {
-      type: Sequelize.INTEGER,
+    scenarioUuid: {
+      type: Sequelize.UUIDV4,
       references: {
         model: Scenario,
-        key: 'id',
+        key: 'uuid',
       },
     },
     createdAt: Sequelize.DATE,
@@ -59,7 +59,7 @@ const ScenarioSentence = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: ['id', 'hash', 'interaction'],
+      attributes: ['uuid', 'hash', 'interaction'],
       include: [
         { model: Audio },
         { model: Audio, as: 'dislikes' },
@@ -69,25 +69,35 @@ const ScenarioSentence = sequelize.define(
   },
 )
 
+Scenario.addScope('defaultScope', {
+  attributes: ['uuid', 'name'],
+  include: [
+    { model: Oo, through: { attributes: [] } },
+    { model: ScenarioSentence, as: 'sentences' },
+    { model: Audio, as: 'entries' },
+    { model: Audio, as: 'exits' },
+  ],
+})
+
 Scenario.belongsToMany(Oo, { through: ScenarioOo })
 Oo.belongsToMany(Scenario, { through: ScenarioOo })
 Scenario.hasMany(ScenarioSentence, { as: 'sentences' })
 ScenarioSentence.belongsTo(Scenario)
 
 Oo.hasMany(Audio, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
   scope: {
     audibleType: 'oo',
   },
 })
-Audio.belongsTo(Oo, { foreignKey: 'audibleId', constraints: false })
+Audio.belongsTo(Oo, { foreignKey: 'audibleUuid', constraints: false })
 
 Oo.hasMany(Audio, { foreignKey: 'ooId' })
 Audio.belongsTo(Oo)
 
 ScenarioSentence.hasOne(Audio, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
   scope: {
     audibleType: 'sentence',
@@ -96,7 +106,7 @@ ScenarioSentence.hasOne(Audio, {
 })
 
 ScenarioSentence.hasMany(Audio, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
   as: 'dislikes',
   scope: {
@@ -106,7 +116,7 @@ ScenarioSentence.hasMany(Audio, {
 })
 
 ScenarioSentence.hasMany(Audio, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
   as: 'likes',
   scope: {
@@ -115,12 +125,12 @@ ScenarioSentence.hasMany(Audio, {
   },
 })
 Audio.belongsTo(ScenarioSentence, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
 })
 
 Scenario.hasMany(Audio, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
   as: 'entries',
   scope: {
@@ -130,7 +140,7 @@ Scenario.hasMany(Audio, {
 })
 
 Scenario.hasMany(Audio, {
-  foreignKey: 'audibleId',
+  foreignKey: 'audibleUuid',
   constraints: false,
   as: 'exits',
   scope: {
@@ -139,7 +149,7 @@ Scenario.hasMany(Audio, {
   },
 })
 
-Audio.belongsTo(Scenario, { foreignKey: 'audibleId', constraints: false })
+Audio.belongsTo(Scenario, { foreignKey: 'audibleUuid', constraints: false })
 
 module.exports = {
   Scenario,

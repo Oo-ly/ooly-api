@@ -3,11 +3,10 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('scenarios', {
-      id: {
-        type: Sequelize.INTEGER,
+      uuid: {
+        type: Sequelize.UUID,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
+        defaultValue: Sequelize.UUIDV4,
       },
       name: {
         type: Sequelize.STRING,
@@ -18,20 +17,20 @@ module.exports = {
     })
 
     await queryInterface.createTable('scenario_oos', {
-      scenarioId: {
-        type: Sequelize.INTEGER,
+      scenarioUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'scenarios',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      ooId: {
-        type: Sequelize.INTEGER,
+      ooUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'oos',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -41,11 +40,10 @@ module.exports = {
     })
 
     return queryInterface.createTable('scenario_sentences', {
-      id: {
-        type: Sequelize.INTEGER,
+      uuid: {
+        type: Sequelize.UUID,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
+        defaultValue: Sequelize.UUIDV4,
       },
       hash: {
         type: Sequelize.STRING,
@@ -54,11 +52,11 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
-      scenarioId: {
-        type: Sequelize.INTEGER,
+      scenarioUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'scenarios',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',

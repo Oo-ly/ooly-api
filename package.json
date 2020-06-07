@@ -15,7 +15,7 @@
     "migrate:reset": "npx sequelize db:migrate:undo:all && npm run migrate",
     "migrate:seed": "npm run migrate:reset && npx sequelize db:seed:all",
     "pretest": "cross-env NODE_ENV=test npm run migrate:seed && node suggestions.js",
-    "test": "cross-env NODE_ENV=test jest --silent --coverage --runInBand && coveralls < coverage/lcov.info"
+    "test": "cross-env NODE_ENV=test jest --coverage --runInBand && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -36,17 +36,18 @@
     "express": "^4.17.1",
     "ger": "0.0.99",
     "jsonwebtoken": "^8.5.1",
-    "mariadb": "^2.3.1",
+    "mariadb": "^2.4.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.21.7"
+    "sequelize": "^5.21.12",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "apidoc": "^0.20.1",
     "coveralls": "^3.1.0",
     "faker": "^4.1.0",
-    "jest": "^25.4.0",
+    "jest": "^25.5.4",
     "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
   },

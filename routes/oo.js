@@ -22,17 +22,7 @@ module.exports = app => {
    *     }
    */
   app.get('/oos', (req, res) => {
-    Oo.findAll({
-      attributes: [
-        'id',
-        'name',
-        'description',
-        'color',
-        'objectName',
-        'toreObjectName',
-        'isAvailable',
-      ],
-    }).then(oos => {
+    Oo.findAll().then(oos => {
       res.send({ oos })
     })
   })
@@ -61,29 +51,14 @@ module.exports = app => {
    *       "message": "Oo not found"
    *     }
    */
-  app.get('/oos/:id', (req, res) => {
+  app.get('/oos/:uuid', (req, res) => {
     Oo.findOne({
-      attributes: [
-        'id',
-        'name',
-        'description',
-        'color',
-        'objectName',
-        'toreObjectName',
-        'isAvailable',
-      ],
-      where: {
-        id: req.params.id,
-      },
+      where: { uuid: req.params.uuid },
     }).then(oo => {
       if (oo) {
-        res.send({
-          oo,
-        })
+        res.send({ oo })
       } else {
-        res.status(400).send({
-          message: 'Oo not found',
-        })
+        res.status(400).send({ message: 'Oo not found' })
       }
     })
   })

@@ -4,7 +4,11 @@ const sequelize = require('../config/database')
 const Oo = sequelize.define(
   'oos',
   {
-    id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+    uuid: {
+      type: Sequelize.UUIDV4,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+    },
     name: Sequelize.STRING,
     description: Sequelize.TEXT,
     color: Sequelize.STRING,
@@ -17,7 +21,7 @@ const Oo = sequelize.define(
   {
     defaultScope: {
       attributes: [
-        'id',
+        'uuid',
         'name',
         'description',
         'color',
@@ -27,6 +31,7 @@ const Oo = sequelize.define(
       where: {
         isAvailable: true,
       },
+      order: [['createdAt', 'ASC']],
     },
   },
 )

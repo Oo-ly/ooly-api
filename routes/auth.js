@@ -115,20 +115,11 @@ module.exports = app => {
       } else {
         req.logIn(user, err => {
           User.findOne({
-            where: {
-              username: user.username,
-            },
+            where: { username: user.username },
           }).then(user => {
-            const token = jwt.sign(
-              {
-                id: user.id,
-              },
-              process.env.SECRET_JWT,
-            )
+            const token = jwt.sign({ id: user.uuid }, process.env.SECRET_JWT)
 
-            res.status(200).send({
-              token,
-            })
+            res.status(200).send({ token })
           })
         })
       }

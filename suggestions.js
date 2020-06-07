@@ -2,7 +2,7 @@ const path = require('path')
 require('dotenv').config({
   path: path.resolve(__dirname, '.env'),
 })
-
+return 0
 const Oo = require('./schemas/Oo')
 const Feedback = require('./schemas/Feedback').Feedback
 const User = require('./schemas/User')

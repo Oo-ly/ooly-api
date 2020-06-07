@@ -14,9 +14,9 @@ passport.use(
     },
     (username, password, done) => {
       User.findOne({
-        where: {
-          username,
-        },
+        attributes: ['uuid', 'username', 'password'],
+        where: { username },
+        include: [],
       }).then(user => {
         if (!user) {
           return done(null, false, { message: 'Username not found' })

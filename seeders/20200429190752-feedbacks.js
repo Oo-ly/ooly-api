@@ -2,6 +2,7 @@
 
 const User = require('../schemas/User')
 const Oo = require('../schemas/Oo')
+const { v4: uuidv4 } = require('uuid')
 
 const randomBetween = (a, b) => {
   return Math.round(Math.random() * (b - a) + a)
@@ -37,16 +38,20 @@ const createFeedbacks = async () => {
 
           while (currentFeedbackOo.length < numberOos) {
             const randomOoId = randomBetween(1, oos.length - 1)
-            if (usedOoId.indexOf(randomOoId) === -1) {
-              currentFeedbackOo.push(oos[randomOoId])
-              usedOoId.push(randomOoId)
+            const oo = oos[randomOoId].uuid
+            if (usedOoId.indexOf(oo) === -1) {
+              currentFeedbackOo.push({
+                oo: oo,
+                idx: randomOoId,
+              })
+              usedOoId.push(oo)
             }
           }
 
           let meanSuccess = 0
 
           currentFeedbackOo.map(oo => {
-            meanSuccess += CHANCE_POSITIVE_FEEDBACK[oo.id - 1]
+            meanSuccess += CHANCE_POSITIVE_FEEDBACK[oo.idx - 1]
           })
 
           meanSuccess /= currentFeedbackOo.length
@@ -55,8 +60,11 @@ const createFeedbacks = async () => {
 
           if (Math.random() < meanSuccess) status = true
 
+          const uuid = uuidv4()
+
           feedbacks.push({
-            userId: user.id,
+            uuid: uuid,
+            userUuid: user.uuid,
             status,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -64,8 +72,9 @@ const createFeedbacks = async () => {
 
           currentFeedbackOo.map(oo => {
             feedbackOos.push({
-              feedbackId: feedbacks.length,
-              ooId: oo.id,
+              uuid: uuidv4(),
+              feedbackUuid: uuid,
+              ooUuid: oo.oo,
             })
           })
         }

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const User = require('../schemas/User')
+const { v4: uuidv4 } = require('uuid')
 
 const passport = require('passport'),
   LocalStrategy = require('passport-local')
@@ -14,9 +15,8 @@ passport.use(
     },
     (username, password, done) => {
       User.findOne({
-        where: {
-          username,
-        },
+        where: { username },
+        include: [],
       }).then(user => {
         if (user !== null) {
           return done(null, false, { message: 'Username is already taken' })
@@ -24,6 +24,7 @@ passport.use(
           const saltPassword = password + process.env.SECRET_SALT
           bcrypt.hash(saltPassword, 12).then(hashedPassword => {
             User.create({
+              uuid: uuidv4(),
               username,
               password: hashedPassword,
             }).then(user => {

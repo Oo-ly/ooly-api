@@ -3,26 +3,25 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('oo_suggestions', {
-      id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+      uuid: {
+        type: Sequelize.UUID,
         primaryKey: true,
-        allowNull: false,
+        defaultValue: Sequelize.UUIDV4,
       },
-      ooId: {
-        type: Sequelize.INTEGER,
+      ooUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'oos',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      suggestedOoId: {
-        type: Sequelize.INTEGER,
+      suggestedOoUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'oos',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -37,25 +36,24 @@ module.exports = {
 
     return queryInterface.createTable('user_suggestions', {
       id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        type: Sequelize.UUID,
         primaryKey: true,
-        allowNull: false,
+        defaultValue: Sequelize.UUIDV4,
       },
-      userId: {
-        type: Sequelize.INTEGER,
+      userUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'users',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      suggestedOoId: {
-        type: Sequelize.INTEGER,
+      suggestedOoUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'oos',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',

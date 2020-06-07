@@ -3,20 +3,20 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('user_oos', {
-      userId: {
-        type: Sequelize.INTEGER,
+      userUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'users',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      ooId: {
-        type: Sequelize.INTEGER,
+      ooUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'oos',
-          key: 'id',
+          key: 'uuid',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
