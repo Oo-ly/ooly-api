@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - 'stable'
+  - stable
 dist: precise
 addons:
-  mariadb: '10.0'
+  mariadb: 10.5
   apt:
     packages:
       - sshpass
