@@ -78,7 +78,7 @@ const OoSuggestion = sequelize.define('oo_suggestions', {
   updatedAt: Sequelize.DATE,
 })
 
-UserSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoId' })
+UserSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoUuid' })
 // Oo.hasMany(UserSuggestion)
 
 module.exports = {
