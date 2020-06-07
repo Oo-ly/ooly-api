@@ -4,60 +4,68 @@ const sequelize = require('../config/database')
 const Oo = require('./Oo')
 const User = require('./User')
 
-const UserSuggestion = sequelize.define('user_suggestions', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-    allowNull: false,
-  },
-  userId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: User,
-      key: 'id',
+const UserSuggestion = sequelize.define(
+  'user_suggestions',
+  {
+    uuid: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  },
-  suggestedOoId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: Oo,
-      key: 'id',
+    userUuid: {
+      type: Sequelize.UUID,
+      references: {
+        model: User,
+        key: 'uuid',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
+    suggestedOoUuid: {
+      type: Sequelize.UUID,
+      references: {
+        model: Oo,
+        key: 'uuid',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+    weight: {
+      type: Sequelize.DOUBLE,
+      allowNull: true,
+    },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE,
   },
-  weight: {
-    type: Sequelize.DOUBLE,
-    allowNull: true,
+  {
+    defaultScope: {
+      attributes: ['uuid', 'userUuid', 'weight', 'updatedAt'],
+      order: [['weight', 'DESC']],
+      include: [{ model: Oo }],
+    },
   },
-  createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
+)
 
 const OoSuggestion = sequelize.define('oo_suggestions', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+  uuid: {
+    type: Sequelize.UUIDV4,
+    defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
-    allowNull: false,
   },
-  ooId: {
-    type: Sequelize.INTEGER,
+  ooUuid: {
+    type: Sequelize.UUIDV4,
     references: {
       model: Oo,
-      key: 'id',
+      key: 'uuid',
     },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   },
-  suggestedOoId: {
-    type: Sequelize.INTEGER,
+  suggestedOoUuid: {
+    type: Sequelize.UUIDV4,
     references: {
       model: Oo,
-      key: 'id',
+      key: 'uuid',
     },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
@@ -70,7 +78,7 @@ const OoSuggestion = sequelize.define('oo_suggestions', {
   updatedAt: Sequelize.DATE,
 })
 
-UserSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoId' })
+UserSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoUuid' })
 // Oo.hasMany(UserSuggestion)
 
 module.exports = {

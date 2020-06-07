@@ -3,11 +3,10 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('audios', {
-      id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+      uuid: {
+        type: Sequelize.UUID,
         primaryKey: true,
-        allowNull: false,
+        defaultValue: Sequelize.UUIDV4,
       },
       hash: {
         type: Sequelize.STRING,
@@ -26,18 +25,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 99,
       },
-      ooId: {
-        type: Sequelize.INTEGER,
+      ooUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'oos',
-          key: 'id',
+          key: 'uuid',
           allowNull: false,
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      audibleId: {
-        type: Sequelize.INTEGER,
+      audibleUuid: {
+        type: Sequelize.UUID,
         allowNull: false,
       },
       audibleType: {

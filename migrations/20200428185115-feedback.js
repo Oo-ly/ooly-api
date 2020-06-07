@@ -3,17 +3,16 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('feedbacks', {
-      id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+      uuid: {
+        type: Sequelize.UUID,
         primaryKey: true,
-        allowNull: false,
+        defaultValue: Sequelize.UUIDV4,
       },
-      userId: {
-        type: Sequelize.INTEGER,
+      userUuid: {
+        type: Sequelize.UUID,
         references: {
           model: 'users',
-          key: 'id',
+          key: 'uuid',
         },
         allowNull: false,
         onUpdate: 'CASCADE',

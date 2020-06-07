@@ -1,10 +1,10 @@
 const passport = require('passport')
 const { Op } = require('sequelize')
 
-const User = require('../schemas/User')
+const { v4: uuidv4 } = require('uuid')
+
 const Oo = require('../schemas/Oo')
 const Feedback = require('../schemas/Feedback').Feedback
-const FeedbackOo = require('../schemas/Feedback').FeedbackOo
 
 module.exports = app => {
   /**
@@ -34,19 +34,7 @@ module.exports = app => {
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
       Feedback.findAll({
-        attributes: ['id', 'status', 'createdAt'],
-        include: [
-          {
-            model: Oo,
-            attributes: ['id', 'name', 'description'],
-            through: {
-              attributes: [],
-            },
-          },
-        ],
-        where: {
-          userId: req.user.id,
-        },
+        where: { userUuid: req.user.uuid },
       }).then(feedbacks => {
         res.send({ feedbacks })
       })
@@ -86,34 +74,17 @@ module.exports = app => {
    *     }
    */
   app.get(
-    '/feedbacks/:id',
+    '/feedbacks/:uuid',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
       /* istanbul ignore next */
       if (!req.user) res.status(404).send({ message: 'Unauthorized' })
 
       Feedback.findOne({
-        attributes: ['id', 'status', 'createdAt', 'userId'],
-        include: [
-          {
-            model: Oo,
-            attributes: ['id', 'name', 'description'],
-            through: {
-              attributes: [],
-            },
-          },
-        ],
-        where: {
-          id: req.params.id,
-        },
-        order: [
-          [Oo, 'id', 'ASC'],
-          [Oo, 'createdAt', 'ASC'],
-        ],
+        where: { uuid: req.params.uuid },
       }).then(feedback => {
         if (feedback) {
-          if (feedback.userId === req.user.id) {
-            feedback.userId = undefined // We hide the ID of the user
+          if (feedback.userUuid === req.user.uuid) {
             res.send({ feedback })
           } else {
             res.status(401).send({ message: 'Unauthorized' })
@@ -166,43 +137,25 @@ module.exports = app => {
       if (!req.body.oos || req.body.oos.length === 0)
         return res.status(400).send({ message: 'Oos are missing' })
 
-      const oos = await Oo.findAll({
+      const oos = await Oo.scope(null).findAll({
         where: {
-          id: {
-            [Op.in]: req.body.oos,
-          },
+          uuid: { [Op.in]: req.body.oos },
         },
-        attributes: ['id'],
+        attributes: ['uuid'],
       })
 
       const feedback = await Feedback.create({
+        uuid: uuidv4(),
         status: null,
-        oos: oos,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: req.user.id,
+        userUuid: req.user.uuid,
       })
 
-      await feedback.setOos(oos)
+      await feedback.setFeedOos(oos)
 
       const populatedFeedback = await Feedback.findOne({
-        attributes: ['id', 'status', 'createdAt'],
-        include: [
-          {
-            model: Oo,
-            attributes: ['id', 'name', 'description'],
-            through: {
-              attributes: [],
-            },
-          },
-        ],
-        where: {
-          id: feedback.id,
-        },
-        order: [
-          [Oo, 'id', 'ASC'],
-          [Oo, 'createdAt', 'ASC'],
-        ],
+        where: { uuid: feedback.uuid },
       })
 
       res.send({ feedback: populatedFeedback })
@@ -251,51 +204,29 @@ module.exports = app => {
    *     }
    */
   app.post(
-    '/feedbacks/:id',
+    '/feedbacks/:uuid',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
       Feedback.findOne({
-        attributes: ['id', 'userId', 'createdAt', 'status'],
-        where: {
-          id: req.params.id,
-        },
-        include: [
-          {
-            model: Oo,
-            attributes: ['id', 'name', 'description'],
-            through: {
-              attributes: [],
-            },
-          },
-        ],
-        order: [
-          [Oo, 'id', 'ASC'],
-          [Oo, 'createdAt', 'ASC'],
-        ],
+        where: { uuid: req.params.uuid },
       }).then(async feedback => {
         if (!feedback)
           return res.status(400).send({ message: 'Feedback not found' })
 
-        if (feedback.userId !== req.user.id)
+        if (feedback.userUuid !== req.user.uuid)
           return res.status(401).send({ message: 'Unauthorized' })
 
         if (req.body.status === undefined)
           return res.status(400).send({ message: 'Status is missing' })
 
         await Feedback.update(
-          {
-            status: req.body.status,
-          },
-          {
-            where: {
-              id: feedback.id,
-            },
-          },
+          { status: req.body.status },
+          { where: { uuid: feedback.uuid } },
         )
 
         await feedback.reload()
 
-        feedback.userId = undefined
+        feedback.userUuid = undefined
 
         res.send({ feedback })
       })

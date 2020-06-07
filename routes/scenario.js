@@ -8,20 +8,6 @@ const { Op } = require('sequelize')
 module.exports = app => {
   app.post('/scenarios', (req, res) => {
     Scenario.findAll({
-      include: [
-        {
-          model: Oo,
-          through: {
-            attributes: [],
-          },
-        },
-        {
-          model: ScenarioSentence,
-          as: 'sentences',
-        },
-        { model: Audio, as: 'entries' },
-        { model: Audio, as: 'exits' },
-      ],
       // where: {
       //   '$oos.id$': {
       //     [Op.in]: req.body.oos,

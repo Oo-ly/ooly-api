@@ -18,7 +18,7 @@ describe('User routes', () => {
   })
 
   test('should return an unique user', async done => {
-    const res = await request(app).get('/users/1')
+    const res = await request(app).get(`/users/${user.uuid}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('user')
@@ -27,7 +27,9 @@ describe('User routes', () => {
   })
 
   test('should fail to find an user', async done => {
-    const res = await request(app).get('/users/1000')
+    const res = await request(app).get(
+      '/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    )
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')

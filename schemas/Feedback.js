@@ -2,43 +2,69 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
-const User = require('./User')
 
-const Feedback = sequelize.define('feedbacks', {
-  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-  userId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: User,
-      key: 'id',
+const Feedback = sequelize.define(
+  'feedbacks',
+  {
+    uuid: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
+    userUuid: {
+      type: Sequelize.UUID,
+      references: {
+        model: 'users',
+        key: 'uuid',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+    },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE,
   },
-  status: {
-    type: Sequelize.BOOLEAN,
-    allowNull: true,
+  {
+    defaultScope: {
+      attributes: ['uuid', 'userUuid', 'status', 'createdAt'],
+      include: [
+        {
+          model: Oo,
+          as: 'feedOos',
+          through: { attributes: [], include: [] },
+        },
+      ],
+      order: [
+        ['createdAt', 'ASC'],
+        ['feedOos', 'createdAt', 'ASC'],
+      ],
+    },
   },
-  createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
+)
 
 const FeedbackOo = sequelize.define(
   'feedback_oos',
   {
-    id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-    feedbackId: {
-      type: Sequelize.INTEGER,
+    uuid: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+    },
+    feedbackUuid: {
+      type: Sequelize.UUID,
       references: {
         model: Feedback,
-        key: 'id',
+        key: 'uuid',
       },
     },
-    ooId: {
-      type: Sequelize.INTEGER,
+    ooUuid: {
+      type: Sequelize.UUID,
       references: {
         model: Oo,
-        key: 'id',
+        key: 'uuid',
       },
     },
   },
@@ -47,10 +73,7 @@ const FeedbackOo = sequelize.define(
   },
 )
 
-Feedback.belongsToMany(Oo, { through: FeedbackOo })
-Oo.belongsToMany(Feedback, { through: FeedbackOo })
-User.hasMany(Feedback)
-Feedback.belongsTo(User)
+Feedback.belongsToMany(Oo, { through: FeedbackOo, as: 'feedOos' })
 
 module.exports = {
   Feedback,

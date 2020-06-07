@@ -1,33 +1,41 @@
 'use strict'
 
-const NB_USERS = 50
+const User = require('../schemas/User')
+const Oo = require('../schemas/Oo')
 
 const userOos = []
 
-for (let i = 1; i <= NB_USERS; i += 1) {
-  const oos = []
-  const numberOfOos = Math.ceil(Math.random() * 7)
+const createUserOo = async () => {
+  const users = await User.findAll()
+  const oos = await Oo.findAll()
 
-  while (oos.length < numberOfOos) {
-    const id = Math.ceil(Math.random() * 7)
+  users.forEach(user => {
+    const currentOos = []
+    const numberOfOos = Math.ceil(Math.random() * oos.length)
 
-    if (oos.indexOf(id) === -1) {
-      oos.push(id)
+    while (currentOos.length < numberOfOos) {
+      const index = Math.floor(Math.random() * oos.length)
+      const o = oos[index].uuid
+
+      if (currentOos.indexOf(o) === -1) {
+        currentOos.push(o)
+      }
     }
-  }
 
-  oos.forEach(oo => {
-    userOos.push({
-      userId: i,
-      ooId: oo,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+    currentOos.forEach(oo => {
+      userOos.push({
+        userUuid: user.uuid,
+        ooUuid: oo,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
     })
   })
 }
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
+    await createUserOo()
     return queryInterface.bulkInsert('user_oos', userOos, {})
   },
 

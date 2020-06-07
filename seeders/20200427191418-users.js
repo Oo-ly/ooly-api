@@ -2,6 +2,7 @@
 
 const faker = require('faker')
 const bcrypt = require('bcrypt')
+const { v4: uuidv4 } = require('uuid')
 
 const NB_USERS = 50
 
@@ -11,6 +12,7 @@ for (let i = 0; i < NB_USERS; i += 1) {
   const password = 'testtest' + process.env.SECRET_SALT
   const hash = bcrypt.hashSync(password, 8)
   users.push({
+    uuid: uuidv4(),
     username: faker.name.findName(),
     email: faker.internet.email().toLowerCase(),
     password: hash,
