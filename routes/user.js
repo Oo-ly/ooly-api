@@ -32,41 +32,6 @@ module.exports = app => {
   })
 
   /**
-   * @api {get} /users/:id User detail
-   * @apiName User
-   * @apiGroup User
-   *
-   * @apiSuccess {Object} user User requested
-   *
-   * @apiSuccessExample Success-Response:
-   *     HTTP/1.1 200 OK
-   *     {
-   *       "user": {
-   *                "id": 1,
-   *                "username": "Test",
-   *                "email": "test@test.com",
-   *                "oos": [],
-   *                "feedbacks": [],
-   *            }
-   *     }
-   *
-   * @apiErrorExample Wrong ID:
-   *     HTTP/1.1 400 BadRequest
-   *     {
-   *       "message": "User not found"
-   *     }
-   */
-  app.get('/users/:uuid', (req, res) => {
-    User.findOne({ where: { uuid: req.params.uuid } }).then(user => {
-      if (user) {
-        res.send({ user })
-      } else {
-        res.status(400).send({ message: 'User not found' })
-      }
-    })
-  })
-
-  /**
    * @api {get} /users/me Current user detail
    * @apiName User me
    * @apiGroup User
@@ -105,12 +70,47 @@ module.exports = app => {
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
       User.findOne({
-        where: { id: req.user.id },
+        where: { uuid: req.user.uuid },
       }).then(user => {
         res.send({ user })
       })
     },
   )
+
+  /**
+   * @api {get} /users/:id User detail
+   * @apiName User
+   * @apiGroup User
+   *
+   * @apiSuccess {Object} user User requested
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "user": {
+   *                "id": 1,
+   *                "username": "Test",
+   *                "email": "test@test.com",
+   *                "oos": [],
+   *                "feedbacks": [],
+   *            }
+   *     }
+   *
+   * @apiErrorExample Wrong ID:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "User not found"
+   *     }
+   */
+  app.get('/users/:uuid', (req, res) => {
+    User.findOne({ where: { uuid: req.params.uuid } }).then(user => {
+      if (user) {
+        res.send({ user })
+      } else {
+        res.status(400).send({ message: 'User not found' })
+      }
+    })
+  })
 
   /**
    * @api {get} /users/suggestions User suggestions

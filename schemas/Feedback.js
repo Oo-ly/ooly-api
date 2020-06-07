@@ -2,20 +2,19 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
-const User = require('./User')
 
 const Feedback = sequelize.define(
   'feedbacks',
   {
     uuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
     userUuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       references: {
-        model: User,
+        model: 'users',
         key: 'uuid',
       },
       onUpdate: 'CASCADE',
@@ -30,8 +29,18 @@ const Feedback = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: ['uuid', 'status', 'createdAt'],
-      include: [{ model: Oo }],
+      attributes: ['uuid', 'userUuid', 'status', 'createdAt'],
+      include: [
+        {
+          model: Oo,
+          as: 'feedOos',
+          through: { attributes: [], include: [] },
+        },
+      ],
+      order: [
+        ['createdAt', 'ASC'],
+        ['feedOos', 'createdAt', 'ASC'],
+      ],
     },
   },
 )
@@ -40,19 +49,19 @@ const FeedbackOo = sequelize.define(
   'feedback_oos',
   {
     uuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
     feedbackUuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       references: {
         model: Feedback,
         key: 'uuid',
       },
     },
     ooUuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       references: {
         model: Oo,
         key: 'uuid',
@@ -63,6 +72,8 @@ const FeedbackOo = sequelize.define(
     timestamps: false,
   },
 )
+
+Feedback.belongsToMany(Oo, { through: FeedbackOo, as: 'feedOos' })
 
 module.exports = {
   Feedback,

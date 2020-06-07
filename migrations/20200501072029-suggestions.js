@@ -35,7 +35,7 @@ module.exports = {
     })
 
     return queryInterface.createTable('user_suggestions', {
-      id: {
+      uuid: {
         type: Sequelize.UUID,
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,

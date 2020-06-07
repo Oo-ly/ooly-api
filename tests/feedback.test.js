@@ -2,23 +2,26 @@ const request = require('supertest')
 const app = require('../server').app
 const server = require('../server').server
 const User = require('../schemas/User')
+const Oo = require('../schemas/Oo')
 const Feedback = require('../schemas/Feedback').Feedback
 
 describe('Feedback routes', () => {
   let token = (feedback = null)
 
+  const oos = []
+
   test('should create a feedback', async done => {
     const res = await request(app)
       .post('/feedbacks')
       .send({
-        oos: [1, 2, 3],
+        oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid],
       })
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedback')
-    expect(res.body.feedback).toHaveProperty('oos')
-    expect(res.body.feedback.oos.length).toBeGreaterThanOrEqual(3)
+    expect(res.body.feedback).toHaveProperty('feedOos')
+    expect(res.body.feedback.feedOos.length).toBeGreaterThanOrEqual(3)
 
     feedback = res.body.feedback
 
@@ -29,7 +32,7 @@ describe('Feedback routes', () => {
     const res = await request(app)
       .post('/feedbacks')
       .send({
-        oos: [1, 2, 3],
+        oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid],
       })
       .set('Authorization', `Bearer bad${token}`)
 
@@ -58,24 +61,24 @@ describe('Feedback routes', () => {
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedbacks')
     expect(res.body.feedbacks.length).toEqual(1)
-    expect(res.body.feedbacks[0]).toEqual(feedback)
+    expect(res.body.feedbacks[0]).toMatchObject(feedback)
     done()
   })
 
   test('should get specific feedback', async done => {
     const res = await request(app)
-      .get(`/feedbacks/${feedback.id}`)
+      .get(`/feedbacks/${feedback.uuid}`)
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedback')
-    expect(res.body.feedback).toEqual(feedback)
+    expect(res.body.feedback).toMatchObject(feedback)
     done()
   })
 
   test('should not get feedback that does not exists', async done => {
     const res = await request(app)
-      .get(`/feedbacks/10000`)
+      .get(`/feedbacks/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa`)
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(400)
@@ -98,11 +101,11 @@ describe('Feedback routes', () => {
 
     const otherUserFeedback = await request(app)
       .post('/feedbacks')
-      .send({ oos: [1, 2, 3] })
+      .send({ oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid] })
       .set('Authorization', `Bearer ${newlyCreatedUser.body.token}`)
 
     const res = await request(app)
-      .get(`/feedbacks/${otherUserFeedback.body.feedback.id}`)
+      .get(`/feedbacks/${otherUserFeedback.body.feedback.uuid}`)
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(401)
@@ -132,11 +135,11 @@ describe('Feedback routes', () => {
 
     const otherUserFeedback = await request(app)
       .post('/feedbacks')
-      .send({ oos: [1, 2, 3] })
+      .send({ oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid] })
       .set('Authorization', `Bearer ${newlyCreatedUser.body.token}`)
 
     const res = await request(app)
-      .post(`/feedbacks/${otherUserFeedback.body.feedback.id}`)
+      .post(`/feedbacks/${otherUserFeedback.body.feedback.uuid}`)
       .send({ status: true })
       .set('Authorization', `Bearer ${token}`)
 
@@ -155,7 +158,7 @@ describe('Feedback routes', () => {
 
   test('should update status of a feedback', async done => {
     const res = await request(app)
-      .post(`/feedbacks/${feedback.id}`)
+      .post(`/feedbacks/${feedback.uuid}`)
       .send({ status: true })
       .set('Authorization', `Bearer ${token}`)
 
@@ -168,7 +171,7 @@ describe('Feedback routes', () => {
 
   test('should refused update status of a feedback if empty', async done => {
     const res = await request(app)
-      .post(`/feedbacks/${feedback.id}`)
+      .post(`/feedbacks/${feedback.uuid}`)
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(400)
@@ -209,6 +212,9 @@ describe('Feedback routes', () => {
       username: 'Test',
       password: 'testtest',
     })
+
+    const res2 = await request(app).get('/oos')
+    oos.push(...res2.body.oos)
 
     token = res.body.token
 

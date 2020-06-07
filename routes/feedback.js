@@ -1,6 +1,8 @@
 const passport = require('passport')
 const { Op } = require('sequelize')
 
+const { v4: uuidv4 } = require('uuid')
+
 const Oo = require('../schemas/Oo')
 const Feedback = require('../schemas/Feedback').Feedback
 
@@ -83,7 +85,6 @@ module.exports = app => {
       }).then(feedback => {
         if (feedback) {
           if (feedback.userUuid === req.user.uuid) {
-            feedback.userUuid = undefined // We hide the ID of the user
             res.send({ feedback })
           } else {
             res.status(401).send({ message: 'Unauthorized' })
@@ -136,7 +137,7 @@ module.exports = app => {
       if (!req.body.oos || req.body.oos.length === 0)
         return res.status(400).send({ message: 'Oos are missing' })
 
-      const oos = await Oo.findAll({
+      const oos = await Oo.scope(null).findAll({
         where: {
           uuid: { [Op.in]: req.body.oos },
         },
@@ -144,14 +145,14 @@ module.exports = app => {
       })
 
       const feedback = await Feedback.create({
+        uuid: uuidv4(),
         status: null,
-        oos: oos,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: req.user.uuid,
+        userUuid: req.user.uuid,
       })
 
-      await feedback.setOos(oos)
+      await feedback.setFeedOos(oos)
 
       const populatedFeedback = await Feedback.findOne({
         where: { uuid: feedback.uuid },

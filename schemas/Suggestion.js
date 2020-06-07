@@ -8,12 +8,12 @@ const UserSuggestion = sequelize.define(
   'user_suggestions',
   {
     uuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
     userUuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       references: {
         model: User,
         key: 'uuid',
@@ -22,7 +22,7 @@ const UserSuggestion = sequelize.define(
       onDelete: 'CASCADE',
     },
     suggestedOoUuid: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.UUID,
       references: {
         model: Oo,
         key: 'uuid',
@@ -39,7 +39,7 @@ const UserSuggestion = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: ['weight', 'updatedAt'],
+      attributes: ['uuid', 'userUuid', 'weight', 'updatedAt'],
       order: [['weight', 'DESC']],
       include: [{ model: Oo }],
     },

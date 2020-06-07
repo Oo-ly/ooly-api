@@ -41,34 +41,38 @@ module.exports = app => {
    *     }
    */
   app.post('/register', (req, res) => {
-    passport.authenticate('registerUser', (err, user, info) => {
-      /* istanbul ignore next */
-      if (err) console.log(err)
+    passport.authenticate(
+      'registerUser',
+      { session: false },
+      (err, user, info) => {
+        /* istanbul ignore next */
+        if (err) console.log(err)
 
-      if (info !== undefined) {
-        res.status(400).send(info)
-      } else {
-        req.logIn(user, err => {
-          const data = {
-            email: req.body.email,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            surname: req.body.surname,
-            age: req.body.age,
-            imei: req.body.imei,
-            sleepHour: req.body.sleepHour,
-            activities: req.body.activities,
-            created_at: Date.now(),
-            updated_at: Date.now(),
-          }
+        if (info !== undefined) {
+          res.status(400).send(info)
+        } else {
+          req.logIn(user, err => {
+            const data = {
+              email: req.body.email,
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              surname: req.body.surname,
+              age: req.body.age,
+              imei: req.body.imei,
+              sleepHour: req.body.sleepHour,
+              activities: req.body.activities,
+              created_at: Date.now(),
+              updated_at: Date.now(),
+            }
 
-          user.update(data).then(() => {
-            console.log('User created')
-            res.status(200).send({ message: 'User created' })
+            user.update(data).then(() => {
+              console.log('User created')
+              res.status(200).send({ message: 'User created' })
+            })
           })
-        })
-      }
-    })(req, res)
+        }
+      },
+    )(req, res)
   })
 
   /**
@@ -114,13 +118,15 @@ module.exports = app => {
         res.status(400).send(info)
       } else {
         req.logIn(user, err => {
-          User.findOne({
-            where: { username: user.username },
-          }).then(user => {
-            const token = jwt.sign({ id: user.uuid }, process.env.SECRET_JWT)
+          User.scope(null)
+            .findOne({
+              where: { username: user.username },
+            })
+            .then(user => {
+              const token = jwt.sign({ id: user.uuid }, process.env.SECRET_JWT)
 
-            res.status(200).send({ token })
-          })
+              res.status(200).send({ token })
+            })
         })
       }
     })(req, res)

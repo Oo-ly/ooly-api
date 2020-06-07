@@ -3,7 +3,6 @@ const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
 const Feedback = require('./Feedback').Feedback
-const FeedbackOo = require('./Feedback').FeedbackOo
 
 const User = sequelize.define('users', {
   uuid: {
@@ -27,14 +26,14 @@ const User = sequelize.define('users', {
 
 const UserOo = sequelize.define('user_oos', {
   userUuid: {
-    type: Sequelize.UUIDV4,
+    type: Sequelize.UUID,
     references: {
       model: User,
       key: 'uuid',
     },
   },
   ooUuid: {
-    type: Sequelize.UUIDV4,
+    type: Sequelize.UUID,
     references: {
       model: Oo,
       key: 'uuid',
@@ -63,18 +62,14 @@ User.addScope('defaultScope', {
       model: Oo,
       required: false,
       through: { attributes: [] },
-      order: [['createdAt', 'ASC']],
     },
     { model: Feedback, required: false },
   ],
-  order: [['createdAt', 'ASC']],
+  order: [[Oo, 'createdAt', 'ASC']],
 })
 
 Oo.belongsToMany(User, { through: UserOo })
 User.belongsToMany(Oo, { through: UserOo })
-
-Feedback.belongsToMany(Oo, { through: FeedbackOo })
-Oo.belongsToMany(Feedback, { through: FeedbackOo })
 
 User.hasMany(Feedback)
 Feedback.belongsTo(User)

@@ -4,9 +4,8 @@ const { v4: uuidv4 } = require('uuid')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert(
-      'oos',
-      [
+    return new Promise(async resolve => {
+      const oos = [
         {
           uuid: uuidv4(),
           name: "Disc'Oo",
@@ -16,8 +15,6 @@ module.exports = {
           objectName: 'Disc_Oo',
           toreObjectName: 'Tore_3',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
           uuid: uuidv4(),
@@ -28,8 +25,6 @@ module.exports = {
           objectName: 'Cinoche_1',
           toreObjectName: 'Tore_5',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
           uuid: uuidv4(),
@@ -40,8 +35,6 @@ module.exports = {
           objectName: 'Infoo',
           toreObjectName: 'Tore_8',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
           uuid: uuidv4(),
@@ -52,8 +45,6 @@ module.exports = {
           objectName: 'Yoga',
           toreObjectName: 'Tore_1',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
           uuid: uuidv4(),
@@ -64,8 +55,6 @@ module.exports = {
           objectName: 'Vegeto_1',
           toreObjectName: 'Tore_4',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
           uuid: uuidv4(),
@@ -76,8 +65,6 @@ module.exports = {
           objectName: 'Whow_1',
           toreObjectName: 'Tore_7',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
           uuid: uuidv4(),
@@ -88,12 +75,14 @@ module.exports = {
           objectName: 'Comique_1',
           toreObjectName: 'Tore_6',
           isAvailable: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
-      ],
-      {},
-    )
+      ]
+
+      oos.forEach(async oo => {
+        await queryInterface.bulkInsert('oos', [oo], {})
+      })
+      resolve()
+    })
   },
 
   down: (queryInterface, Sequelize) => {

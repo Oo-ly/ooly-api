@@ -22,9 +22,11 @@ module.exports = app => {
    *     }
    */
   app.get('/oos', (req, res) => {
-    Oo.findAll().then(oos => {
-      res.send({ oos })
-    })
+    Oo.scope(null)
+      .findAll()
+      .then(oos => {
+        res.send({ oos })
+      })
   })
 
   /**
@@ -52,14 +54,16 @@ module.exports = app => {
    *     }
    */
   app.get('/oos/:uuid', (req, res) => {
-    Oo.findOne({
-      where: { uuid: req.params.uuid },
-    }).then(oo => {
-      if (oo) {
-        res.send({ oo })
-      } else {
-        res.status(400).send({ message: 'Oo not found' })
-      }
-    })
+    Oo.scope(null)
+      .findOne({
+        where: { uuid: req.params.uuid },
+      })
+      .then(oo => {
+        if (oo) {
+          res.send({ oo })
+        } else {
+          res.status(400).send({ message: 'Oo not found' })
+        }
+      })
   })
 }

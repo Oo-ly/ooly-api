@@ -24,6 +24,14 @@ require('./routes/oo')(app)
 require('./routes/feedback')(app)
 require('./routes/scenario')(app)
 
+passport.serializeUser(function (user, done) {
+  done(null, user)
+})
+
+passport.deserializeUser(function (user, done) {
+  done(null, user)
+})
+
 app.use('/docs', express.static('documentation'))
 
 const server = app.listen(process.env.SERVER_PORT, function () {

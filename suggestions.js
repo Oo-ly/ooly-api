@@ -2,7 +2,9 @@ const path = require('path')
 require('dotenv').config({
   path: path.resolve(__dirname, '.env'),
 })
-return 0
+
+const { v4: uuidv4 } = require('uuid')
+
 const Oo = require('./schemas/Oo')
 const Feedback = require('./schemas/Feedback').Feedback
 const User = require('./schemas/User')
@@ -24,19 +26,19 @@ const setupRaccoon = async () => {
       feedback.oos.forEach(async oo => {
         events.push({
           namespace: 'users',
-          person: feedback.userId,
+          person: feedback.userUuid,
           action: feedback.status ? 'likes' : 'dislikes',
-          thing: oo.id,
+          thing: oo.uuid,
           expires_at: '2100-01-01',
         })
 
         feedback.oos.forEach(async anotherOo => {
-          if (anotherOo.id !== oo.id) {
+          if (anotherOo.uuid !== oo.uuid) {
             events.push({
               namespace: 'oos',
-              person: oo.id,
+              person: oo.uuid,
               action: feedback.status ? 'likes' : 'dislikes',
-              thing: anotherOo.id,
+              thing: anotherOo.uuid,
               expires_at: '2100-01-01',
             })
           }
@@ -55,14 +57,15 @@ setupRaccoon().then(async () => {
   users.forEach(async user => {
     const recommendations = await ger.recommendations_for_person(
       'users',
-      user.id,
+      user.uuid,
       { actions: { likes: 1 } },
     )
 
     recommendations.recommendations.map(async recommendation => {
       await UserSuggestion.create({
-        userId: user.id,
-        suggestedOoId: recommendation.thing,
+        uuid: uuidv4(),
+        userUuid: user.uuid,
+        suggestedOoUuid: recommendation.thing,
         weight: recommendation.weight,
       })
     })
@@ -77,8 +80,9 @@ setupRaccoon().then(async () => {
 
     recommendations.recommendations.map(async recommendation => {
       await OoSuggestion.create({
-        ooId: oo.id,
-        suggestedOoId: recommendation.thing,
+        uuid: uuidv4(),
+        ooUuid: oo.uuid,
+        suggestedOoUuid: recommendation.thing,
         weight: recommendation.weight,
       })
     })

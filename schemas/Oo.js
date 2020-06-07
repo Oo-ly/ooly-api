@@ -15,8 +15,14 @@ const Oo = sequelize.define(
     objectName: Sequelize.STRING,
     toreObjectName: Sequelize.STRING,
     isAvailable: Sequelize.BOOLEAN,
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE,
+    createdAt: {
+      type: Sequelize.DATE(6),
+      defaultValue: Sequelize.fn('NOW'),
+    },
+    updatedAt: {
+      type: Sequelize.DATE(6),
+      defaultValue: Sequelize.fn('NOW'),
+    },
   },
   {
     defaultScope: {
@@ -27,6 +33,7 @@ const Oo = sequelize.define(
         'color',
         'objectName',
         'toreObjectName',
+        'createdAt',
       ],
       where: {
         isAvailable: true,
