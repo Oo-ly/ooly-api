@@ -15,7 +15,7 @@
     "migrate:reset": "npx sequelize db:migrate:undo:all && npm run migrate",
     "migrate:seed": "npm run migrate:reset && npx sequelize db:seed:all",
     "pretest": "cross-env NODE_ENV=test npm run migrate:seed && node suggestions.js",
-    "test": "cross-env NODE_ENV=test jest --coverage --runInBand && coveralls < coverage/lcov.info"
+    "test": "cross-env NODE_ENV=test jest --silent --coverage --runInBand && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
