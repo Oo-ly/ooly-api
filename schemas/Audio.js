@@ -10,10 +10,9 @@ const Audio = sequelize.define(
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
-    hash: Sequelize.STRING,
+    name: Sequelize.STRING,
     url: Sequelize.STRING,
     type: Sequelize.STRING,
-    order: Sequelize.INTEGER,
     ooUuid: {
       type: Sequelize.UUIDV4,
       references: {
@@ -26,7 +25,7 @@ const Audio = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: ['uuid', 'hash', 'url', 'type', 'order'],
+      attributes: ['uuid', 'name', 'url', 'type'],
       include: Oo,
     },
   },

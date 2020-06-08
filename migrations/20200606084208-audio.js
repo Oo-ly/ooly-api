@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      hash: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -20,10 +20,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
         defaultValue: null,
-      },
-      order: {
-        type: Sequelize.INTEGER,
-        defaultValue: 99,
       },
       ooUuid: {
         type: Sequelize.UUID,

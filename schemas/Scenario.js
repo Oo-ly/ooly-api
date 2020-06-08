@@ -20,14 +20,14 @@ const Scenario = sequelize.define('scenarios', {
 
 const ScenarioOo = sequelize.define('scenario_oos', {
   scenarioUuid: {
-    type: Sequelize.UUIDV4,
+    type: Sequelize.UUID,
     references: {
       model: Scenario,
       key: 'uuid',
     },
   },
   ooUuid: {
-    type: Sequelize.UUIDV4,
+    type: Sequelize.UUID,
     references: {
       model: Oo,
       key: 'uuid',
@@ -45,8 +45,9 @@ const ScenarioSentence = sequelize.define(
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
-    hash: { type: Sequelize.STRING },
+    name: { type: Sequelize.STRING },
     interaction: { type: Sequelize.BOOLEAN },
+    order: Sequelize.INTEGER,
     scenarioUuid: {
       type: Sequelize.UUIDV4,
       references: {
@@ -59,7 +60,7 @@ const ScenarioSentence = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: ['uuid', 'hash', 'interaction'],
+      attributes: ['uuid', 'name', 'order'],
       include: [
         { model: Audio },
         { model: Audio, as: 'dislikes' },

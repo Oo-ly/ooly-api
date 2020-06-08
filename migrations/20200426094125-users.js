@@ -17,8 +17,14 @@ module.exports = {
         allowNull: false,
       },
       email: Sequelize.STRING,
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      createdAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      updatedAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
     })
   },
 

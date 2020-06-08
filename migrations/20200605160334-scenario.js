@@ -12,8 +12,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      createdAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      updatedAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
     })
 
     await queryInterface.createTable('scenario_oos', {
@@ -35,8 +41,14 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      createdAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      updatedAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
     })
 
     return queryInterface.createTable('scenario_sentences', {
@@ -45,12 +57,16 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      hash: {
+      name: {
         type: Sequelize.STRING,
       },
       interaction: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
+      },
+      order: {
+        type: Sequelize.INTEGER,
+        defaultValue: 99,
       },
       scenarioUuid: {
         type: Sequelize.UUID,
@@ -61,8 +77,14 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      createdAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      updatedAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
     })
   },
 
