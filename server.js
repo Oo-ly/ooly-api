@@ -6,11 +6,19 @@ require('dotenv').config({
 const express = require('express')
 const app = express()
 
+const Sentry = require('@sentry/node')
+
 const passport = require('passport')
 const bodyParser = require('body-parser')
 
+Sentry.init({
+  dsn: process.env.DSN,
+})
+
+app.use(Sentry.Handlers.requestHandler())
 app.use(bodyParser.json())
 app.use(passport.initialize())
+app.use(Sentry.Handlers.errorHandler())
 
 // Authentication strategies
 require('./strategies/login')
@@ -30,6 +38,10 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (user, done) {
   done(null, user)
+})
+
+app.get('/debug-sentry', function mainHandler(req, res) {
+  throw new Error('My first Sentry error!')
 })
 
 app.use('/docs', express.static('documentation'))
