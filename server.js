@@ -21,10 +21,13 @@ app.use(passport.initialize())
 app.use(Sentry.Handlers.errorHandler())
 
 // Optional fallthrough error handler
+/* istanbul ignore next */
 app.use(function onError(err, req, res, next) {
   // The error id is attached to `res.sentry` to be returned
   // and optionally displayed to the user for support.
+  /* istanbul ignore next */
   res.statusCode = 500
+  /* istanbul ignore next */
   res.end(res.sentry + '\n')
 })
 
@@ -45,11 +48,8 @@ passport.serializeUser(function (user, done) {
 })
 
 passport.deserializeUser(function (user, done) {
+  /* istanbul ignore next */
   done(null, user)
-})
-
-app.get('/debug-sentry', function mainHandler(req, res) {
-  throw new Error('My first Sentry error!')
 })
 
 app.use('/docs', express.static('documentation'))
