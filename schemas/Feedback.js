@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
-const Oo = require('./Oo')
+const Sentence = require('./Scenario').ScenarioSentence
 
 const Feedback = sequelize.define(
   'feedbacks',
@@ -20,6 +20,15 @@ const Feedback = sequelize.define(
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
+    sentenceUuid: {
+      type: Sequelize.UUID,
+      references: {
+        model: 'scenario_sentences',
+        key: 'uuid',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: true,
@@ -30,52 +39,11 @@ const Feedback = sequelize.define(
   {
     defaultScope: {
       attributes: ['uuid', 'userUuid', 'status', 'createdAt'],
-      include: [
-        {
-          model: Oo,
-          as: 'feedOos',
-          through: { attributes: [], include: [] },
-        },
-      ],
-      order: [
-        ['createdAt', 'ASC'],
-        ['feedOos', 'createdAt', 'ASC'],
-      ],
+      order: [['createdAt', 'ASC']],
     },
   },
 )
 
-const FeedbackOo = sequelize.define(
-  'feedback_oos',
-  {
-    uuid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      primaryKey: true,
-    },
-    feedbackUuid: {
-      type: Sequelize.UUID,
-      references: {
-        model: Feedback,
-        key: 'uuid',
-      },
-    },
-    ooUuid: {
-      type: Sequelize.UUID,
-      references: {
-        model: Oo,
-        key: 'uuid',
-      },
-    },
-  },
-  {
-    timestamps: false,
-  },
-)
+Feedback.belongsTo(Sentence)
 
-Feedback.belongsToMany(Oo, { through: FeedbackOo, as: 'feedOos' })
-
-module.exports = {
-  Feedback,
-  FeedbackOo,
-}
+module.exports = Feedback

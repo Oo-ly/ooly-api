@@ -4,7 +4,7 @@ const { Op } = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
 
 const Oo = require('../schemas/Oo')
-const Feedback = require('../schemas/Feedback').Feedback
+const Feedback = require('../schemas/Feedback')
 
 module.exports = app => {
   /**
@@ -24,7 +24,7 @@ module.exports = app => {
    *                "id": 1,
    *                "status": true,
    *                "createdAt": "2020-04-27T00:00:00.000Z",
-   *                "oos": [],
+   *                "sentence": {},
    *            }
    *        ]
    *     }
@@ -57,7 +57,7 @@ module.exports = app => {
    *                "id": 1,
    *                "status": true,
    *                "createdAt": "2020-04-27T00:00:00.000Z",
-   *                "oos": [],
+   *                "sentence": {},
    *            }
    *     }
    *
@@ -134,15 +134,8 @@ module.exports = app => {
     '/feedbacks',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
-      if (!req.body.oos || req.body.oos.length === 0)
-        return res.status(400).send({ message: 'Oos are missing' })
-
-      const oos = await Oo.scope(null).findAll({
-        where: {
-          uuid: { [Op.in]: req.body.oos },
-        },
-        attributes: ['uuid'],
-      })
+      if (!req.body.sentence)
+        return res.status(400).send({ message: 'Sentence is missing' })
 
       const feedback = await Feedback.create({
         uuid: uuidv4(),
@@ -150,86 +143,14 @@ module.exports = app => {
         createdAt: new Date(),
         updatedAt: new Date(),
         userUuid: req.user.uuid,
+        sentenceUuid: req.body.sentence,
       })
-
-      await feedback.setFeedOos(oos)
 
       const populatedFeedback = await Feedback.findOne({
         where: { uuid: feedback.uuid },
       })
 
       res.send({ feedback: populatedFeedback })
-    },
-  )
-
-  /**
-   * @api {post} /feedbacks/:id Edit a feedback
-   * @apiName Edit Feedback
-   * @apiGroup Feedback
-   *
-   * @apiHeader {String} Authorization User JWT.
-   *
-   * @apiSuccess {Object} feedback Feedback updated
-   *
-   * @apiParam {Boolean} status New status of the feedback
-   * @apiParam {Number} id ID of the feedback
-   *
-   * @apiSuccessExample Success-Response:
-   *     HTTP/1.1 200 OK
-   *     {
-   *       "feedback": {
-   *                "id": 1,
-   *                "status": true,
-   *                "createdAt": "2020-04-27T00:00:00.000Z",
-   *                "oos": [],
-   *            }
-   *     }
-   *
-   * @apiErrorExample Missing status:
-   *     HTTP/1.1 400 BadRequest
-   *     {
-   *       "message": "Status is missing"
-   *     }
-   *
-   * @apiErrorExample Unauthorized:
-   *     HTTP/1.1 401 Unauthorized
-   *     {
-   *       "message": "Unauthorized"
-   *     }
-   *
-   * @apiErrorExample Wrong ID:
-   *     HTTP/1.1 400 BadRequest
-   *     {
-   *       "message": "Feedback not found"
-   *     }
-   */
-  app.post(
-    '/feedbacks/:uuid',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      Feedback.findOne({
-        where: { uuid: req.params.uuid },
-      }).then(async feedback => {
-        if (!feedback)
-          return res.status(400).send({ message: 'Feedback not found' })
-
-        if (feedback.userUuid !== req.user.uuid)
-          return res.status(401).send({ message: 'Unauthorized' })
-
-        if (req.body.status === undefined)
-          return res.status(400).send({ message: 'Status is missing' })
-
-        await Feedback.update(
-          { status: req.body.status },
-          { where: { uuid: feedback.uuid } },
-        )
-
-        await feedback.reload()
-
-        feedback.userUuid = undefined
-
-        res.send({ feedback })
-      })
     },
   )
 }

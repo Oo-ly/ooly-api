@@ -18,6 +18,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      sentenceUuid: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'scenario_sentences',
+          key: 'uuid',
+        },
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       status: {
         type: Sequelize.BOOLEAN,
         allowNull: true,

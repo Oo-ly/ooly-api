@@ -4,9 +4,10 @@ require('dotenv').config({
 })
 
 const { v4: uuidv4 } = require('uuid')
+return 0
 
 const Oo = require('./schemas/Oo')
-const Feedback = require('./schemas/Feedback').Feedback
+const Feedback = require('./schemas/Feedback')
 const User = require('./schemas/User')
 const UserSuggestion = require('./schemas/Suggestion').UserSuggestion
 const OoSuggestion = require('./schemas/Suggestion').OoSuggestion

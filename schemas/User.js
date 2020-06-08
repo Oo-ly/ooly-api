@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
-const Feedback = require('./Feedback').Feedback
+const Feedback = require('./Feedback')
 
 const User = sequelize.define('users', {
   uuid: {

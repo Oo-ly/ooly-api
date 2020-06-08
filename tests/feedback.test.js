@@ -2,26 +2,23 @@ const request = require('supertest')
 const app = require('../server').app
 const server = require('../server').server
 const User = require('../schemas/User')
-const Oo = require('../schemas/Oo')
-const Feedback = require('../schemas/Feedback').Feedback
 
 describe('Feedback routes', () => {
   let token = (feedback = null)
 
-  const oos = []
+  let sentence = null
 
   test('should create a feedback', async done => {
     const res = await request(app)
       .post('/feedbacks')
       .send({
-        oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid],
+        sentence: sentence.uuid,
+        status: true,
       })
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedback')
-    expect(res.body.feedback).toHaveProperty('feedOos')
-    expect(res.body.feedback.feedOos.length).toBeGreaterThanOrEqual(3)
 
     feedback = res.body.feedback
 
@@ -32,7 +29,8 @@ describe('Feedback routes', () => {
     const res = await request(app)
       .post('/feedbacks')
       .send({
-        oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid],
+        sentence: sentence.uuid,
+        status: true,
       })
       .set('Authorization', `Bearer bad${token}`)
 
@@ -41,7 +39,7 @@ describe('Feedback routes', () => {
     done()
   })
 
-  test('should not create a feedback with no Oo', async done => {
+  test('should not create a feedback with no sentence', async done => {
     const res = await request(app)
       .post('/feedbacks')
       .send({})
@@ -49,7 +47,7 @@ describe('Feedback routes', () => {
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toEqual('Oos are missing')
+    expect(res.body.message).toEqual('Sentence is missing')
     done()
   })
 
@@ -101,7 +99,7 @@ describe('Feedback routes', () => {
 
     const otherUserFeedback = await request(app)
       .post('/feedbacks')
-      .send({ oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid] })
+      .send({ sentence: sentence.uuid, status: true })
       .set('Authorization', `Bearer ${newlyCreatedUser.body.token}`)
 
     const res = await request(app)
@@ -118,76 +116,6 @@ describe('Feedback routes', () => {
       },
     })
 
-    done()
-  })
-
-  test('should not update feedback that belongs to another user', async done => {
-    await request(app).post('/register').send({
-      username: 'Test2',
-      password: 'testtest',
-      email: 'test@test.com',
-    })
-
-    const newlyCreatedUser = await request(app).post('/login').send({
-      username: 'Test2',
-      password: 'testtest',
-    })
-
-    const otherUserFeedback = await request(app)
-      .post('/feedbacks')
-      .send({ oos: [oos[0].uuid, oos[1].uuid, oos[2].uuid] })
-      .set('Authorization', `Bearer ${newlyCreatedUser.body.token}`)
-
-    const res = await request(app)
-      .post(`/feedbacks/${otherUserFeedback.body.feedback.uuid}`)
-      .send({ status: true })
-      .set('Authorization', `Bearer ${token}`)
-
-    expect(res.status).toEqual(401)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toEqual('Unauthorized')
-
-    await User.destroy({
-      where: {
-        username: 'Test2',
-      },
-    })
-
-    done()
-  })
-
-  test('should update status of a feedback', async done => {
-    const res = await request(app)
-      .post(`/feedbacks/${feedback.uuid}`)
-      .send({ status: true })
-      .set('Authorization', `Bearer ${token}`)
-
-    expect(res.status).toEqual(200)
-    expect(res.body).toHaveProperty('feedback')
-    expect(res.body.feedback).toHaveProperty('status')
-    expect(res.body.feedback.status).toEqual(true)
-    done()
-  })
-
-  test('should refused update status of a feedback if empty', async done => {
-    const res = await request(app)
-      .post(`/feedbacks/${feedback.uuid}`)
-      .set('Authorization', `Bearer ${token}`)
-
-    expect(res.status).toEqual(400)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toEqual('Status is missing')
-    done()
-  })
-
-  test('should refused update status of a feedback that does not exists', async done => {
-    const res = await request(app)
-      .post(`/feedbacks/10000`)
-      .set('Authorization', `Bearer ${token}`)
-
-    expect(res.status).toEqual(400)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toEqual('Feedback not found')
     done()
   })
 
@@ -213,10 +141,17 @@ describe('Feedback routes', () => {
       password: 'testtest',
     })
 
-    const res2 = await request(app).get('/oos')
-    oos.push(...res2.body.oos)
-
     token = res.body.token
+
+    const res2 = await request(app)
+      .post('/scenarios')
+      .send({})
+      .set('Authorization', `Bearer ${token}`)
+      .catch(err => {
+        console.log('Error', err)
+      })
+
+    sentence = res2.body.scenarios[0].sentences[0]
 
     done()
   })
