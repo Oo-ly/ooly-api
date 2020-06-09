@@ -23,9 +23,7 @@ describe('Scenario routes', () => {
   })
 
   test('should return a scenario', async done => {
-    const res = await request(app)
-      .get(`/scenarios/${scenarioUuid}`)
-      .set('Authorization', `Bearer ${token}`)
+    const res = await request(app).get(`/scenarios/${scenarioUuid}`).set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('scenario')

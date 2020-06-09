@@ -27,9 +27,7 @@ describe('Oo routes', () => {
   })
 
   test('should fail to find an oo', async done => {
-    const res = await request(app).get(
-      '/oos/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    )
+    const res = await request(app).get('/oos/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')

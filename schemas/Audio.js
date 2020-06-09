@@ -26,13 +26,7 @@ const Audio = sequelize.define(
     encodedData: {
       type: Sequelize.VIRTUAL,
       get() {
-        const filePath = path.resolve(
-          __dirname,
-          '..',
-          'public',
-          'voices',
-          this.url,
-        )
+        const filePath = path.resolve(__dirname, '..', 'public', 'voices', this.url)
         const audio = fs.readFileSync(filePath)
         return audio.toString('base64')
       },

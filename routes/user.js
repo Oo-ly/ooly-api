@@ -65,17 +65,13 @@ module.exports = app => {
    *       "message": "User not found"
    *     }
    */
-  app.get(
-    '/users/me',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      User.findOne({
-        where: { uuid: req.user.uuid },
-      }).then(user => {
-        res.send({ user })
-      })
-    },
-  )
+  app.get('/users/me', passport.authenticate('jwt', { session: false }), (req, res) => {
+    User.findOne({
+      where: { uuid: req.user.uuid },
+    }).then(user => {
+      res.send({ user })
+    })
+  })
 
   /**
    * @api {get} /users/suggestions User suggestions
@@ -104,17 +100,13 @@ module.exports = app => {
    *       "message": "Unauthorized"
    *     }
    */
-  app.get(
-    '/users/suggestions',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      UserSuggestion.findAll({
-        where: { userUuid: req.user.uuid },
-      }).then(suggestions => {
-        res.send({ suggestions })
-      })
-    },
-  )
+  app.get('/users/suggestions', passport.authenticate('jwt', { session: false }), (req, res) => {
+    UserSuggestion.findAll({
+      where: { userUuid: req.user.uuid },
+    }).then(suggestions => {
+      res.send({ suggestions })
+    })
+  })
 
   /**
    * @api {get} /users/:id User detail

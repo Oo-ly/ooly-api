@@ -27,9 +27,7 @@ describe('User routes', () => {
   })
 
   test('should fail to find an user', async done => {
-    const res = await request(app).get(
-      '/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    )
+    const res = await request(app).get('/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')

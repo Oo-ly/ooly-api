@@ -22,10 +22,7 @@ const createFeedbacks = async () => {
   return new Promise((resolve, reject) => {
     users.forEach(async user => {
       if (Math.random() < CHANCE_TO_FEEDBACK) {
-        const numberFeedbacks = randomBetween(
-          MINIMUM_FEEDBACKS,
-          MAXIMUM_FEEDBACKS,
-        )
+        const numberFeedbacks = randomBetween(MINIMUM_FEEDBACKS, MAXIMUM_FEEDBACKS)
 
         for (let i = 0; i < numberFeedbacks; i += 1) {
           const sentenceIndex = randomBetween(0, sentences.length - 1)

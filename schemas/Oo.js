@@ -26,15 +26,7 @@ const Oo = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: [
-        'uuid',
-        'name',
-        'description',
-        'color',
-        'objectName',
-        'toreObjectName',
-        'createdAt',
-      ],
+      attributes: ['uuid', 'name', 'description', 'color', 'objectName', 'toreObjectName', 'createdAt'],
       where: {
         isAvailable: true,
       },

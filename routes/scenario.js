@@ -34,21 +34,17 @@ module.exports = app => {
    *       "message": "Unauthorized"
    *     }
    */
-  app.post(
-    '/scenarios',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      Scenario.findAll({
-        // where: {
-        //   '$oos.id$': {
-        //     [Op.in]: req.body.oos,
-        //   },
-        // },
-      }).then(scenarios => {
-        res.send({ scenarios })
-      })
-    },
-  )
+  app.post('/scenarios', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Scenario.findAll({
+      // where: {
+      //   '$oos.id$': {
+      //     [Op.in]: req.body.oos,
+      //   },
+      // },
+    }).then(scenarios => {
+      res.send({ scenarios })
+    })
+  })
 
   /**
    * @api {get} /scenarios/:uuid Get a scenario
@@ -78,15 +74,11 @@ module.exports = app => {
    *       "message": "Unauthorized"
    *     }
    */
-  app.get(
-    '/scenarios/:uuid',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      Scenario.findOne({
-        where: { uuid: req.params.uuid },
-      }).then(scenario => {
-        res.send({ scenario })
-      })
-    },
-  )
+  app.get('/scenarios/:uuid', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Scenario.findOne({
+      where: { uuid: req.params.uuid },
+    }).then(scenario => {
+      res.send({ scenario })
+    })
+  })
 }

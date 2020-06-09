@@ -40,10 +40,7 @@ describe('Feedback routes', () => {
   })
 
   test('should not create a feedback with no sentence', async done => {
-    const res = await request(app)
-      .post('/feedbacks')
-      .send({})
-      .set('Authorization', `Bearer ${token}`)
+    const res = await request(app).post('/feedbacks').send({}).set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')
@@ -52,9 +49,7 @@ describe('Feedback routes', () => {
   })
 
   test('should list feedbacks', async done => {
-    const res = await request(app)
-      .get('/feedbacks')
-      .set('Authorization', `Bearer ${token}`)
+    const res = await request(app).get('/feedbacks').set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedbacks')
@@ -64,9 +59,7 @@ describe('Feedback routes', () => {
   })
 
   test('should get specific feedback', async done => {
-    const res = await request(app)
-      .get(`/feedbacks/${feedback.uuid}`)
-      .set('Authorization', `Bearer ${token}`)
+    const res = await request(app).get(`/feedbacks/${feedback.uuid}`).set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedback')
@@ -120,9 +113,7 @@ describe('Feedback routes', () => {
   })
 
   test('should get suggestions', async done => {
-    const res = await request(app)
-      .get(`/users/suggestions`)
-      .set('Authorization', `Bearer ${token}`)
+    const res = await request(app).get(`/users/suggestions`).set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('suggestions')
