@@ -2,25 +2,23 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('oo_suggestions', {
+    await queryInterface.createTable('suggestion_sentences', {
       uuid: {
         type: Sequelize.UUID,
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      ooUuid: {
+      userUuid: {
         type: Sequelize.UUID,
         references: {
-          model: 'oos',
+          model: 'users',
           key: 'uuid',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
-      suggestedOoUuid: {
+      suggestedSentenceUuid: {
         type: Sequelize.UUID,
         references: {
-          model: 'oos',
+          model: 'scenario_sentences',
           key: 'uuid',
         },
         onUpdate: 'CASCADE',
@@ -30,11 +28,17 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: true,
       },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      createdAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      updatedAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
     })
 
-    return queryInterface.createTable('user_suggestions', {
+    return queryInterface.createTable('suggestion_oos', {
       uuid: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -74,7 +78,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('oo_suggestions')
-    return queryInterface.dropTable('user_suggestions')
+    await queryInterface.dropTable('suggestion_oos')
+    return queryInterface.dropTable('suggestion_sentences')
   },
 }

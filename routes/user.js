@@ -1,7 +1,7 @@
 const User = require('../schemas/User')
 const passport = require('passport')
 
-const UserSuggestion = require('../schemas/Suggestion').UserSuggestion
+const OoSuggestion = require('../schemas/Suggestion').OoSuggestion
 
 module.exports = app => {
   /**
@@ -101,7 +101,7 @@ module.exports = app => {
    *     }
    */
   app.get('/users/suggestions', passport.authenticate('jwt', { session: false }), (req, res) => {
-    UserSuggestion.findAll({
+    OoSuggestion.findAll({
       where: { userUuid: req.user.uuid },
     }).then(suggestions => {
       res.send({ suggestions })

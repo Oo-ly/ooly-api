@@ -2,10 +2,11 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
+const Sentence = require('./Scenario').ScenarioSentence
 const User = require('./User')
 
-const UserSuggestion = sequelize.define(
-  'user_suggestions',
+const SentenceSuggestion = sequelize.define(
+  'suggestion_sentences',
   {
     uuid: {
       type: Sequelize.UUID,
@@ -21,10 +22,10 @@ const UserSuggestion = sequelize.define(
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    suggestedOoUuid: {
+    suggestedSentenceUuid: {
       type: Sequelize.UUID,
       references: {
-        model: Oo,
+        model: Sentence,
         key: 'uuid',
       },
       onUpdate: 'CASCADE',
@@ -41,21 +42,21 @@ const UserSuggestion = sequelize.define(
     defaultScope: {
       attributes: ['uuid', 'userUuid', 'weight', 'updatedAt'],
       order: [['weight', 'DESC']],
-      include: [{ model: Oo }],
+      include: [{ model: Sentence }],
     },
   },
 )
 
-const OoSuggestion = sequelize.define('oo_suggestions', {
+const OoSuggestion = sequelize.define('suggestion_oos', {
   uuid: {
     type: Sequelize.UUIDV4,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  ooUuid: {
-    type: Sequelize.UUIDV4,
+  userUuid: {
+    type: Sequelize.UUID,
     references: {
-      model: Oo,
+      model: User,
       key: 'uuid',
     },
     onUpdate: 'CASCADE',
@@ -78,10 +79,11 @@ const OoSuggestion = sequelize.define('oo_suggestions', {
   updatedAt: Sequelize.DATE,
 })
 
-UserSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoUuid' })
+SentenceSuggestion.belongsTo(Sentence, { foreignKey: 'suggestedSentenceUuid' })
+OoSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoUuid' })
 // Oo.hasMany(UserSuggestion)
 
 module.exports = {
-  UserSuggestion,
+  SentenceSuggestion,
   OoSuggestion,
 }

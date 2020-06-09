@@ -6,7 +6,16 @@ const { v4: uuidv4 } = require('uuid')
 
 const NB_USERS = 50
 
-const users = []
+const users = [
+  {
+    uuid: uuidv4(),
+    username: 'Ooly',
+    email: 'ooly@ooly.fr',
+    password: bcrypt.hashSync('ooly' + process.env.SECRET_SALT, 8),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+]
 
 for (let i = 0; i < NB_USERS; i += 1) {
   const password = 'testtest' + process.env.SECRET_SALT
