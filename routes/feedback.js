@@ -97,7 +97,8 @@ module.exports = app => {
    *
    * @apiSuccess {Object} feedback Feedback created
    *
-   * @apiParam {Number[]} oos ID of the Oos used
+   * @apiParam {string} sentence UUID of the sentence
+   * @apiParam {boolean} status Status (like or dislike)
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -127,7 +128,7 @@ module.exports = app => {
 
     const feedback = await Feedback.create({
       uuid: uuidv4(),
-      status: null,
+      status: req.body.status,
       createdAt: new Date(),
       updatedAt: new Date(),
       userUuid: req.user.uuid,
