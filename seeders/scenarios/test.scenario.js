@@ -37,7 +37,7 @@ module.exports = {
     {
       uuid: 'f42ccec2-07a5-4e3b-8f1c-6a37eedde3e4',
       name: 'Intro 1',
-      url: '/intro-1.mp3',
+      url: 'cinoche.mp3',
       type: 'entry',
       audibleUuid: '71e735cd-7c22-473c-bde7-8296fee62da4',
       audibleType: 'scenario',
@@ -46,7 +46,7 @@ module.exports = {
     {
       uuid: '303196cf-115e-437c-af3f-3321e4d513b2',
       name: 'Fin 1',
-      url: '/intro-2.mp3',
+      url: 'cinoche.mp3',
       type: 'exit',
       audibleUuid: '71e735cd-7c22-473c-bde7-8296fee62da4',
       audibleType: 'scenario',
@@ -55,7 +55,7 @@ module.exports = {
     {
       uuid: '3b068be0-72e6-42b4-9ac7-deb555d09c12',
       name: 'Coucou',
-      url: '/coucou.mp3',
+      url: 'cinoche.mp3',
       type: null,
       audibleUuid: '7eb29ec0-03d9-49e0-a86d-c40e7cfda929',
       audibleType: 'sentence',
@@ -64,7 +64,7 @@ module.exports = {
     {
       uuid: 'd1394562-493e-4159-86ce-7f90d02dc360',
       name: 'Comment ça va ?',
-      url: '/comment.mp3',
+      url: 'cinoche.mp3',
       type: null,
       audibleUuid: 'e6d5b33f-1b72-4cee-b490-52c835ea950e',
       audibleType: 'sentence',
@@ -73,7 +73,7 @@ module.exports = {
     {
       uuid: 'bf8f9271-a8a8-4511-aeaa-ffac5399eee1',
       name: 'Arf',
-      url: '/arf.mp3',
+      url: 'cinoche.mp3',
       type: 'dislike',
       audibleUuid: 'e6d5b33f-1b72-4cee-b490-52c835ea950e',
       audibleType: 'sentence',
@@ -82,7 +82,7 @@ module.exports = {
     {
       uuid: 'bc50cb8f-6250-47a1-b637-2e113e8aabcc',
       name: 'Bon, on verra après',
-      url: 'apres.mp3',
+      url: 'cinoche.mp3',
       type: 'dislike',
       audibleUuid: 'e6d5b33f-1b72-4cee-b490-52c835ea950e',
       audibleType: 'sentence',
@@ -91,7 +91,7 @@ module.exports = {
     {
       uuid: 'b5673573-cb0d-420b-af10-7620ddf23c5f',
       name: 'Cool',
-      url: 'cool.mp3',
+      url: 'cinoche.mp3',
       type: null,
       audibleUuid: '438558f6-47e9-4c60-8c17-46fbdf98084d',
       audibleType: 'sentence',

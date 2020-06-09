@@ -2,6 +2,9 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 const Oo = require('../schemas/Oo')
 
+const fs = require('fs')
+const path = require('path')
+
 const Audio = sequelize.define(
   'audios',
   {
@@ -18,6 +21,20 @@ const Audio = sequelize.define(
       references: {
         model: Oo,
         key: 'uuid',
+      },
+    },
+    encodedData: {
+      type: Sequelize.VIRTUAL,
+      get() {
+        const filePath = path.resolve(
+          __dirname,
+          '..',
+          'public',
+          'voices',
+          this.url,
+        )
+        const audio = fs.readFileSync(filePath)
+        return audio.toString('base64')
       },
     },
     audibleUuid: Sequelize.UUIDV4,
