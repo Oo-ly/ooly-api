@@ -3,8 +3,9 @@
 const { v4: uuidv4 } = require('uuid')
 
 const scenarioTest = require('./scenarios/test.scenario')
+const scenarioDocu = require('./scenarios/docu.scenario')
 
-const scenariosJson = [scenarioTest]
+const scenariosJson = [scenarioTest, scenarioDocu]
 
 const scenarios = []
 const scenariosOos = []
