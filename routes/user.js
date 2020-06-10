@@ -106,6 +106,11 @@ module.exports = app => {
   app.get('/users/suggestions/oos', passport.authenticate('jwt', { session: false }), (req, res) => {
     OoSuggestion.findAll({
       where: { userUuid: req.user.uuid },
+      group: ['suggestedOoUuid'],
+      order: [
+        ['weight', 'DESC'],
+        ['createdAt', 'DESC'],
+      ],
     }).then(suggestions => {
       res.send({ suggestions })
     })
@@ -146,10 +151,14 @@ module.exports = app => {
           {
             model: ScenarioSentence.scope(null),
             attributes: ['uuid', 'scenarioUuid'],
-            include: [Scenario],
+            include: [Scenario.scope(null)],
           },
         ],
-        order: [['weight', 'DESC']],
+        group: ['scenario_sentence.scenarioUuid'],
+        order: [
+          ['weight', 'DESC'],
+          ['createdAt', 'DESC'],
+        ],
       })
       .then(suggestions => {
         res.send({ suggestions })
