@@ -64,7 +64,7 @@ module.exports = {
     {
       uuid: '80fe443c-b69a-466b-9746-d198d18d143a',
       name: 'ledocu-2-cinoche',
-      url: 'scenario-docu/ledocu-2-cinoche.wev',
+      url: 'scenario-docu/ledocu-2-cinoche.wav',
       type: null,
       audibleUuid: 'ac555270-8442-4de4-9d5b-9839347cb600',
       audibleType: 'sentence',
