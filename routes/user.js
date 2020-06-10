@@ -103,7 +103,7 @@ module.exports = app => {
    *       "message": "Unauthorized"
    *     }
    */
-  app.get('/users/suggestions', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.get('/users/suggestions/oos', passport.authenticate('jwt', { session: false }), (req, res) => {
     OoSuggestion.findAll({
       where: { userUuid: req.user.uuid },
     }).then(suggestions => {
@@ -111,6 +111,33 @@ module.exports = app => {
     })
   })
 
+  /**
+   * @api {get} /users/suggestions/scenarios User suggestions
+   * @apiName Suggestions
+   * @apiGroup User
+   *
+   * @apiHeader {String} Authorization User JWT.
+   *
+   * @apiSuccess {Object[]} user User suggestions
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "suggestions": [
+   *            {
+   *                "weight": 8.9480459683016,
+   *                "updatedAt": "2020-05-01T14:09:43.000Z",
+   *                "scenario_sentence": {}
+   *            }
+   *       ]
+   *     }
+   *
+   * @apiErrorExample Unauthorized:
+   *     HTTP/1.1 400 BadRequest
+   *     {
+   *       "message": "Unauthorized"
+   *     }
+   */
   app.get('/users/suggestions/scenarios', passport.authenticate('jwt', { session: false }), (req, res) => {
     SentenceSuggestion.scope(null)
       .findAll({

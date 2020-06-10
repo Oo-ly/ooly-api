@@ -112,8 +112,16 @@ describe('Feedback routes', () => {
     done()
   })
 
-  test('should get suggestions', async done => {
-    const res = await request(app).get(`/users/suggestions`).set('Authorization', `Bearer ${token}`)
+  test('should get oos suggestions', async done => {
+    const res = await request(app).get(`/users/suggestions/oos`).set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toHaveProperty('suggestions')
+    done()
+  })
+
+  test('should get scenarios suggestions', async done => {
+    const res = await request(app).get(`/users/suggestions/scenarios`).set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('suggestions')

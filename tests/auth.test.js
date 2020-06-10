@@ -4,7 +4,7 @@ const server = require('../server').server
 const User = require('../schemas/User')
 
 const userData = {
-  username: 'Test',
+  username: 'Test' + Math.random(),
   email: 'test@test.com',
   password: 'testtest',
   token: null,

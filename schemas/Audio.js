@@ -27,8 +27,10 @@ const Audio = sequelize.define(
       type: Sequelize.VIRTUAL,
       get() {
         const filePath = path.resolve(__dirname, '..', 'public', 'voices', this.url)
-        const audio = fs.readFileSync(filePath)
-        return audio.toString('base64')
+
+        if (fs.existsSync(filePath)) return fs.readFileSync(filePath).toString('base64')
+
+        return null
       },
     },
     audibleUuid: Sequelize.UUIDV4,
