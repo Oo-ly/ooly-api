@@ -30,6 +30,7 @@ const Audio = sequelize.define(
 
         if (fs.existsSync(filePath)) return fs.readFileSync(filePath).toString('base64')
 
+        /* istanbul ignore next */
         return null
       },
     },

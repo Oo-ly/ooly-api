@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
@@ -71,7 +72,9 @@ Scenario.addScope('defaultScope', {
   include: [
     { model: Oo, through: { attributes: [] } },
     { model: ScenarioSentence, as: 'sentences' },
-    { model: Audio, as: 'entries' },
+    { model: Audio, as: 'neutral_entries' },
+    { model: Audio, as: 'positive_entries' },
+    { model: Audio, as: 'negative_entries' },
     { model: Audio, as: 'exits' },
   ],
 })
@@ -88,6 +91,7 @@ Oo.hasMany(Audio, {
     audibleType: 'oo',
   },
 })
+
 Audio.belongsTo(Oo, { foreignKey: 'audibleUuid', constraints: false })
 
 Oo.hasMany(Audio, { foreignKey: 'ooId' })
@@ -121,6 +125,7 @@ ScenarioSentence.hasMany(Audio, {
     type: 'like',
   },
 })
+
 Audio.belongsTo(ScenarioSentence, {
   foreignKey: 'audibleUuid',
   constraints: false,
@@ -129,7 +134,27 @@ Audio.belongsTo(ScenarioSentence, {
 Scenario.hasMany(Audio, {
   foreignKey: 'audibleUuid',
   constraints: false,
-  as: 'entries',
+  as: 'positive_entries',
+  scope: {
+    audibleType: 'scenario',
+    type: 'entry:positive',
+  },
+})
+
+Scenario.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'negative_entries',
+  scope: {
+    audibleType: 'scenario',
+    type: 'entry:negative',
+  },
+})
+
+Scenario.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'neutral_entries',
   scope: {
     audibleType: 'scenario',
     type: 'entry',
