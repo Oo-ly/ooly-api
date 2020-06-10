@@ -61,7 +61,7 @@ const ScenarioSentence = sequelize.define(
   },
   {
     defaultScope: {
-      attributes: ['uuid', 'name', 'order'],
+      attributes: ['uuid', 'name', 'interaction', 'order'],
       include: [{ model: Audio }, { model: Audio, as: 'dislikes' }, { model: Audio, as: 'likes' }],
     },
   },
