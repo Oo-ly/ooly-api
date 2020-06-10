@@ -145,7 +145,7 @@ module.exports = app => {
         include: [
           {
             model: ScenarioSentence.scope(null),
-            attributes: ['uuid', 'name', 'scenarioUuid'],
+            attributes: ['uuid', 'scenarioUuid'],
             include: [Scenario],
           },
         ],
