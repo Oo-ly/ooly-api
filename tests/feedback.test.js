@@ -40,7 +40,10 @@ describe('Feedback routes', () => {
   })
 
   test('should not create a feedback with no sentence', async done => {
-    const res = await request(app).post('/feedbacks').send({}).set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .post('/feedbacks')
+      .send({})
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')
@@ -49,7 +52,9 @@ describe('Feedback routes', () => {
   })
 
   test('should list feedbacks', async done => {
-    const res = await request(app).get('/feedbacks').set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .get('/feedbacks')
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedbacks')
@@ -59,7 +64,9 @@ describe('Feedback routes', () => {
   })
 
   test('should get specific feedback', async done => {
-    const res = await request(app).get(`/feedbacks/${feedback.uuid}`).set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .get(`/feedbacks/${feedback.uuid}`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('feedback')
@@ -79,16 +86,20 @@ describe('Feedback routes', () => {
   })
 
   test('should not get feedback that belongs to another user', async done => {
-    await request(app).post('/register').send({
-      username: 'Test2',
-      password: 'testtest',
-      email: 'test@test.com',
-    })
+    await request(app)
+      .post('/register')
+      .send({
+        username: 'Test2',
+        password: 'testtest',
+        email: 'test@test.com',
+      })
 
-    const newlyCreatedUser = await request(app).post('/login').send({
-      username: 'Test2',
-      password: 'testtest',
-    })
+    const newlyCreatedUser = await request(app)
+      .post('/login')
+      .send({
+        username: 'Test2',
+        password: 'testtest',
+      })
 
     const otherUserFeedback = await request(app)
       .post('/feedbacks')
@@ -113,7 +124,9 @@ describe('Feedback routes', () => {
   })
 
   test('should get oos suggestions', async done => {
-    const res = await request(app).get(`/users/suggestions/oos`).set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .get(`/users/suggestions/oos`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('suggestions')
@@ -121,7 +134,9 @@ describe('Feedback routes', () => {
   })
 
   test('should get scenarios suggestions', async done => {
-    const res = await request(app).get(`/users/suggestions/scenarios`).set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .get(`/users/suggestions/scenarios`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('suggestions')
@@ -129,16 +144,20 @@ describe('Feedback routes', () => {
   })
 
   beforeAll(async done => {
-    await request(app).post('/register').send({
-      username: 'Test',
-      password: 'testtest',
-      email: 'test@test.com',
-    })
+    await request(app)
+      .post('/register')
+      .send({
+        username: 'Test',
+        password: 'testtest',
+        email: 'test@test.com',
+      })
 
-    const res = await request(app).post('/login').send({
-      username: 'Test',
-      password: 'testtest',
-    })
+    const res = await request(app)
+      .post('/login')
+      .send({
+        username: 'Test',
+        password: 'testtest',
+      })
 
     token = res.body.token
 

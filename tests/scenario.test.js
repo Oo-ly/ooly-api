@@ -23,7 +23,9 @@ describe('Scenario routes', () => {
   })
 
   test('should return a scenario', async done => {
-    const res = await request(app).get(`/scenarios/${scenarioUuid}`).set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .get(`/scenarios/${scenarioUuid}`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('scenario')
@@ -32,16 +34,20 @@ describe('Scenario routes', () => {
   })
 
   beforeAll(async done => {
-    await request(app).post('/register').send({
-      username: 'Test',
-      password: 'testtest',
-      email: 'test@test.com',
-    })
+    await request(app)
+      .post('/register')
+      .send({
+        username: 'Test',
+        password: 'testtest',
+        email: 'test@test.com',
+      })
 
-    const res = await request(app).post('/login').send({
-      username: 'Test',
-      password: 'testtest',
-    })
+    const res = await request(app)
+      .post('/login')
+      .send({
+        username: 'Test',
+        password: 'testtest',
+      })
 
     token = res.body.token
 

@@ -12,11 +12,13 @@ const userData = {
 
 describe('Auth routes', () => {
   test('should created an User', async done => {
-    const res = await request(app).post('/register').send({
-      username: userData.username,
-      email: userData.email,
-      password: userData.password,
-    })
+    const res = await request(app)
+      .post('/register')
+      .send({
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+      })
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('message')
@@ -25,11 +27,13 @@ describe('Auth routes', () => {
   })
 
   test('should said that username is taken', async done => {
-    const res = await request(app).post('/register').send({
-      username: userData.username,
-      email: userData.email,
-      password: userData.password,
-    })
+    const res = await request(app)
+      .post('/register')
+      .send({
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+      })
 
     expect(res.status).toEqual(400)
     expect(res.body).toHaveProperty('message')
@@ -38,10 +42,12 @@ describe('Auth routes', () => {
   })
 
   test('should connect user', async done => {
-    const res = await request(app).post('/login').send({
-      username: userData.username,
-      password: userData.password,
-    })
+    const res = await request(app)
+      .post('/login')
+      .send({
+        username: userData.username,
+        password: userData.password,
+      })
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('token')
@@ -79,7 +85,9 @@ describe('Auth routes', () => {
   })
 
   test('should allow connected user to access protected page', async done => {
-    const res = await request(app).get('/logged').set('Authorization', `Bearer ${userData.token}`)
+    const res = await request(app)
+      .get('/logged')
+      .set('Authorization', `Bearer ${userData.token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('message')
@@ -88,7 +96,9 @@ describe('Auth routes', () => {
   })
 
   test('should return the profile of the connected user', async done => {
-    const res = await request(app).get('/users/me').set('Authorization', `Bearer ${userData.token}`)
+    const res = await request(app)
+      .get('/users/me')
+      .set('Authorization', `Bearer ${userData.token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toHaveProperty('user')
@@ -106,7 +116,9 @@ describe('Auth routes', () => {
   test('should block access to incorrect user', async done => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6LTEsImlhdCI6MTU4Nzg4MzE5NX0.psjiEWPc_4ibDzoOmhHq7tEiS0FXrO-WxCFXe8jRzgU'
-    const res = await request(app).get('/logged').set('Authorization', `Bearer ${token}`)
+    const res = await request(app)
+      .get('/logged')
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(401)
     expect(res.text).toBe('Unauthorized')
