@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid')
 const Oo = require('./schemas/Oo')
 const Feedback = require('./schemas/Feedback')
 const User = require('./schemas/User')
-const SentenceSuggestion = require('./schemas/Suggestion').SentenceSuggestion
+const AudioSuggestion = require('./schemas/Suggestion').AudioSuggestion
 const OoSuggestion = require('./schemas/Suggestion').OoSuggestion
 
 var g = require('ger')
@@ -28,7 +28,7 @@ const setupRaccoon = async () => {
       namespace: 'users',
       person: feedback.userUuid,
       action: feedback.status ? 'likes' : 'dislikes',
-      thing: feedback.sentence.audio.oo.uuid,
+      thing: feedback.audio.oo.uuid,
       expires_at: '2100-01-01',
     })
 
@@ -36,7 +36,7 @@ const setupRaccoon = async () => {
       namespace: 'sentences',
       person: feedback.userUuid,
       action: feedback.status ? 'likes' : 'dislikes',
-      thing: feedback.sentence.uuid,
+      thing: feedback.audio.uuid,
       expires_at: '2100-01-01',
     })
   })
@@ -71,15 +71,15 @@ setupRaccoon()
       const recommendations = await ger.recommendations_for_person('sentences', user.uuid, { actions: { likes: 1 } })
 
       recommendations.recommendations.map(async recommendation => {
-        await SentenceSuggestion.create({
+        await AudioSuggestion.create({
           uuid: uuidv4(),
           userUuid: user.uuid,
-          suggestedSentenceUuid: recommendation.thing,
+          suggestedAudioUuid: recommendation.thing,
           weight: recommendation.weight,
         })
       })
     })
   })
   .then(async () => {
-    console.log('------- Done SentenceSuggestion -------')
+    console.log('------- Done AudioSuggestion -------')
   })
