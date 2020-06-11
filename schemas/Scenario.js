@@ -79,11 +79,15 @@ Scenario.addScope('defaultScope', {
   ],
 })
 
+// A scenario is played by a group of Oos.
 Scenario.belongsToMany(Oo, { through: ScenarioOo })
 Oo.belongsToMany(Scenario, { through: ScenarioOo })
+
+// A scenario is composed of multiple sentences (it owns them)
 Scenario.hasMany(ScenarioSentence, { as: 'sentences' })
 ScenarioSentence.belongsTo(Scenario)
 
+// An Oo have several audios, such as 'Hello' or 'Good bye'
 Oo.hasMany(Audio, {
   foreignKey: 'audibleUuid',
   constraints: false,
@@ -91,12 +95,13 @@ Oo.hasMany(Audio, {
     audibleType: 'oo',
   },
 })
-
 Audio.belongsTo(Oo, { foreignKey: 'audibleUuid', constraints: false })
 
+// A audio is pronounced by a specific Oo.
 Oo.hasMany(Audio, { foreignKey: 'ooId' })
 Audio.belongsTo(Oo)
 
+// A sentence has an audio, which will be pronounced by an Oo
 ScenarioSentence.hasOne(Audio, {
   foreignKey: 'audibleUuid',
   constraints: false,
@@ -105,7 +110,13 @@ ScenarioSentence.hasOne(Audio, {
     type: null,
   },
 })
+Audio.belongsTo(ScenarioSentence, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+})
 
+// In the case of a sentence with an interaction, a sentence can have 'dislike_sentences',
+// that are sentences pronounced before ending the scenario
 ScenarioSentence.hasMany(Audio, {
   foreignKey: 'audibleUuid',
   constraints: false,
@@ -126,11 +137,8 @@ ScenarioSentence.hasMany(Audio, {
   },
 })
 
-Audio.belongsTo(ScenarioSentence, {
-  foreignKey: 'audibleUuid',
-  constraints: false,
-})
-
+// A scenario begins with several audios, some positives, neutrals or negatives
+// depending of the previous scenario (if any)
 Scenario.hasMany(Audio, {
   foreignKey: 'audibleUuid',
   constraints: false,
@@ -157,10 +165,11 @@ Scenario.hasMany(Audio, {
   as: 'neutral_entries',
   scope: {
     audibleType: 'scenario',
-    type: 'entry',
+    type: 'entry', // neutral entry
   },
 })
 
+// A scenario has some 'exits' audios, when the scenario is finished
 Scenario.hasMany(Audio, {
   foreignKey: 'audibleUuid',
   constraints: false,
@@ -170,7 +179,6 @@ Scenario.hasMany(Audio, {
     type: 'exit',
   },
 })
-
 Audio.belongsTo(Scenario, { foreignKey: 'audibleUuid', constraints: false })
 
 module.exports = {

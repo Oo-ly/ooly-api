@@ -68,9 +68,11 @@ User.addScope('defaultScope', {
   order: [[Oo, 'createdAt', 'ASC']],
 })
 
+// An user can have one or many Oos
 Oo.belongsToMany(User, { through: UserOo })
 User.belongsToMany(Oo, { through: UserOo })
 
+// An user can create one or many feedbacks (he owns them)
 User.hasMany(Feedback)
 Feedback.belongsTo(User)
 

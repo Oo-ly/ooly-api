@@ -65,6 +65,7 @@ const Feedback = sequelize.define(
   },
 )
 
+// The feedback is in response of an interaction of a sentence. A same sentence can have multiple feedbacks from multiple users.
 Feedback.belongsTo(Sentence, { foreignKey: 'sentenceUuid', as: 'sentence' })
 
 module.exports = Feedback

@@ -12,6 +12,7 @@ const jwtOptions = {
 passport.use(
   'jwt',
   new JWTStrategy(jwtOptions, (payload, done) => {
+    // We search for an user with this uuid
     User.scope(null)
       .findOne({
         where: { uuid: payload.id },

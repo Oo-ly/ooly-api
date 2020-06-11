@@ -79,9 +79,11 @@ const OoSuggestion = sequelize.define('suggestion_oos', {
   updatedAt: Sequelize.DATE,
 })
 
+// We recommand sentences (and so scenarios) based on the previous feedbacks of an user.
 SentenceSuggestion.belongsTo(Sentence, { foreignKey: 'suggestedSentenceUuid' })
+
+// Based on the sentences liked by the user, we can suggest new Oos to him (GER algorithm).
 OoSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoUuid' })
-// Oo.hasMany(UserSuggestion)
 
 module.exports = {
   SentenceSuggestion,
