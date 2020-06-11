@@ -2,9 +2,9 @@ const User = require('../schemas/User')
 const passport = require('passport')
 
 const OoSuggestion = require('../schemas/Suggestion').OoSuggestion
-const SentenceSuggestion = require('../schemas/Suggestion').SentenceSuggestion
-const ScenarioSentence = require('../schemas/Scenario').ScenarioSentence
+const AudioSuggestion = require('../schemas/Suggestion').AudioSuggestion
 const Scenario = require('../schemas/Scenario').Scenario
+const Audio = require('../schemas/Audio')
 
 module.exports = app => {
   /**
@@ -144,17 +144,17 @@ module.exports = app => {
    *     }
    */
   app.get('/users/suggestions/scenarios', passport.authenticate('jwt', { session: false }), (req, res) => {
-    SentenceSuggestion.scope(null)
+    AudioSuggestion.scope(null)
       .findAll({
         where: { userUuid: req.user.uuid },
         include: [
           {
-            model: ScenarioSentence.scope(null),
-            attributes: ['uuid', 'scenarioUuid'],
+            model: Audio.scope(null),
+            attributes: ['uuid', 'name', 'type', 'createdAt'],
             include: [Scenario.scope(null)],
           },
         ],
-        group: ['scenario_sentence.scenarioUuid'],
+        group: ['audio.audibleUuid'],
         order: [
           ['weight', 'DESC'],
           ['createdAt', 'DESC'],

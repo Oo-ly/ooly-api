@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('suggestion_sentences', {
+    await queryInterface.createTable('suggestion_audios', {
       uuid: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -15,10 +15,10 @@ module.exports = {
           key: 'uuid',
         },
       },
-      suggestedSentenceUuid: {
+      suggestedAudioUuid: {
         type: Sequelize.UUID,
         references: {
-          model: 'scenario_sentences',
+          model: 'audios',
           key: 'uuid',
         },
         onUpdate: 'CASCADE',
@@ -79,6 +79,6 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('suggestion_oos')
-    return queryInterface.dropTable('suggestion_sentences')
+    return queryInterface.dropTable('suggestion_audios')
   },
 }

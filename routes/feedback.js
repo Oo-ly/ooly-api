@@ -124,7 +124,7 @@ module.exports = app => {
    *     }
    */
   app.post('/feedbacks', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    if (!req.body.sentence) return res.status(400).send({ message: 'Sentence is missing' })
+    if (!req.body.audio) return res.status(400).send({ message: 'Audio UUID is missing' })
 
     const feedback = await Feedback.create({
       uuid: uuidv4(),
@@ -132,7 +132,7 @@ module.exports = app => {
       createdAt: new Date(),
       updatedAt: new Date(),
       userUuid: req.user.uuid,
-      sentenceUuid: req.body.sentence,
+      audioUuid: req.body.audio,
     })
 
     const populatedFeedback = await Feedback.findOne({

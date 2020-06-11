@@ -2,11 +2,11 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
 const Oo = require('./Oo')
-const Sentence = require('./Scenario').ScenarioSentence
+const Audio = require('./Audio')
 const User = require('./User')
 
-const SentenceSuggestion = sequelize.define(
-  'suggestion_sentences',
+const AudioSuggestion = sequelize.define(
+  'suggestion_audios',
   {
     uuid: {
       type: Sequelize.UUID,
@@ -22,10 +22,10 @@ const SentenceSuggestion = sequelize.define(
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    suggestedSentenceUuid: {
+    suggestedAudioUuid: {
       type: Sequelize.UUID,
       references: {
-        model: Sentence,
+        model: Audio,
         key: 'uuid',
       },
       onUpdate: 'CASCADE',
@@ -42,7 +42,7 @@ const SentenceSuggestion = sequelize.define(
     defaultScope: {
       attributes: ['uuid', 'userUuid', 'weight', 'updatedAt'],
       order: [['weight', 'DESC']],
-      include: [{ model: Sentence }],
+      include: [{ model: Audio }],
     },
   },
 )
@@ -80,12 +80,12 @@ const OoSuggestion = sequelize.define('suggestion_oos', {
 })
 
 // We recommand sentences (and so scenarios) based on the previous feedbacks of an user.
-SentenceSuggestion.belongsTo(Sentence, { foreignKey: 'suggestedSentenceUuid' })
+AudioSuggestion.belongsTo(Audio, { foreignKey: 'suggestedAudioUuid' })
 
 // Based on the sentences liked by the user, we can suggest new Oos to him (GER algorithm).
 OoSuggestion.belongsTo(Oo, { foreignKey: 'suggestedOoUuid' })
 
 module.exports = {
-  SentenceSuggestion,
+  AudioSuggestion,
   OoSuggestion,
 }

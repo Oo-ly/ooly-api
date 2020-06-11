@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 
-const Sentence = require('./Scenario').ScenarioSentence
-const Oo = require('./Oo')
 const Audio = require('./Audio')
+const Oo = require('./Oo')
 
 const Feedback = sequelize.define(
   'feedbacks',
@@ -22,10 +21,10 @@ const Feedback = sequelize.define(
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    sentenceUuid: {
+    audioUuid: {
       type: Sequelize.UUID,
       references: {
-        model: 'scenario_sentences',
+        model: 'audios',
         key: 'uuid',
       },
       onUpdate: 'CASCADE',
@@ -43,21 +42,14 @@ const Feedback = sequelize.define(
       attributes: ['uuid', 'userUuid', 'status', 'createdAt'],
       include: [
         {
-          model: Sentence.scope(null),
-          as: 'sentence',
-          attributes: ['uuid', 'name', 'createdAt'],
+          model: Audio,
+          attributes: ['uuid'],
+          as: 'audio',
+          include: [Oo],
           required: true,
-          include: [
-            {
-              model: Audio,
-              attributes: ['uuid'],
-              include: [Oo],
-              required: true,
-              where: {
-                type: null,
-              },
-            },
-          ],
+          where: {
+            type: null,
+          },
         },
       ],
       order: [['createdAt', 'ASC']],
@@ -66,6 +58,6 @@ const Feedback = sequelize.define(
 )
 
 // The feedback is in response of an interaction of a sentence. A same sentence can have multiple feedbacks from multiple users.
-Feedback.belongsTo(Sentence, { foreignKey: 'sentenceUuid', as: 'sentence' })
+Feedback.belongsTo(Audio, { foreignKey: 'audioUuid', as: 'audio' })
 
 module.exports = Feedback

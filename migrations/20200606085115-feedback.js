@@ -18,10 +18,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      sentenceUuid: {
+      audioUuid: {
         type: Sequelize.UUID,
         references: {
-          model: 'scenario_sentences',
+          model: 'audios',
           key: 'uuid',
         },
         allowNull: false,
