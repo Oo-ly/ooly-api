@@ -1,5 +1,6 @@
 const Scenario = require('../schemas/Scenario').Scenario
 const passport = require('passport')
+const Op = require('sequelize').Op
 
 module.exports = app => {
   /**
@@ -35,14 +36,26 @@ module.exports = app => {
    *     }
    */
   app.post('/scenarios', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Scenario.findAll({
-      // where: {
-      //   '$oos.id$': {
-      //     [Op.in]: req.body.oos,
-      //   },
-      // },
-    }).then(scenarios => {
-      res.send({ scenarios })
+    Scenario.findAll({}).then(allScenarios => {
+      const scenarios = []
+
+      allScenarios.map(scenario => {
+        scenarios.push(scenario.toJSON())
+      })
+
+      let filteredScenarios = scenarios
+
+      if (req.body.oos && req.body.oos.length > 0) {
+        filteredScenarios = scenarios.filter(scenario => {
+          const hasOos = scenario.oos.every(oo => {
+            return req.body.oos.indexOf(oo.uuid) > -1
+          })
+
+          return hasOos
+        })
+      }
+
+      res.send({ scenarios: filteredScenarios })
     })
   })
 
