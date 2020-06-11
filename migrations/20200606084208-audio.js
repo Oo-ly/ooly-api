@@ -21,6 +21,14 @@ module.exports = {
         allowNull: true,
         defaultValue: null,
       },
+      interaction: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      order: {
+        type: Sequelize.INTEGER,
+        defaultValue: 99,
+      },
       ooUuid: {
         type: Sequelize.UUID,
         references: {
@@ -38,6 +46,14 @@ module.exports = {
       audibleType: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      createdAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      updatedAt: {
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.fn('NOW'),
       },
     })
   },

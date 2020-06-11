@@ -22,7 +22,7 @@ module.exports = {
       },
     })
 
-    await queryInterface.createTable('scenario_oos', {
+    return queryInterface.createTable('scenario_oos', {
       scenarioUuid: {
         type: Sequelize.UUID,
         references: {
@@ -50,46 +50,9 @@ module.exports = {
         defaultValue: Sequelize.fn('NOW'),
       },
     })
-
-    return queryInterface.createTable('scenario_sentences', {
-      uuid: {
-        type: Sequelize.UUID,
-        primaryKey: true,
-        defaultValue: Sequelize.UUIDV4,
-      },
-      name: {
-        type: Sequelize.STRING,
-      },
-      interaction: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      order: {
-        type: Sequelize.INTEGER,
-        defaultValue: 99,
-      },
-      scenarioUuid: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'scenarios',
-          key: 'uuid',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      createdAt: {
-        type: Sequelize.DATE(6),
-        defaultValue: Sequelize.fn('NOW'),
-      },
-      updatedAt: {
-        type: Sequelize.DATE(6),
-        defaultValue: Sequelize.fn('NOW'),
-      },
-    })
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('scenario_sentences')
     await queryInterface.dropTable('scenario_oos')
     return queryInterface.dropTable('scenarios')
   },

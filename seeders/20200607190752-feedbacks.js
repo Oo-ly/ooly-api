@@ -1,7 +1,7 @@
 'use strict'
 
 const User = require('../schemas/User')
-const Sentence = require('../schemas/Scenario').ScenarioSentence
+const Audio = require('../schemas/Audio')
 const { v4: uuidv4 } = require('uuid')
 
 const randomBetween = (a, b) => {
@@ -17,7 +17,13 @@ const MAXIMUM_FEEDBACKS = 10
 
 const createFeedbacks = async () => {
   const users = await User.scope(null).findAll()
-  const sentences = await Sentence.scope(null).findAll({ raw: true })
+  const audios = await Audio.scope(null).findAll({
+    raw: true,
+    where: {
+      type: null,
+      audibleType: 'scenario',
+    },
+  })
 
   return new Promise((resolve, reject) => {
     users.forEach(async user => {
@@ -25,8 +31,8 @@ const createFeedbacks = async () => {
         const numberFeedbacks = randomBetween(MINIMUM_FEEDBACKS, MAXIMUM_FEEDBACKS)
 
         for (let i = 0; i < numberFeedbacks; i += 1) {
-          const sentenceIndex = randomBetween(0, sentences.length - 1)
-          const sentence = sentences[sentenceIndex]
+          const audioIndex = randomBetween(0, audios.length - 1)
+          const audio = audios[audioIndex]
 
           let status = false
 
@@ -35,7 +41,7 @@ const createFeedbacks = async () => {
           feedbacks.push({
             uuid: uuidv4(),
             userUuid: user.uuid,
-            sentenceUuid: sentence.uuid,
+            audioUuid: audio.uuid,
             status,
             createdAt: new Date(),
             updatedAt: new Date(),

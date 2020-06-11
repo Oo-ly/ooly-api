@@ -5,44 +5,74 @@ const Oo = require('../schemas/Oo')
 const fs = require('fs')
 const path = require('path')
 
-const Audio = sequelize.define(
-  'audios',
-  {
-    uuid: {
-      type: Sequelize.UUIDV4,
-      defaultValue: Sequelize.UUIDV4,
-      primaryKey: true,
-    },
-    name: Sequelize.STRING,
-    url: Sequelize.STRING,
-    type: Sequelize.STRING,
-    ooUuid: {
-      type: Sequelize.UUIDV4,
-      references: {
-        model: Oo,
-        key: 'uuid',
-      },
-    },
-    encodedData: {
-      type: Sequelize.VIRTUAL,
-      get() {
-        const filePath = path.resolve(__dirname, '..', 'public', 'voices', this.url)
-
-        if (fs.existsSync(filePath)) return fs.readFileSync(filePath).toString('base64')
-
-        /* istanbul ignore next */
-        return null
-      },
-    },
-    audibleUuid: Sequelize.UUIDV4,
-    audibleType: Sequelize.STRING,
+const Audio = sequelize.define('audios', {
+  uuid: {
+    type: Sequelize.UUIDV4,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true,
   },
-  {
-    defaultScope: {
-      attributes: ['uuid', 'name', 'url', 'type'],
-      include: Oo,
+  name: Sequelize.STRING,
+  url: Sequelize.STRING,
+  type: Sequelize.STRING,
+  order: Sequelize.INTEGER,
+  interaction: Sequelize.BOOLEAN,
+  ooUuid: {
+    type: Sequelize.UUIDV4,
+    references: {
+      model: Oo,
+      key: 'uuid',
     },
   },
-)
+  encodedData: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      const filePath = path.resolve(__dirname, '..', 'public', 'voices', this.url)
+
+      if (fs.existsSync(filePath)) return fs.readFileSync(filePath).toString('base64')
+
+      /* istanbul ignore next */
+      return null
+    },
+  },
+  audibleUuid: Sequelize.UUIDV4,
+  audibleType: Sequelize.STRING,
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE,
+})
+
+Audio.addScope('defaultScope', {
+  attributes: ['uuid', 'name', 'url', 'type', 'order', 'interaction'],
+  include: [
+    Oo,
+    {
+      model: Audio.scope(null),
+      as: 'dislikes',
+      include: [Oo],
+    },
+  ],
+})
+
+// An Oo have several audios, such as 'Hello' or 'Good bye'
+Oo.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  scope: {
+    audibleType: 'oo',
+  },
+})
+Audio.belongsTo(Oo, { foreignKey: 'audibleUuid', constraints: false })
+
+// A audio is pronounced by a specific Oo.
+Oo.hasMany(Audio, { foreignKey: 'ooUuid' })
+Audio.belongsTo(Oo)
+
+Audio.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'dislikes',
+  scope: {
+    audibleType: 'audio',
+  },
+})
 
 module.exports = Audio

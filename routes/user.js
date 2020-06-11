@@ -143,27 +143,27 @@ module.exports = app => {
    *       "message": "Unauthorized"
    *     }
    */
-  app.get('/users/suggestions/scenarios', passport.authenticate('jwt', { session: false }), (req, res) => {
-    SentenceSuggestion.scope(null)
-      .findAll({
-        where: { userUuid: req.user.uuid },
-        include: [
-          {
-            model: ScenarioSentence.scope(null),
-            attributes: ['uuid', 'scenarioUuid'],
-            include: [Scenario.scope(null)],
-          },
-        ],
-        group: ['scenario_sentence.scenarioUuid'],
-        order: [
-          ['weight', 'DESC'],
-          ['createdAt', 'DESC'],
-        ],
-      })
-      .then(suggestions => {
-        res.send({ suggestions })
-      })
-  })
+  // app.get('/users/suggestions/scenarios', passport.authenticate('jwt', { session: false }), (req, res) => {
+  //   SentenceSuggestion.scope(null)
+  //     .findAll({
+  //       where: { userUuid: req.user.uuid },
+  //       include: [
+  //         {
+  //           model: ScenarioSentence.scope(null),
+  //           attributes: ['uuid', 'scenarioUuid'],
+  //           include: [Scenario.scope(null)],
+  //         },
+  //       ],
+  //       group: ['scenario_sentence.scenarioUuid'],
+  //       order: [
+  //         ['weight', 'DESC'],
+  //         ['createdAt', 'DESC'],
+  //       ],
+  //     })
+  //     .then(suggestions => {
+  //       res.send({ suggestions })
+  //     })
+  // })
 
   /**
    * @api {get} /users/:id User detail
