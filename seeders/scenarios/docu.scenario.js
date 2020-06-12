@@ -40,7 +40,7 @@ module.exports = {
     {
       uuid: 'cd85c89b-17f7-45a5-8414-cc6aab7d5368',
       name: 'ledocu-0-entree-negative-cinoche',
-      url: 'scenario-docu/ledocu-0-entree-negative-cinoche.wav',
+      url: 'scenario-docu/ledocu-0-entree-negative-cinoche.mp3',
       type: 'entry:negative',
       audibleUuid: 'f8e6adab-7bd2-4925-b769-a154e011df67',
       audibleType: 'scenario',
@@ -49,7 +49,7 @@ module.exports = {
     {
       uuid: '8f32743b-df57-41ab-8245-48bea1fe4ad0',
       name: 'ledocu-0-entree-neutre-cinoche',
-      url: 'scenario-docu/ledocu-0-entree-neutre-cinoche.wav',
+      url: 'scenario-docu/ledocu-0-entree-neutre-cinoche.mp3',
       type: 'entry',
       audibleUuid: 'f8e6adab-7bd2-4925-b769-a154e011df67',
       audibleType: 'scenario',
@@ -58,7 +58,7 @@ module.exports = {
     {
       uuid: 'f5c8b34e-4426-4f60-8454-96305a6a5e41',
       name: 'ledocu-1-yoga',
-      url: 'scenario-docu/ledocu-1-yoga.wav',
+      url: 'scenario-docu/ledocu-1-yoga.mp3',
       type: null,
       order: 0,
       interaction: false,
@@ -69,7 +69,7 @@ module.exports = {
     {
       uuid: 'cdad2e65-e9a3-4208-a243-42e7027e7321',
       name: 'ledocu-2-cinoche',
-      url: 'scenario-docu/ledocu-2-cinoche.wav',
+      url: 'scenario-docu/ledocu-2-cinoche.mp3',
       type: null,
       order: 1,
       interaction: false,
@@ -80,7 +80,7 @@ module.exports = {
     {
       uuid: '4860a458-e6ed-4e79-b154-4db9c96f91e4',
       name: 'ledocu-3-yoga',
-      url: 'scenario-docu/ledocu-3-yoga.wav',
+      url: 'scenario-docu/ledocu-3-yoga.mp3',
       type: null,
       order: 2,
       interaction: false,
