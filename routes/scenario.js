@@ -45,6 +45,7 @@ module.exports = app => {
 
       let filteredScenarios = scenarios
 
+      /* istanbul ignore if */
       if (req.body.oos && req.body.oos.length > 0) {
         filteredScenarios = scenarios.filter(scenario => {
           const hasOos = scenario.oos.every(oo => {

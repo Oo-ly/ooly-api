@@ -22,7 +22,7 @@ module.exports = app => {
    *     }
    */
   app.get('/oos', (req, res) => {
-    Oo.scope(null)
+    Oo.scope('withAudio')
       .findAll()
       .then(oos => {
         res.send({ oos })
@@ -54,7 +54,7 @@ module.exports = app => {
    *     }
    */
   app.get('/oos/:uuid', (req, res) => {
-    Oo.scope(null)
+    Oo.scope('withAudio')
       .findOne({
         where: { uuid: req.params.uuid },
       })

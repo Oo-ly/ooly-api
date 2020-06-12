@@ -58,8 +58,50 @@ Oo.hasMany(Audio, {
   constraints: false,
   scope: {
     audibleType: 'oo',
+    type: null,
   },
 })
+
+Oo.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'exits',
+  scope: {
+    audibleType: 'oo',
+    type: 'exit',
+  },
+})
+
+Oo.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'hellos',
+  scope: {
+    audibleType: 'oo',
+    type: 'hello',
+  },
+})
+
+Oo.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'byes',
+  scope: {
+    audibleType: 'oo',
+    type: 'bye',
+  },
+})
+
+Oo.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'entries',
+  scope: {
+    audibleType: 'oo',
+    type: 'entry',
+  },
+})
+
 Audio.belongsTo(Oo, { foreignKey: 'audibleUuid', constraints: false })
 
 // A audio is pronounced by a specific Oo.
@@ -73,6 +115,20 @@ Audio.hasMany(Audio, {
   scope: {
     audibleType: 'audio',
   },
+})
+
+Oo.addScope('withAudio', {
+  attributes: ['uuid', 'name', 'description', 'color', 'objectName', 'toreObjectName', 'createdAt'],
+  where: {
+    isAvailable: true,
+  },
+  order: [['createdAt', 'ASC']],
+  include: [
+    { model: Audio.scope(null), as: 'byes', include: [] },
+    { model: Audio.scope(null), as: 'hellos', include: [] },
+    { model: Audio.scope(null), as: 'entries', include: [] },
+    { model: Audio.scope(null), as: 'exits', include: [] },
+  ],
 })
 
 module.exports = Audio
