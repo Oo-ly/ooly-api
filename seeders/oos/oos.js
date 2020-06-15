@@ -97,4 +97,18 @@ module.exports = [
     hellos: ['BonjourComique_1.mp3', 'BonjourComique_2.mp3', 'BonjourComique_3.mp3'],
     byes: ['AuRevoirComique_1.mp3', 'AuRevoirComique_2.mp3', 'AuRevoirComique_3.mp3'],
   },
+  {
+    uuid: '1fd0f001-5950-4f22-983d-11d08cee3add',
+    name: "Méli-Mél'Oo",
+    description:
+      'Méli-Mél’Oo s’emmèle toujours les pinceaux, c’est un peu le prince des gaffes. S’il avait des mains, il aurait sans doute “deux mains gauches”. Il mélange parfois les mots ou bien les expressions. Malgré tout, Méli-mél’Oo est toujours gentil et attentif avec ses compagnons, il essaie d’apprendre leur spécialité, de les aider quand ils en ont besoin. Et tout le monde lui pardonne ses petites maladresses, qui au final sont plutot amusantes.',
+    color: '#B595F2',
+    objectName: 'melimelo_1',
+    toreObjectName: 'Tore_2',
+    isAvailable: true,
+    entries: ['EntreeMelimelo_1.mp3', 'EntreeMelimelo_2.mp3', 'EntreeMelimelo_3.mp3'],
+    exits: ['SortieMelimelo_1.mp3', 'SortieMelimelo_2.mp3', 'SortieMelimelo_3.mp3'],
+    hellos: ['BonjourMelimelo_1.mp3', 'BonjourMelimelo_2.mp3', 'BonjourMelimelo_3.mp3'],
+    byes: ['AuRevoirMelimelo_1.mp3', 'AuRevoirMelimelo_2.mp3', 'AuRevoirMelimelo_3.mp3'],
+  },
 ]
