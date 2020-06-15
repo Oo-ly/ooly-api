@@ -38,10 +38,12 @@
     "ger": "0.0.99",
     "helmet": "^3.23.0",
     "jsonwebtoken": "^8.5.1",
+    "knex": ">=0.19.5",
     "mariadb": "^2.4.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pg": ">=4.5.7",
     "sequelize": "^5.21.12",
     "uuid": "^8.1.0"
   },
