@@ -1,11 +1,13 @@
 'use strict'
 
-const { v4: uuidv4 } = require('uuid')
-
 // const scenarioTest = require('./scenarios/test.scenario')
+const scenarioApple = require('./scenarios/apple.scenario')
 const scenarioBatman = require('./scenarios/batman.scenario')
+const scenarioBol = require('./scenarios/bol.scenario')
 const scenarioClooney = require('./scenarios/clooney.scenario')
 const scenarioDocu = require('./scenarios/docu.scenario')
+const scenarioMeditation = require('./scenarios/meditation.scenario')
+const scenarioMeditationMusique = require('./scenarios/meditation-musique.scenario')
 const scenarioPepito = require('./scenarios/pepito.scenario')
 const scenarioPlante = require('./scenarios/plante.scenario')
 const scenarioSeigneur = require('./scenarios/seigneur.scenario')
@@ -15,9 +17,13 @@ const scenarioTisane = require('./scenarios/tisane.scenario')
 const scenarioTractopelle = require('./scenarios/tractopelle.scenario')
 
 const scenariosJson = [
+  scenarioApple,
   scenarioBatman,
+  scenarioBol,
   scenarioClooney,
   scenarioDocu,
+  // scenarioMeditation,
+  scenarioMeditationMusique,
   scenarioPepito,
   scenarioPlante,
   scenarioSeigneur,
