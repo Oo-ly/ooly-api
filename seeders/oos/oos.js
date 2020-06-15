@@ -12,6 +12,7 @@ module.exports = [
     exits: ['SortieDisco_1.mp3', 'SortieDisco_2.mp3', 'SortieDisco_3.mp3'],
     hellos: ['BonjourDisco_1.mp3', 'BonjourDisco_2.mp3', 'BonjourDisco_3.mp3'],
     byes: ['AuRevoirDisco_1.mp3', 'AuRevoirDisco_2.mp3', 'AuRevoirDisco_3.mp3'],
+    noScenario: ['NoScenarioDisco_1.mp3'],
   },
   {
     uuid: '23c7e653-f1a6-435c-9f58-24f9efb8c5e1',
@@ -26,6 +27,7 @@ module.exports = [
     exits: ['SortieCinoche_1.mp3', 'SortieCinoche_2.mp3', 'SortieCinoche_3.mp3'],
     hellos: ['BonjourCinoche_1.mp3', 'BonjourCinoche_2.mp3', 'BonjourCinoche_3.mp3'],
     byes: ['AuRevoirCinoche_1.mp3', 'AuRevoirCinoche_2.mp3', 'AuRevoirCinoche_3.mp3'],
+    noScenario: ['NoScenarioCinooche_1.mp3'],
   },
   {
     uuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
@@ -40,6 +42,7 @@ module.exports = [
     exits: ['SortieInfo_1.mp3', 'SortieInfo_2.mp3', 'SortieInfo_3.mp3'],
     hellos: ['BonjourInfo_1.mp3', 'BonjourInfo_2.mp3', 'BonjourInfo_3.mp3'],
     byes: ['AuRevoirInfo_1.mp3', 'AuRevoirInfo_2.mp3', 'AuRevoirInfo_3.mp3'],
+    noScenario: ['NoScenarioInfo_1.mp3'],
   },
   {
     uuid: 'a10058d0-46e0-4e54-bf54-72bef1ae283f',
@@ -54,6 +57,7 @@ module.exports = [
     exits: ['SortieYoga_1.mp3', 'SortieYoga_2.mp3', 'SortieYoga_3.mp3'],
     hellos: ['BonjourYoga_1.mp3', 'BonjourYoga_2.mp3', 'BonjourYoga_3.mp3'],
     byes: ['AuRevoirYoga_1.mp3', 'AuRevoirYoga_2.mp3', 'AuRevoirYoga_3.mp3'],
+    noScenario: ['NoScenarioYoga_1.mp3'],
   },
   {
     uuid: 'ca5f71b5-8dc0-4acd-9d58-3c3035622afe',
@@ -68,6 +72,7 @@ module.exports = [
     exits: ['SortieVegeto_1.mp3', 'SortieVegeto_2.mp3', 'SortieVegeto_3.mp3'],
     hellos: ['BonjourVegeto_1.mp3', 'BonjourVegeto_2.mp3', 'BonjourVegeto_3.mp3'],
     byes: ['AuRevoirVegeto_1.mp3', 'AuRevoirVegeto_2.mp3', 'AuRevoirVegeto_3.mp3'],
+    noScenario: ['NoScenarioVegeto_1.mp3'],
   },
   {
     uuid: '92021a2e-77d3-48b6-bd31-3e86d6792e05',
@@ -82,6 +87,7 @@ module.exports = [
     exits: ['SortieWhow_1.mp3', 'SortieWhow_2.mp3', 'SortieWhow_3.mp3'],
     hellos: ['BonjourWhow_1.mp3', 'BonjourWhow_2.mp3', 'BonjourWhow_3.mp3'],
     byes: ['AuRevoirWhow_1.mp3', 'AuRevoirWhow_2.mp3', 'AuRevoirWhow_3.mp3'],
+    noScenario: ['NoScenarioWhoo_1.mp3'],
   },
   {
     uuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
@@ -96,6 +102,7 @@ module.exports = [
     exits: ['SortieComique_1.mp3', 'SortieComique_2.mp3', 'SortieComique_3.mp3'],
     hellos: ['BonjourComique_1.mp3', 'BonjourComique_2.mp3', 'BonjourComique_3.mp3'],
     byes: ['AuRevoirComique_1.mp3', 'AuRevoirComique_2.mp3', 'AuRevoirComique_3.mp3'],
+    noScenario: ['NoScenarioComique_1.mp3'],
   },
   {
     uuid: '1fd0f001-5950-4f22-983d-11d08cee3add',
@@ -110,5 +117,6 @@ module.exports = [
     exits: ['SortieMelimelo_1.mp3', 'SortieMelimelo_2.mp3', 'SortieMelimelo_3.mp3'],
     hellos: ['BonjourMelimelo_1.mp3', 'BonjourMelimelo_2.mp3', 'BonjourMelimelo_3.mp3'],
     byes: ['AuRevoirMelimelo_1.mp3', 'AuRevoirMelimelo_2.mp3', 'AuRevoirMelimelo_3.mp3'],
+    noScenario: ['NoScenarioMeliMeloo_1.mp3'],
   },
 ]

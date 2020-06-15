@@ -102,6 +102,16 @@ Oo.hasMany(Audio, {
   },
 })
 
+Oo.hasMany(Audio, {
+  foreignKey: 'audibleUuid',
+  constraints: false,
+  as: 'noScenario',
+  scope: {
+    audibleType: 'oo',
+    type: 'no-scenario',
+  },
+})
+
 Audio.belongsTo(Oo, { foreignKey: 'audibleUuid', constraints: false })
 
 // A audio is pronounced by a specific Oo.
@@ -128,6 +138,7 @@ Oo.addScope('withAudio', {
     { model: Audio.scope(null), as: 'hellos', include: [] },
     { model: Audio.scope(null), as: 'entries', include: [] },
     { model: Audio.scope(null), as: 'exits', include: [] },
+    { model: Audio.scope(null), as: 'noScenario', include: [] },
   ],
 })
 

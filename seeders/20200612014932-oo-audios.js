@@ -63,6 +63,20 @@ module.exports = {
           ooUuid: oo.uuid,
         })
       })
+
+      oo.noScenario.forEach(audio => {
+        audios.push({
+          uuid: uuidv4(),
+          name: audio,
+          type: 'no-scenario',
+          url: `oos/no-scenario/${audio}`,
+          interaction: false,
+          order: 0,
+          audibleType: 'oo',
+          audibleUuid: oo.uuid,
+          ooUuid: oo.uuid,
+        })
+      })
     })
 
     return queryInterface.bulkInsert('audios', audios, {})
