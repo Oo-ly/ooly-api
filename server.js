@@ -4,6 +4,7 @@ require('dotenv').config({
 })
 
 const express = require('express')
+const helmet = require('helmet')
 const app = express()
 
 const Sentry = require('@sentry/node')
@@ -19,6 +20,7 @@ app.use(Sentry.Handlers.requestHandler())
 app.use(bodyParser.json())
 app.use(passport.initialize())
 app.use(Sentry.Handlers.errorHandler())
+app.use(helmet())
 
 // Optional fallthrough error handler
 /* istanbul ignore next */
