@@ -44,7 +44,7 @@ module.exports = {
       ooUuid: 'a10058d0-46e0-4e54-bf54-72bef1ae283f',
     },
     {
-      uuid: '6fb9d65c-7883-4807-9e35-cdc085e919ce',
+      uuid: '6fb9d65c-7883-4807-9e35-cdc085e918ce',
       name: 'Pas de soucis, une prochaine fois peut-être !',
       url: 'scenario-meditation-musique/MeditationYoga_4.mp3',
       type: 'dislike',
