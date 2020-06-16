@@ -205,7 +205,7 @@ module.exports = {
     {
       uuid: '5a1e111e-c3bb-4ecc-86f1-ff940824ccd8',
       name: 'Oui enfin... C’est quand même un artiste éléctro un peu énervé',
-      url: 'scenario-demo/info-demo-artiste-electro-3.mp3',
+      url: 'scenario-demo/info-demo-artiste-electro-5.mp3',
       type: null,
       order: 16,
       interaction: false,
