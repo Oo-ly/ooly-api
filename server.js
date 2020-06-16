@@ -5,6 +5,7 @@ require('dotenv').config({
 
 const express = require('express')
 const helmet = require('helmet')
+const cors = require('cors')
 const app = express()
 
 const Sentry = require('@sentry/node')
@@ -21,6 +22,22 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 app.use(Sentry.Handlers.errorHandler())
 app.use(helmet())
+
+const allowedOrigins = ['http://localhost:8100', 'https://demo.ooly.fr']
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.'
+        return callback(new Error(msg), false)
+      }
+      return callback(null, true)
+    },
+  }),
+)
 
 // Optional fallthrough error handler
 /* istanbul ignore next */
