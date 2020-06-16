@@ -19,25 +19,45 @@ module.exports = {
   ],
   audios: [
     {
-      uuid: 'a896b215-ae14-42a8-bd92-a74af62be9de',
+      uuid: '937be763-8916-4719-a4ef-1dd6b87e8e07',
       name: 'Ça vous dit une petite anecdote marrante ? ',
       url: 'scenario-bol/TibetainsInfo_2.mp3',
       type: 'entry',
+      interaction: true,
       audibleUuid: '7a8bec8a-0f7b-4b07-a78f-965acbff3b2a',
       audibleType: 'scenario',
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '14b2ee1c-e3da-42ee-b9e3-798cf121134b',
+      uuid: '7492c74a-8254-4fc2-b383-e8433f6a6b33',
+      name: 'Oh... Dommage. Ce sera pour une prochaine fois alors !',
+      url: 'scenario-bol/TibetainsInfo_4.mp3',
+      type: 'dislike',
+      audibleUuid: '937be763-8916-4719-a4ef-1dd6b87e8e07',
+      audibleType: 'audio',
+      ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
+    },
+    {
+      uuid: '1302c4a0-85d4-45b2-9038-8adb15e0b03a',
       name: 'Ok, est ce que tu préfères une petite anecdote marrante plutot ?',
       url: 'scenario-bol/TibetainsInfo_1.mp3',
       type: 'entry:negative',
+      interaction: true,
       audibleUuid: '7a8bec8a-0f7b-4b07-a78f-965acbff3b2a',
       audibleType: 'scenario',
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '0c025baa-aa25-45f2-b80d-17ee84d93f0c',
+      uuid: '75071bf6-57a6-418f-a160-12646a202146',
+      name: 'Oh... Dommage. Ce sera pour une prochaine fois alors !',
+      url: 'scenario-bol/TibetainsInfo_4.mp3',
+      type: 'dislike',
+      audibleUuid: '1302c4a0-85d4-45b2-9038-8adb15e0b03a',
+      audibleType: 'audio',
+      ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
+    },
+    {
+      uuid: '01ce86d8-a05c-4868-a6e0-916148766142',
       name: 'Oh... Dommage. Ce sera pour une prochaine fois alors !',
       url: 'scenario-bol/TibetainsInfo_4.mp3',
       type: 'exit',
@@ -46,7 +66,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: 'ae0c0579-0a7c-4f49-93b1-09f6595c4be2',
+      uuid: '7c488a61-f8c8-4b0a-9fe0-0b1b8a232895',
       name:
         'Est ce que vous saviez que pour se saluer, certains moines tibétains se tirent la langue ? C’est rigolo, on devrait essayer aussi.',
       url: 'scenario-bol/TibetainsInfo_3.mp3',
@@ -58,7 +78,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: 'e819aefe-26a4-4fc3-8fd7-8a504fb5975d',
+      uuid: '498ad214-303e-4fc1-8923-ace51210dafc',
       name: 'Ce serait plus pratique si on avait une langue Inf’Oo ... ',
       url: 'scenario-bol/TibetainsDisco_1.mp3',
       type: null,
@@ -69,7 +89,7 @@ module.exports = {
       ooUuid: '1c115903-1aa5-4216-b438-5e455124f66d',
     },
     {
-      uuid: 'f2feec53-62bd-41f2-9617-3f0dc99e7e28',
+      uuid: '4c73f81b-b78d-47b8-9abc-e6cf2a0a54e9',
       name: 'Moi j’ai pas de langue !',
       url: 'scenario-bol/TibetainsMelimelo_1.mp3',
       type: null,
@@ -80,7 +100,7 @@ module.exports = {
       ooUuid: '1fd0f001-5950-4f22-983d-11d08cee3add',
     },
     {
-      uuid: '91c9ac08-0105-4d73-9303-5f946b6b465f',
+      uuid: 'ffee243a-686d-4e25-9150-16221223ad0e',
       name:
         'Oui effectivement on avait remarqué... Par contre, on peut s’inspirer des moines tibétains pour leur musique. Ils la composent en frappant sur des bols.',
       url: 'scenario-bol/TibetainsDisco_2.mp3',
@@ -92,7 +112,7 @@ module.exports = {
       ooUuid: '1c115903-1aa5-4216-b438-5e455124f66d',
     },
     {
-      uuid: 'ad5ef579-5dbb-40c8-b51b-d034bb621207',
+      uuid: 'f6aeb91e-5ed7-479b-9c0a-9fb430b801d7',
       name:
         'Oui, d’ailleurs ces bols sont composés de 7 métaux différents, représentant les planètes du système solaire.',
       url: 'scenario-bol/TibetainsInfo_5.mp3',
@@ -104,7 +124,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '85c83fb1-02bb-432d-917e-130d2fa2d97d',
+      uuid: '4f89f879-9b08-4a4c-8b69-82cb03dd287d',
       name: 'Ah ouais je le savais pas tiens ! On s’en écoute un morceau, voir ce que ça donne ? Ca te dit Duke ?',
       url: 'scenario-bol/TibetainsDisco_3.mp3',
       type: null,
@@ -115,16 +135,16 @@ module.exports = {
       ooUuid: '1c115903-1aa5-4216-b438-5e455124f66d',
     },
     {
-      uuid: '6bdd4c3a-fe4a-4c25-87c2-ae2dd906ffd4',
+      uuid: 'dac8988e-cc87-4f59-832a-9de86582dd0b',
       name: 'Ok, une autre fois peut-être ! ',
       url: 'scenario-bol/TibetainsDisco_6.mp3',
       type: 'dislike',
-      audibleUuid: '85c83fb1-02bb-432d-917e-130d2fa2d97d',
+      audibleUuid: '4f89f879-9b08-4a4c-8b69-82cb03dd287d',
       audibleType: 'audio',
       ooUuid: '1c115903-1aa5-4216-b438-5e455124f66d',
     },
     {
-      uuid: 'b9ed1d55-4a53-48a2-b4e7-3dec75721132',
+      uuid: '67d469aa-9a6d-452d-89c5-b72e459af55b',
       name: 'Super, écoute ça !',
       url: 'scenario-bol/TibetainsDisco_4.mp3',
       type: null,
@@ -135,7 +155,7 @@ module.exports = {
       ooUuid: '1c115903-1aa5-4216-b438-5e455124f66d',
     },
     {
-      uuid: '32bf672e-3ccb-44fd-ab41-bf21bb7c091b',
+      uuid: '4bbbe043-0de3-4f5a-955a-875d0d92febb',
       name: 'C’était chouette, tu as aimé ?',
       url: 'scenario-bol/TibetainsDisco_5.mp3',
       type: null,

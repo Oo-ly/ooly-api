@@ -19,25 +19,45 @@ module.exports = {
   ],
   audios: [
     {
-      uuid: '5ece06f6-e80c-437b-862a-216fa959c055',
+      uuid: 'd1d13a2c-77c9-46d7-8a33-628ddcbb12ab',
       name: 'Hey ! Ca vous dis une petite blague ?',
       url: 'scenario-situation/MauvaiseBonneSituationComique_2.mp3',
       type: 'entry',
+      interaction: true,
       audibleUuid: 'f9b0f1fe-484e-4021-9a55-51713f7be30d',
       audibleType: 'scenario',
       ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
     },
     {
-      uuid: '918a3960-9b9d-472f-9c41-aea986ea2c96',
+      uuid: 'd4bda2b9-7fb6-466c-8538-367fc01b748c',
+      name: 'Oh... C’est pas grave, elle était un peu bête !',
+      url: 'scenario-situation/MauvaiseBonneSituationComique_4.mp3',
+      type: 'dislike',
+      audibleUuid: 'd1d13a2c-77c9-46d7-8a33-628ddcbb12ab',
+      audibleType: 'audio',
+      ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
+    },
+    {
+      uuid: '74d12fc4-c2f8-4737-b0d1-4e859fea0323',
       name: 'Est-ce que tu préfères une petite blague plutot ?',
       url: 'scenario-situation/MauvaiseBonneSituationComique_1.mp3',
       type: 'entry:negative',
+      interaction: true,
       audibleUuid: 'f9b0f1fe-484e-4021-9a55-51713f7be30d',
       audibleType: 'scenario',
       ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
     },
     {
-      uuid: '67201b26-fd8f-4485-90df-280ba16b3f78',
+      uuid: 'a457ec72-ed06-4044-a540-08cfee41600e',
+      name: 'Oh... C’est pas grave, elle était un peu bête !',
+      url: 'scenario-situation/MauvaiseBonneSituationComique_4.mp3',
+      type: 'dislike',
+      audibleUuid: '74d12fc4-c2f8-4737-b0d1-4e859fea0323',
+      audibleType: 'audio',
+      ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
+    },
+    {
+      uuid: '72b53982-7a13-4737-a7fc-e78190cb6061',
       name: 'Oh... C’est pas grave, elle était un peu bête !',
       url: 'scenario-situation/MauvaiseBonneSituationComique_4.mp3',
       type: 'exit',
@@ -46,7 +66,7 @@ module.exports = {
       ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
     },
     {
-      uuid: '8be5fc9b-d8d8-462b-8eca-1ce833aca063',
+      uuid: '851d914f-71e3-47ab-899c-d74b1acf214a',
       name: 'Que dit Frodon devant sa maison ? C’est la que j’Hobbit',
       url: 'scenario-situation/MauvaiseBonneSituationComique_3.mp3',
       type: null,
@@ -57,7 +77,7 @@ module.exports = {
       ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
     },
     {
-      uuid: '2d93b59e-45a6-4ac6-b089-670d9fc474b0',
+      uuid: 'f963df19-3819-4b55-8f88-9950d9d2ebbd',
       name: 'Hihi, pas mal !',
       url: 'scenario-situation/MauvaiseBonneSituationCinoche_1.mp3',
       type: null,
@@ -68,7 +88,7 @@ module.exports = {
       ooUuid: '23c7e653-f1a6-435c-9f58-24f9efb8c5e1',
     },
     {
-      uuid: '2e038df6-c0ed-492c-91d5-41b22aa59787',
+      uuid: '75dc7694-c7a6-4cf6-bb06-f68ec8d14aa2',
       name: 'Pfff t’en as des meilleures C’Oo’mique ...',
       url: 'scenario-situation/MauvaiseBonneSituationInfo_1.mp3',
       type: null,
@@ -79,7 +99,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '9bfb7fe7-42c4-4b8e-8580-80eadab0a9e2',
+      uuid: '863d2057-7e16-47de-944a-b3fdf03d2beb',
       name: 'Moi je la trouve pas mauvaise !',
       url: 'scenario-situation/MauvaiseBonneSituationComique_5.mp3',
       type: null,
@@ -90,7 +110,7 @@ module.exports = {
       ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
     },
     {
-      uuid: '2a59fffe-6109-483c-ab5b-a3d1014d0165',
+      uuid: 'a0d69a71-d357-4e73-a331-38bb4b5ce897',
       name: "Vous savez, moi je ne crois pas qu'il y ait de bonne ou de mauvaise situation.",
       url: 'scenario-situation/MauvaiseBonneSituationCinoche_2.mp3',
       type: null,
@@ -101,7 +121,7 @@ module.exports = {
       ooUuid: '23c7e653-f1a6-435c-9f58-24f9efb8c5e1',
     },
     {
-      uuid: '04717611-5cd5-4760-a9be-6fb31da18a57',
+      uuid: 'e7e27408-717d-4343-93f8-635e4152e79d',
       name:
         'Dis Cin’Oo’che, tu savais que ce monologue de Otis dans Asterix Mission Cléopatre avait été improvisé par l’acteur Edouard Bear ? ...',
       url: 'scenario-situation/MauvaiseBonneSituationInfo_2.mp3',
@@ -113,7 +133,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: 'fa822a26-5ac0-4bfc-a373-a32e861cbafc',
+      uuid: 'c8035fac-cb15-4357-9a5a-64a06eef8aec',
       name: 'Ouah trop cool, je le savais pas, il est trop fort Edouard Bear !',
       url: 'scenario-situation/MauvaiseBonneSituationCinoche_3.mp3',
       type: null,

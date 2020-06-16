@@ -15,25 +15,45 @@ module.exports = {
   ],
   audios: [
     {
-      uuid: '8534370b-8a8e-4236-a60b-206025023c3b',
+      uuid: '2d9fbad7-9079-494e-9d7b-a1f173a2207a',
       name: ' Hé ! Je viens d’apprendre une info croustillante ! Tu veux la connaitre ? ',
       url: 'scenario-clooney/ClooneyInfo_2.mp3',
       type: 'entry',
+      interaction: true,
       audibleUuid: '1598dd2c-1951-4a99-a00b-2ea852782bb3',
       audibleType: 'scenario',
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: 'ff21adc4-ac9a-4046-b362-8fc026141271',
+      uuid: 'd6d3902b-fba1-48bb-9fea-3c2a91793315',
+      name: 'Pas de soucis, peut être une autre fois alors.',
+      url: 'scenario-clooney/ClooneyInfo_3.mp3',
+      type: 'dislike',
+      audibleUuid: '2d9fbad7-9079-494e-9d7b-a1f173a2207a',
+      audibleType: 'audio',
+      ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
+    },
+    {
+      uuid: '0bf5ac7c-929b-406e-a026-82f8b5ef12be',
       name: 'Bon, et si je te partage une info croustillante, ça te tente ?',
       url: 'scenario-clooney/ClooneyInfo_1.mp3',
       type: 'entry:negative',
+      interaction: true,
       audibleUuid: '1598dd2c-1951-4a99-a00b-2ea852782bb3',
       audibleType: 'scenario',
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '16b3328a-5899-4a73-8858-40bb57058fc4',
+      uuid: '38a0b367-9ef8-4236-bb2a-872624472630',
+      name: 'Pas de soucis, peut être une autre fois alors.',
+      url: 'scenario-clooney/ClooneyInfo_3.mp3',
+      type: 'dislike',
+      audibleUuid: '0bf5ac7c-929b-406e-a026-82f8b5ef12be',
+      audibleType: 'audio',
+      ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
+    },
+    {
+      uuid: '543df400-50f8-4f5d-9e16-c1b014342ba1',
       name: 'Pas de soucis, peut être une autre fois alors.',
       url: 'scenario-clooney/ClooneyInfo_3.mp3',
       type: 'exit',
@@ -42,7 +62,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: 'f4e725d6-5710-4f9e-a282-8a77e5f0401c',
+      uuid: 'c32612b3-9edc-4d1e-97cf-7222e8b2b5f7',
       name: 'Allez raconte ! Je veux savoir moi !',
       url: 'scenario-clooney/ClooneyMelimelo_1.mp3',
       type: null,
@@ -53,7 +73,7 @@ module.exports = {
       ooUuid: '1fd0f001-5950-4f22-983d-11d08cee3add',
     },
     {
-      uuid: '0545cb3e-b8b6-4042-825d-088a28debc9e',
+      uuid: 'ba1d47b4-85d9-4378-b7a1-3741add327cc',
       name: ' Et bien est-ce que tu sais que Georges Clooney est insomniaque ? ',
       url: 'scenario-clooney/ClooneyInfo_4.mp3',
       type: null,
@@ -64,7 +84,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '8275d586-9db1-47db-a471-2a38d1191b86',
+      uuid: 'bdd1007c-0819-4063-ab36-a4d8ecdc5079',
       name: 'Oh ! Non je savais pas...',
       url: 'scenario-clooney/ClooneyMelimelo_2.mp3',
       type: null,
@@ -75,7 +95,7 @@ module.exports = {
       ooUuid: '1fd0f001-5950-4f22-983d-11d08cee3add',
     },
     {
-      uuid: '3b88e028-5fcc-4756-a378-2c6926dffff8',
+      uuid: '57b0aeb9-ee46-4a4a-b881-100f427bbd18',
       name:
         'Hé oui ! Il a affirmé se réveiller environ 5 fois par nuit... Comme quoi, l’insomnie ça n’empeche pas de devenir célebre !',
       url: 'scenario-clooney/ClooneyInfo_5.mp3',
@@ -87,7 +107,7 @@ module.exports = {
       ooUuid: '4d8cf885-f681-452f-97a6-5077744eb4be',
     },
     {
-      uuid: '1e891a1a-d6fe-4d0b-a2f3-0605560a8876',
+      uuid: 'e0a9b308-0617-4304-bc4b-aaf45d628bf7',
       name: 'Tu crois que Duke deviendra célèbre un jour ? Ce serait drolement chouette !',
       url: 'scenario-clooney/ClooneyMelimelo_3.mp3',
       type: null,
@@ -98,7 +118,7 @@ module.exports = {
       ooUuid: '1fd0f001-5950-4f22-983d-11d08cee3add',
     },
     {
-      uuid: '16b8ef69-0ffa-487b-8997-28c602e37139',
+      uuid: 'a2b76e88-3b5f-4b70-8320-c85ef70d6864',
       name: 'C’est possible, qui sait !',
       url: 'scenario-clooney/ClooneyInfo_6.mp3',
       type: null,
