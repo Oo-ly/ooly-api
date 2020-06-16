@@ -15,6 +15,7 @@ const scenarioSituation = require('./scenarios/situation.scenario')
 const scenarioSpeed = require('./scenarios/speed.scenario')
 const scenarioTisane = require('./scenarios/tisane.scenario')
 const scenarioTractopelle = require('./scenarios/tractopelle.scenario')
+const scenarioDemo = require('./scenarios/demo.scenario')
 
 const scenariosJson = [
   scenarioApple,
@@ -31,6 +32,7 @@ const scenariosJson = [
   scenarioSpeed,
   scenarioTisane,
   scenarioTractopelle,
+  scenarioDemo,
 ]
 
 const scenarios = []
