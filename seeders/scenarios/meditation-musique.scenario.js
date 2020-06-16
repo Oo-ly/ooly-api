@@ -86,7 +86,7 @@ module.exports = {
     {
       uuid: '7ca9689b-8a92-48d6-bbae-54902b72b4fd',
       name: 'C’est parti !',
-      url: 'scenario-meditation-musique/MeditationDisco_7.mp3',
+      url: 'scenario-meditation-musique/MeditationYoga_7.mp3',
       type: 'dislike',
       audibleUuid: '064121b8-b352-471a-8ab4-e00f26297896',
       audibleType: 'audio',
@@ -95,7 +95,7 @@ module.exports = {
     {
       uuid: '10a3be83-a160-4654-b9fb-be567d0f1cb5',
       name: 'Haaaaaa ça fait du bien !',
-      url: 'scenario-meditation-musique/MeditationDisco_9.mp3',
+      url: 'scenario-meditation-musique/MeditationYoga_9.mp3',
       type: 'dislike',
       audibleUuid: '064121b8-b352-471a-8ab4-e00f26297896',
       audibleType: 'audio',
@@ -115,7 +115,7 @@ module.exports = {
     {
       uuid: '1c141d55-4239-4647-a059-8eccf50a10f0',
       name: 'Merci Disc’Oo. C’est parti !',
-      url: 'scenario-meditation-musique/MeditationDisco_6.mp3',
+      url: 'scenario-meditation-musique/MeditationYoga_6.mp3',
       type: null,
       order: 3,
       interaction: false,
@@ -126,7 +126,7 @@ module.exports = {
     {
       uuid: '0ba999b9-f106-4017-a0df-bafc04bfe853',
       name: 'Haaaaaa ça fait du bien, merci pour la musique Disc’Oo, ca allait très bien !',
-      url: 'scenario-meditation-musique/MeditationDisco_8.mp3',
+      url: 'scenario-meditation-musique/MeditationYoga_8.mp3',
       type: null,
       order: 4,
       interaction: false,
