@@ -113,7 +113,7 @@ module.exports = [
     objectName: 'melimelo_1',
     toreObjectName: 'Tore_2',
     isAvailable: true,
-    entries: ['EntreeMelimelo_1.mp3', 'EntreeMelimelo_2.mp3', 'EntreeMelimelo_3.mp3'],
+    entries: ['BonjourMelimelo_1.mp3', 'BonjourMelimelo_2.mp3', 'BonjourMelimelo_3.mp3'],
     exits: ['SortieMelimelo_1.mp3', 'SortieMelimelo_2.mp3', 'SortieMelimelo_3.mp3'],
     hellos: ['BonjourMelimelo_1.mp3', 'BonjourMelimelo_2.mp3', 'BonjourMelimelo_3.mp3'],
     byes: ['AuRevoirMelimelo_1.mp3', 'AuRevoirMelimelo_2.mp3', 'AuRevoirMelimelo_3.mp3'],
