@@ -102,7 +102,7 @@ module.exports = {
       url: 'scenario-tisane/TisaneVegeto_6.mp3',
       type: null,
       order: 2,
-      interaction: false,
+      interaction: true,
       audibleUuid: 'a90bf2da-17ff-4bbe-a486-5b17ef8a59c4',
       audibleType: 'scenario',
       ooUuid: 'ca5f71b5-8dc0-4acd-9d58-3c3035622afe',
