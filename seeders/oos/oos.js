@@ -25,7 +25,7 @@ module.exports = [
     isAvailable: true,
     entries: ['EntreeCinoche_1.mp3', 'EntreeCinoche_2.mp3', 'EntreeCinoche_3.mp3'],
     exits: ['SortieCinoche_1.mp3', 'SortieCinoche_2.mp3', 'SortieCinoche_3.mp3'],
-    hellos: ['BonjourCinoche_1.mp3', 'BonjourCinoche_2.mp3', 'BonjourCinoche_3.mp3'],
+    hellos: ['EntreeCinoche_1.mp3', 'EntreeCinoche_2.mp3', 'EntreeCinoche_3.mp3'],
     byes: ['AuRevoirCinoche_1.mp3', 'AuRevoirCinoche_2.mp3', 'AuRevoirCinoche_3.mp3'],
     noScenario: ['NoScenarioCinooche_1.mp3'],
   },
