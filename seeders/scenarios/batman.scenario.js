@@ -61,6 +61,7 @@ module.exports = {
       name: 'Oh... Tant pis, une autre fois ...',
       url: 'scenario-batman/BatmanComique_4.mp3',
       type: 'exit',
+      order: 0,
       audibleUuid: 'ae20f2ed-0bbe-4bdc-9c02-d9680044b9bc',
       audibleType: 'scenario',
       ooUuid: '55a7bed3-a9a5-4c6c-9913-d8966d8dfc59',
