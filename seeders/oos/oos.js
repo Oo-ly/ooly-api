@@ -4,7 +4,7 @@ module.exports = [
     name: "Disc'Oo",
     description:
       'Disc’Oo adore la musique. Il est super calé, il connait pleins d’artistes différents et il aime tous les styles. Parfois d’humeur à réécouter les classiques et parfois voulant plutôt découvrir de nouveaux morceaux, Disc’Oo trouve toujours une musique à écouter et à partager. C’est d’ailleurs très important pour lui, de partager. Il adore créer une bonne ambiance pour tous ceux qui l’accompagnent.',
-    color: '#0085FF',
+    color: '#1500db',
     objectName: 'Disc_Oo',
     toreObjectName: 'Tore_3',
     isAvailable: true,
@@ -34,7 +34,7 @@ module.exports = [
     name: "Inf'Oo",
     description:
       'Inf’Oo en connait un rayon sur les faits rigolos et surprenants qui agrémentent la vie, et ce dans tous les domaines : la culture, l’histoire, la biologie, etc. Ça lui fait beaucoup d’histoires à raconter. Il se tient aussi toujours au courant des dernières nouvelles, pour continuer d’apprendre et de raconter. Il adore discuter avec tous les autres Oo et leur poser des questions, car ils connaissent tous pleins d’anecdotes dans des domaines différents, du coup, il peut apprendre pleins de choses et partager ses propres informations.',
-    color: '#77CEFF',
+    color: '#24709c',
     objectName: 'Infoo',
     toreObjectName: 'Tore_8',
     isAvailable: true,
@@ -49,7 +49,7 @@ module.exports = [
     name: "Y'Oo'ga",
     description:
       'Y’Oo’ga est le plus calme des Oo. Il connaît plein d’exercices de relaxation et de détente. Passionné de méditation, de Taï-chï et de sophrologie, Y’Oo’ga est toujours présent pour proposer des occupations relaxantes. Quand il est là, il instaure une ambiance calme qui plaît aux autres Oo pendant la nuit.',
-    color: '#53BA9A',
+    color: '#37826b',
     objectName: 'Yoga',
     toreObjectName: 'Tore_1',
     isAvailable: true,
@@ -64,7 +64,7 @@ module.exports = [
     name: "Végét'Oo",
     description:
       'La passion de Végét’Oo, c’est les plantes. Il est fasciné par cette vie à la fois si délicate et si complexe. C’est vrai que certaines utilisent des mécanismes assez étonnants pour survivre. Que ce soit les plantes d’Europe, d’Amérique, d’Asie, d’Afrique ou d’Océanie, Végét’Oo les découvre toutes avec autant de joie. Grâce à elles, il fait le tour du monde sans quitter la tribu.',
-    color: '#7AEC70',
+    color: '#1b3619',
     objectName: 'Vegeto_1',
     toreObjectName: 'Tore_4',
     isAvailable: true,
@@ -109,7 +109,7 @@ module.exports = [
     name: "Méli-Mél'Oo",
     description:
       'Méli-Mél’Oo s’emmèle toujours les pinceaux, c’est un peu le prince des gaffes. S’il avait des mains, il aurait sans doute “deux mains gauches”. Il mélange parfois les mots ou bien les expressions. Malgré tout, Méli-mél’Oo est toujours gentil et attentif avec ses compagnons, il essaie d’apprendre leur spécialité, de les aider quand ils en ont besoin. Et tout le monde lui pardonne ses petites maladresses, qui au final sont plutot amusantes.',
-    color: '#B595F2',
+    color: '#5b32a8',
     objectName: 'melimelo_1',
     toreObjectName: 'Tore_2',
     isAvailable: true,
