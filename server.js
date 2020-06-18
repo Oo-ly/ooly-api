@@ -23,7 +23,7 @@ app.use(passport.initialize())
 app.use(Sentry.Handlers.errorHandler())
 app.use(helmet())
 
-const allowedOrigins = ['http://localhost:8100', 'https://demo.ooly.fr']
+const allowedOrigins = ['http://localhost:8100', 'https://demo.ooly.fr', 'https://jury.ooly.fr']
 app.use(
   cors({
     origin: function (origin, callback) {
